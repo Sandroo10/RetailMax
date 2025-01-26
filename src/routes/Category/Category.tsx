@@ -100,7 +100,7 @@ const Category = () => {
           value={searchQuery}
           onChange={(e) => {
             setSearchQuery(e.target.value);
-            setCurrentPage(1); // Reset to first page
+            setCurrentPage(1);
             updateUrlParams(e.target.value, priceRange);
           }}
         />
@@ -114,7 +114,7 @@ const Category = () => {
           step={10}
           onValueChange={(value) => {
             setPriceRange(value[0]);
-            setCurrentPage(1); // Reset to first page
+            setCurrentPage(1); 
             updateUrlParams(searchQuery, value[0]);
           }}
           className="w-full max-w-xl"

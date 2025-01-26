@@ -127,7 +127,7 @@ const Navigation = () => {
             <DialogTrigger>
               <button
                 className="px-4 py-2 flex items-center gap-2 cursor-pointer text-black rounded hover:bg-gray-500"
-                onClick={() => setIsDialogOpen(true)} // Open dialog on button click
+                onClick={() => setIsDialogOpen(true)} 
               >
                 <img
                   src={LightIcon}
@@ -195,12 +195,12 @@ const Navigation = () => {
             <div className="flex flex-col space-y-4 mt-4">
               <Link to="/" onClick={closeMobileNav}>
                 <button className="px-4 py-2 w-full text-left text-black rounded">
-                  {t("navigaiton.home")}
+                  {t("navigation.home")}
                 </button>
               </Link>
               <Link to="/shop" onClick={closeMobileNav}>
                 <button className="px-4 py-2 w-full text-left text-black rounded">
-                  {t("navigaiton.shop")}
+                  {t("navigation.shop")}
                 </button>
               </Link>
               <button
@@ -211,9 +211,23 @@ const Navigation = () => {
               </button>
               <Link to="/checkout" onClick={closeMobileNav}>
                 <button className="px-4 py-2 w-full text-left text-black rounded">
-                  {t("navigaiton.checkout")}
+                  {t("navigation.checkout")}
                 </button>
               </Link>
+              <div className="flex justify-around mt-4">
+      <button
+        onClick={() => changeLanguage("en")}
+        className="px-4 py-2 bg-[rgb(41,115,178)] text-white rounded-md hover:bg-[rgb(60,140,200)]"
+      >
+        English
+      </button>
+      <button
+        onClick={() => changeLanguage("ka")}
+        className="px-4 py-2 bg-[rgb(41,115,178)] text-white rounded-md hover:bg-[rgb(60,140,200)]"
+      >
+        ქართული
+      </button>
+    </div>
             </div>
           </SheetContent>
         </Sheet>
