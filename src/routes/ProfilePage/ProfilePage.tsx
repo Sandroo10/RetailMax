@@ -26,10 +26,10 @@ const ProfilePage = () => {
     setLoading(true);
     try {
       const payload = {
-        id: currentUser.uid, 
+        id: currentUser.uid,
         username: newUsername,
         avatar_url:
-          newProfilePicture !== DefaultProfile ? newProfilePicture : null, 
+          newProfilePicture !== DefaultProfile ? newProfilePicture : null,
       };
 
       const updatedProfile = await fillProfileInfo(payload);

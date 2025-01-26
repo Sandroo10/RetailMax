@@ -96,7 +96,7 @@ const Category = () => {
         <input
           type="text"
           placeholder="Search Products"
-          className="border-2 border-gray-300 p-2 rounded-lg w-1/2"
+          className="border-2 border-gray-300 p-2 rounded-lg w-1/2 text-black"
           value={searchQuery}
           onChange={(e) => {
             setSearchQuery(e.target.value);
@@ -135,36 +135,50 @@ const Category = () => {
       </div>
 
       <Pagination>
-        <PaginationContent>
-          <PaginationItem>
-            {currentPage > 1 ? (
-              <PaginationPrevious href="#" onClick={prevPage} />
-            ) : (
-              <span className="text-gray-300 cursor-not-allowed">Prev</span>
-            )}
-          </PaginationItem>
+  <PaginationContent>
+    <PaginationItem>
+      {currentPage > 1 ? (
+        <PaginationPrevious
+          href="#"
+          onClick={prevPage}
+          className="text-black dark:text-white"
+        />
+      ) : (
+        <span className="text-gray-300 cursor-not-allowed w-9 h-9 flex items-center justify-center">
+          Prev
+        </span>
+      )}
+    </PaginationItem>
 
-          {[...Array(totalPages).keys()].map((_, index) => (
-            <PaginationItem key={index}>
-              <PaginationLink
-                href="#"
-                onClick={() => setCurrentPage(index + 1)}
-                isActive={currentPage === index + 1}
-              >
-                {index + 1}
-              </PaginationLink>
-            </PaginationItem>
-          ))}
+    {[...Array(totalPages).keys()].map((_, index) => (
+      <PaginationItem key={index}>
+        <PaginationLink
+          className="text-black dark:text-white"
+          href="#"
+          onClick={() => setCurrentPage(index + 1)}
+          isActive={currentPage === index + 1}
+        >
+          {index + 1}
+        </PaginationLink>
+      </PaginationItem>
+    ))}
 
-          <PaginationItem>
-            {currentPage < totalPages ? (
-              <PaginationNext href="#" onClick={nextPage} />
-            ) : (
-              <span className="text-gray-300 cursor-not-allowed">Next</span>
-            )}
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
+    <PaginationItem>
+      {currentPage < totalPages ? (
+        <PaginationNext
+          href="#"
+          onClick={nextPage}
+          className="text-black dark:text-white"
+        />
+      ) : (
+        <span className="text-gray-300 cursor-not-allowed w-9 h-9 flex items-center justify-center">
+          Next
+        </span>
+      )}
+    </PaginationItem>
+  </PaginationContent>
+</Pagination>
+
     </>
   );
 };

@@ -177,13 +177,15 @@ const Navigation = () => {
       <div className="sm:hidden flex items-center mr-5">
         <Sheet open={isMobileNavOpen} onOpenChange={setMobileNavOpen}>
           <SheetTrigger className="flex flex-row justify-between items-center gap-3">
-            <Link to="/profile" onClick={closeMobileNav}>
-              <img
-                src={profilePicture || DefaultProfile}
-                alt="Profile Icon"
-                className="w-9 h-9 rounded-full"
-              />
-            </Link>
+          {currentUser && (
+        <Link to="/profile" onClick={closeMobileNav}>
+          <img
+            src={profilePicture || DefaultProfile}
+            alt="Profile Icon"
+            className="w-9 h-9 rounded-full"
+          />
+        </Link>
+      )}
             <button className="p-2 bg-[rgb(41,115,178)] dark:bg-black text-white rounded">
               ☰
             </button>
@@ -235,7 +237,7 @@ const Navigation = () => {
 
       {isSignInSheetOpen && (
         <Sheet open={isSignInSheetOpen} onOpenChange={closeSignInSheet}>
-          <SheetContent className="w-full h-full fixed top-0 left-0 bg-white z-50">
+          <SheetContent className="w-full h-full fixed top-0 left-0 bg-white dark:bg-black z-50">
             <SheetHeader>
               <SheetTitle>{t("navigation.signIn")}</SheetTitle>
             </SheetHeader>

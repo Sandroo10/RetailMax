@@ -52,7 +52,9 @@ const ProductDetail = () => {
         />
         <div>
           <h2 className="text-2xl font-bold mb-2">{product.name}</h2>
-          <p className="text-lg text-gray-600 mb-4 dark:text-white">{product.description}</p>
+          <p className="text-lg text-gray-600 mb-4 dark:text-white">
+            {product.description}
+          </p>
           <p className="text-xl font-semibold mb-2">Price: ${product.price}</p>
           <p
             className={`text-lg ${product.in_stock ? "text-green-600" : "text-red-600"}`}

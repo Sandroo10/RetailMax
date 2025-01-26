@@ -1,10 +1,13 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import { useTranslation } from "react-i18next";
 import SiteImage1 from "../../assets/business.jpeg";
-import SiteImage3 from "../../assets/cashier.jpeg";
 import SiteImage2 from "../../assets/Shopping.jpeg";
+import SiteImage3 from "../../assets/cashier.jpeg";
 
 const AnimatedGallery = () => {
+  const { t } = useTranslation();
+
   const [ref1, inView1] = useInView({ threshold: 0.2 });
   const [ref2, inView2] = useInView({ threshold: 0.2 });
   const [ref3, inView3] = useInView({ threshold: 0.2 });
@@ -30,13 +33,11 @@ const AnimatedGallery = () => {
       >
         <img
           src={SiteImage1}
-          alt="Image 1"
+          alt={t("gallery.image1Alt")}
           className="w-96 h-96 object-cover rounded-lg shadow-md"
         />
         <p className="text-lg text-gray-700 max-w-md dark:text-white">
-          Making good business deals and partnerships is the foundation of
-          success. We focus on building relationships that last, ensuring mutual
-          growth and progress for all parties involved.
+          {t("gallery.image1Text")}
         </p>
       </motion.div>
 
@@ -49,13 +50,11 @@ const AnimatedGallery = () => {
       >
         <img
           src={SiteImage2}
-          alt="Image 2"
+          alt={t("gallery.image2Alt")}
           className="w-96 h-96 object-cover object-top rounded-lg shadow-md"
         />
         <p className="text-lg text-gray-700 max-w-md dark:text-white">
-          Shopping at our store is an experience like no other. From our wide
-          range of products to unbeatable deals, you'll find everything you need
-          and more, all in one place.
+          {t("gallery.image2Text")}
         </p>
       </motion.div>
 
@@ -68,13 +67,11 @@ const AnimatedGallery = () => {
       >
         <img
           src={SiteImage3}
-          alt="Image 3"
+          alt={t("gallery.image3Alt")}
           className="w-96 h-96 object-cover rounded-lg shadow-md"
         />
         <p className="text-lg text-gray-700 max-w-md dark:text-white">
-          Our service is friendly, attentive, and always ready to help. We’re
-          here to ensure your experience is smooth, enjoyable, and everything
-          you need it to be.
+          {t("gallery.image3Text")}
         </p>
       </motion.div>
     </div>

@@ -34,7 +34,10 @@ const CategoryPreview = ({ title }: CategoryPreviewProps) => {
   return (
     <div className="flex flex-col mb-8 w-full">
       <h2 className="text-2xl mb-6">
-        <Link to={title} className="cursor-pointer hover:underline dark:text-white">
+        <Link
+          to={title}
+          className="cursor-pointer hover:underline dark:text-white"
+        >
           {title.toUpperCase()}
         </Link>
       </h2>

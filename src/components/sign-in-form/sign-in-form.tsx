@@ -54,7 +54,7 @@ const SignInForm: React.FC<SignInFormProps> = ({ onSuccess }) => {
       <span>Sign In with your email and password</span>
       <h2>
         Don't Have one?{" "}
-        <Link to="/auth" className="font-bold">
+        <Link to="/auth" className="font-bold text-black dark:text-white">
           Sign up
         </Link>{" "}
         Here{" "}

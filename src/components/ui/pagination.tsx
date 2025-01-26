@@ -20,11 +20,15 @@ const PaginationContent = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <ul
     ref={ref}
-    className={cn("flex flex-row items-center gap-1", className)}
+    className={cn(
+      "flex flex-row items-center justify-center gap-1 w-full",
+      className
+    )}
     {...props}
   />
 ));
 PaginationContent.displayName = "PaginationContent";
+
 
 const PaginationItem = React.forwardRef<
   HTMLLIElement,
@@ -39,25 +43,26 @@ type PaginationLinkProps = {
 } & Pick<ButtonProps, "size"> &
   React.ComponentProps<"a">;
 
-const PaginationLink = ({
-  className,
-  isActive,
-  size = "icon",
-  ...props
-}: PaginationLinkProps) => (
-  <a
-    aria-current={isActive ? "page" : undefined}
-    className={cn(
-      buttonVariants({
-        variant: isActive ? "outline" : "ghost",
-        size,
-      }),
-      className,
-    )}
-    {...props}
-  />
-);
-PaginationLink.displayName = "PaginationLink";
+  const PaginationLink = ({
+    className,
+    isActive,
+    size = "icon",
+    ...props
+  }: PaginationLinkProps) => (
+    <a
+      aria-current={isActive ? "page" : undefined}
+      className={cn(
+        buttonVariants({
+          variant: isActive ? "outline" : "ghost",
+          size,
+        }),
+        "w-9 h-9 flex items-center justify-center rounded-md",
+        className
+      )}
+      {...props}
+    />
+  );
+  
 
 const PaginationPrevious = ({
   className,

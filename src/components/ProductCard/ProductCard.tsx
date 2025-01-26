@@ -43,8 +43,12 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       </div>
 
       <div className="w-full flex justify-between items-center text-lg mt-2 px-2">
-        <span className="text-left text-gray-800 dark:text-white truncate">{name}</span>
-        <span className="text-right text-gray-800 dark:text-white">${price}</span>
+        <span className="text-left text-gray-800 dark:text-white truncate">
+          {name}
+        </span>
+        <span className="text-right text-gray-800 dark:text-white">
+          ${price}
+        </span>
       </div>
     </div>
   );

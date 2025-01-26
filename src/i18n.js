@@ -44,6 +44,17 @@ i18n.use(initReactI18next).init({
           welcomeMessage:
             "Welcome to our store! Discover a wide range of products, from clothing and electronics to beauty essentials and toys. Enjoy your shopping journey!",
         },
+        gallery: {
+          image1Alt: "Business meeting",
+          image1Text:
+            "Making good business deals and partnerships is the foundation of success. We focus on building relationships that last, ensuring mutual growth and progress for all parties involved.",
+          image2Alt: "Shopping experience",
+          image2Text:
+            "Shopping at our store is an experience like no other. From our wide range of products to unbeatable deals, you'll find everything you need and more, all in one place.",
+          image3Alt: "Cashier assisting customer",
+          image3Text:
+            "Our service is friendly, attentive, and always ready to help. We’re here to ensure your experience is smooth, enjoyable, and everything you need it to be.",
+        },
       },
     },
     ka: {
@@ -86,6 +97,17 @@ i18n.use(initReactI18next).init({
         directory: {
           welcomeMessage:
             "კეთილი იყოს თქვენი მობრძანება ჩვენს მაღაზიაში! აღმოაჩინეთ პროდუქტების ფართო არჩევანი ტანსაცმელიდან და ელექტრონიკიდან სილამაზის ნივთებამდე და სათამაშოებამდე. ისიამოვნეთ საყიდლებით!",
+        },
+        gallery: {
+          image1Alt: "ბიზნეს შეხვედრა",
+          image1Text:
+            "კარგი ბიზნეს შეთანხმებებისა და პარტნიორობის შექმნა წარმატების საფუძველია. ჩვენ ვცდილობთ ავაშენოთ ხანგრძლივი ურთიერთობები, რაც უზრუნველყოფს ყველა მხარის ზრდასა და პროგრესს.",
+          image2Alt: "შოპინგის გამოცდილება",
+          image2Text:
+            "ჩვენს მაღაზიაში შოპინგი უნიკალური გამოცდილებაა. პროდუქტების ფართო არჩევანი და დაუმარცხებელი შეთავაზებები თქვენ აქ ყველაფერს იპოვით.",
+          image3Alt: "კონსულტანტი მომხმარებელთან",
+          image3Text:
+            "ჩვენი სერვისი მეგობრული, ყურადღებიანი და ყოველთვის მზად არის დასახმარებლად. ჩვენ აქ ვართ, რომ თქვენი გამოცდილება იყოს მარტივი და სასიამოვნო.",
         },
       },
     },
