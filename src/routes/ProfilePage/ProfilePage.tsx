@@ -4,10 +4,17 @@ import { fillProfileInfo } from "../../supabase/account/index"; // Import the fu
 import DefaultProfile from "../../assets/pfp.png";
 
 const ProfilePage = () => {
-  const { currentUser, username, setUsername, profilePicture, setProfilePicture } =
-    useContext(UserContext);
+  const {
+    currentUser,
+    username,
+    setUsername,
+    profilePicture,
+    setProfilePicture,
+  } = useContext(UserContext);
   const [newUsername, setNewUsername] = useState(username || "");
-  const [newProfilePicture, setNewProfilePicture] = useState(profilePicture || DefaultProfile);
+  const [newProfilePicture, setNewProfilePicture] = useState(
+    profilePicture || DefaultProfile,
+  );
   const [loading, setLoading] = useState(false);
 
   // Handle saving to Supabase
@@ -19,30 +26,32 @@ const ProfilePage = () => {
 
     setLoading(true);
     try {
-        const payload = {
-          id: currentUser.uid, // Assuming uid is the user's unique ID in Supabase
-          username: newUsername,
-          avatar_url: newProfilePicture !== DefaultProfile ? newProfilePicture : null, // Save only if it's not default
-        };
-      
-        const updatedProfile = await fillProfileInfo(payload);
-        setUsername(updatedProfile.username || "Anonymous");
-        setProfilePicture(updatedProfile.image_url || DefaultProfile);
-        console.log("Profile updated successfully!");
-      } catch (error) {
-        if (error instanceof Error) {
-          console.error("Error updating profile:", error.message);
-        } else {
-          console.error("An unexpected error occurred:", error);
-        }
-      } finally {
-        setLoading(false);
+      const payload = {
+        id: currentUser.uid, // Assuming uid is the user's unique ID in Supabase
+        username: newUsername,
+        avatar_url:
+          newProfilePicture !== DefaultProfile ? newProfilePicture : null, // Save only if it's not default
+      };
+
+      const updatedProfile = await fillProfileInfo(payload);
+      setUsername(updatedProfile.username || "Anonymous");
+      setProfilePicture(updatedProfile.image_url || DefaultProfile);
+      console.log("Profile updated successfully!");
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error("Error updating profile:", error.message);
+      } else {
+        console.error("An unexpected error occurred:", error);
       }
-      
+    } finally {
+      setLoading(false);
+    }
   };
 
   // Handle profile picture selection
-  const handleProfilePictureChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleProfilePictureChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();

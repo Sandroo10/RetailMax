@@ -1,20 +1,18 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route } from "react-router-dom";
 
-import Home from './routes/home/home';
-import Authentication from './routes/authentication/authentication';
-import Shop from './routes/Shop/Shop';
-import CheckoutPage from './routes/checkout/checkout';
-import ProfilePage from './routes/ProfilePage/ProfilePage';
-import Layout from './routes/Layout/Layout';
-import { ThemeProvider } from './components/Theme-Provider/theme-provider';
-import { useEffect } from 'react';
-import { supabase } from './supabase/supabase';
-import { useAuthContext } from './contexts/hooks/useAuthContext';
-import ProductDetail from './routes/ProductDetail/ProductDetail';
+import Home from "./routes/home/home";
+import Authentication from "./routes/authentication/authentication";
+import Shop from "./routes/Shop/Shop";
+import CheckoutPage from "./routes/checkout/checkout";
+import ProfilePage from "./routes/ProfilePage/ProfilePage";
+import Layout from "./routes/Layout/Layout";
+import { ThemeProvider } from "./components/Theme-Provider/theme-provider";
+import { useEffect } from "react";
+import { supabase } from "./supabase/supabase";
+import { useAuthContext } from "./contexts/hooks/useAuthContext";
+import ProductDetail from "./routes/ProductDetail/ProductDetail";
 
 const App = () => {
-
-    
   const { handleSetUser } = useAuthContext();
 
   useEffect(() => {
@@ -49,22 +47,21 @@ const App = () => {
     return () => subscription.unsubscribe();
   }, []);
 
-    return (
-        <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-            <Routes>
-                <Route path='/' element={<Layout />}> 
-                    <Route index element={<Home />} />
-                    <Route path='shop/*' element={<Shop />} />
-                    <Route path='checkout' element={<CheckoutPage />} />
-                    <Route path='profile' element={<ProfilePage />} />
-                    <Route path="/product/:id" element={<ProductDetail />} />
-                </Route>
-            
-                <Route path='auth' element={<Authentication />} />
-            </Routes>
-        </ThemeProvider>
+  return (
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="shop/*" element={<Shop />} />
+          <Route path="checkout" element={<CheckoutPage />} />
+          <Route path="profile" element={<ProfilePage />} />
+          <Route path="/product/:id" element={<ProductDetail />} />
+        </Route>
 
-    );
+        <Route path="auth" element={<Authentication />} />
+      </Routes>
+    </ThemeProvider>
+  );
 };
 
 export default App;

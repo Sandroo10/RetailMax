@@ -11,7 +11,7 @@ export const fillProfileInfo = async (payload: FillProfileInfoPayload) => {
     .upsert({
       id: payload.id,
       username: payload.username,
-      avatar_url: payload.avatar_url, 
+      avatar_url: payload.avatar_url,
     })
     .select("*")
     .single();
@@ -23,19 +23,17 @@ export const fillProfileInfo = async (payload: FillProfileInfoPayload) => {
   return data;
 };
 
-
-
 export const getProfileInfo = async (id: string | number) => {
   const { data, error } = await supabase
     .from("profiles")
     .select("*")
     .eq("id", id)
-    .single(); 
+    .single();
 
   if (error) {
     console.error("Error fetching profile info:", error.message);
-    throw new Error(error.message); 
+    throw new Error(error.message);
   }
 
-  return data; 
+  return data;
 };

@@ -1,4 +1,10 @@
-import { createContext, ReactNode, useState, useCallback, useEffect } from "react";
+import {
+  createContext,
+  ReactNode,
+  useState,
+  useCallback,
+  useEffect,
+} from "react";
 import DefaultProfile from "../assets/pfp.png";
 import { getProfileInfo } from "../supabase/account/index"; // Fetch profile info
 
@@ -55,10 +61,9 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         }
       }
     };
-  
+
     fetchProfileInfo();
   }, [currentUser]);
-  
 
   const value: UserContextType = {
     currentUser,
