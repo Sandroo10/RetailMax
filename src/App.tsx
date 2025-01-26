@@ -10,6 +10,7 @@ import { ThemeProvider } from './components/Theme-Provider/theme-provider';
 import { useEffect } from 'react';
 import { supabase } from './supabase/supabase';
 import { useAuthContext } from './contexts/hooks/useAuthContext';
+import ProductDetail from './routes/ProductDetail/ProductDetail';
 
 const App = () => {
 
@@ -56,6 +57,7 @@ const App = () => {
                     <Route path='shop/*' element={<Shop />} />
                     <Route path='checkout' element={<CheckoutPage />} />
                     <Route path='profile' element={<ProfilePage />} />
+                    <Route path="/product/:id" element={<ProductDetail />} />
                 </Route>
             
                 <Route path='auth' element={<Authentication />} />

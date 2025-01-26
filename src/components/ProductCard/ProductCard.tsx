@@ -1,14 +1,14 @@
-import { useContext } from 'react';
-import Button from '../Button.component/Button';
-import { CartContext } from '../../contexts/Cart.context';
-import { buttonTypes } from '../Button.component/button-types';
+import { useContext } from "react";
+import { Link } from "react-router-dom";
+import Button from "../Button.component/Button";
+import { CartContext } from "../../contexts/Cart.context";
+import { buttonTypes } from "../Button.component/button-types";
 
 interface Product {
-    id: string;
+    id: number;
     name: string;
-    imageUrl: string;
+    image_url: string;
     price: number;
-    quantity: number; // Add quantity here
 }
 
 interface ProductCardProps {
@@ -16,7 +16,7 @@ interface ProductCardProps {
 }
 
 export const ProductCard = ({ product }: ProductCardProps) => {
-    const { name, imageUrl, price } = product;
+    const { id, name, image_url, price } = product;
     const { addItemToCart } = useContext(CartContext);
 
     const addProductToCart = () => {
@@ -26,23 +26,22 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 
     return (
         <div className="group w-full h-full flex flex-col items-center relative">
-            {/* Image */}
             <div className="w-full sm:h-60 h-28">
-                <img
-                    src={imageUrl}
-                    alt={name}
-                    className="w-full h-full object-cover hover:opacity-80 transition-opacity duration-300"
-                />
+                <Link to={`/product/${id}`}>
+                    <img
+                        src={image_url}
+                        alt={name}
+                        className="w-full h-full object-cover hover:opacity-80 transition-opacity duration-300"
+                    />
+                </Link>
             </div>
 
-            {/* Button overlay */}
-            <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
                 <Button btnType={buttonTypes.inverted} onClick={addProductToCart}>
                     Add to cart
                 </Button>
             </div>
 
-            {/* Details */}
             <div className="w-full flex justify-between items-center text-lg mt-2 px-2">
                 <span className="text-left text-gray-800 truncate">{name}</span>
                 <span className="text-right text-gray-800">${price}</span>
@@ -50,6 +49,5 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         </div>
     );
 };
-
 
 export default ProductCard;

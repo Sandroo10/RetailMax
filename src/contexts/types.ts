@@ -1,11 +1,14 @@
 import { createContext } from "react";
 
 export interface CartItem {
-    id: string;
+    id: number;
     name: string;
     price: number;
-    imageUrl: string;
+    image_url: string;
     quantity: number;
+    description?: string;
+    in_stock?:boolean;
+    category?:string; 
 }
 
 export interface CartContextType {
@@ -21,9 +24,9 @@ export interface CartContextType {
 }
 
 export interface Product {
-    id: string;
+    id: number;
     name: string;
-    imageUrl: string;
+    image_url: string;
     price: number;
     quantity: number;
 }

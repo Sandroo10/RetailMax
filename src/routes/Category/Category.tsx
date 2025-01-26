@@ -1,44 +1,60 @@
-import { useParams } from 'react-router-dom';
-import { useEffect, useState, useContext } from 'react';
-import { CategoriesContext } from '../../contexts/Categories.context';
-import ProductCard from '../../components/ProductCard/ProductCard';
-import { Product } from '../../contexts/types';
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useGetProductList } from "../../components/Query/products";
+import ProductCard from "../../components/ProductCard/ProductCard";
 import { Slider } from "../../components/ui/slider";
 import {
     Pagination,
     PaginationContent,
-    PaginationEllipsis,
     PaginationItem,
     PaginationLink,
     PaginationNext,
     PaginationPrevious,
 } from "../../components/ui/pagination";
+import React from "react";
 
 const Category = () => {
     const { category } = useParams();
-    const { categories } = useContext(CategoriesContext);
-    const [products, setProducts] = useState<Product[]>([]);
-    const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
-    const [priceRange, setPriceRange] = useState<number>(9999); 
+    const navigate = useNavigate();
+    const location = useLocation()
+
+    const [priceRange, setPriceRange] = useState<number>(9999);
     const [currentPage, setCurrentPage] = useState<number>(1);
-    const [searchQuery, setSearchQuery] = useState<string>('');
+    const [searchQuery, setSearchQuery] = useState<string>("");
+
     const productsPerPage = 12;
 
-    useEffect(() => {
-        if (category && categories[category]) {
-            setProducts(categories[category]);
-        } else {
-            setProducts([]);
-        }
-    }, [category, categories]);
+    const { data: products = [], isLoading, isError } = useGetProductList();
 
     useEffect(() => {
-        const filtered = products.filter((product) => 
-            product.price <= priceRange && 
-            product.name.toLowerCase().includes(searchQuery.toLowerCase()) 
+        const urlParams = new URLSearchParams(location.search);
+        const search = urlParams.get("search") || "";
+        const price = urlParams.get("price") ? parseInt(urlParams.get("price")!) : 9999;
+
+        setSearchQuery(search);
+        setPriceRange(price);
+    }, [location.search]);
+
+    const updateUrlParams = (newSearchQuery: string, newPriceRange: number) => {
+        const urlParams = new URLSearchParams();
+        if (newSearchQuery) urlParams.set("search", newSearchQuery);
+        if (newPriceRange !== 9999) urlParams.set("price", newPriceRange.toString());
+
+        navigate(`?${urlParams.toString()}`, { replace: true });
+    };
+
+    
+    const filteredProducts = React.useMemo(() => {
+        if (!category || products.length === 0) return [];
+        return products.filter(
+            (product) =>
+                product.category?.toLowerCase() === category.toLowerCase() &&
+                product.price <= priceRange &&
+                product.name?.toLowerCase().includes(searchQuery.toLowerCase()) &&
+                product.in_stock
         );
-        setFilteredProducts(filtered);
-    }, [priceRange, products, searchQuery]);
+    }, [category, priceRange, searchQuery, products]);
+    
 
     const indexOfLastProduct = currentPage * productsPerPage;
     const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
@@ -58,29 +74,45 @@ const Category = () => {
         }
     };
 
+    if (isLoading) {
+        return <div>Loading products...</div>;
+    }
+
+    if (isError) {
+        return <div>Error loading products. Please try again later.</div>;
+    }
+
     return (
         <>
             <div className="text-center text-4xl mb-8">
-                {category ? category.toLocaleUpperCase() : 'Category Not Found'}
+                {category ? category.toLocaleUpperCase() : "Category Not Found"}
             </div>
 
             <div className="mb-8 text-center">
-                <input
+            <input
                     type="text"
                     placeholder="Search Products"
                     className="border-2 border-gray-300 p-2 rounded-lg w-1/2"
                     value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onChange={(e) => {
+                        setSearchQuery(e.target.value);
+                        setCurrentPage(1); // Reset to first page
+                        updateUrlParams(e.target.value, priceRange);
+                    }}
                 />
             </div>
 
             <div className="flex flex-col items-center gap-4 mb-8">
                 <div className="text-lg font-bold">Max Price: ${priceRange}</div>
                 <Slider
-                    defaultValue={[9999]} 
-                    max={9999} 
-                    step={10} 
-                    onValueChange={(value) => setPriceRange(value[0])} 
+                    defaultValue={[9999]}
+                    max={9999}
+                    step={10}
+                    onValueChange={(value) => {
+                        setPriceRange(value[0]);
+                        setCurrentPage(1); // Reset to first page
+                        updateUrlParams(searchQuery, value[0]);
+                    }}
                     className="w-full max-w-xl"
                 />
             </div>
@@ -116,12 +148,6 @@ const Category = () => {
                             </PaginationLink>
                         </PaginationItem>
                     ))}
-                    
-                    {totalPages > 5 && (
-                        <PaginationItem>
-                            <PaginationEllipsis />
-                        </PaginationItem>
-                    )}
 
                     <PaginationItem>
                         {currentPage < totalPages ? (

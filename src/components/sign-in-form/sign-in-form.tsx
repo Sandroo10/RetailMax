@@ -25,22 +25,30 @@ import {
       .min(8, {message: "Password must be at least 8 characters."})
       .nonempty({ message: "Password is required" }),
   });
-
-const SignInForm = () => {
-    const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-  })
- 
-
-  const { mutate: login, isError, error, isPending } = useSignIn();
-
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    login(values)
+  interface SignInFormProps {
+    onSuccess: () => void; // Add the onSuccess prop
   }
+  
+  const SignInForm: React.FC<SignInFormProps> = ({ onSuccess }) => {
+    const form = useForm<z.infer<typeof formSchema>>({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+            email: "",
+            password: "",
+        },
+    });
+
+    const { mutate: login, isError, error, isPending } = useSignIn();
+
+    function onSubmit(values: z.infer<typeof formSchema>) {
+        login(values, {
+            onSuccess: () => {
+                // Trigger the onSuccess callback when sign-in is successful
+                onSuccess();
+            },
+        });
+    }
+
     return (
         <div className="max-w-[500px] mx-auto">
             <h2>Already have an account?</h2>

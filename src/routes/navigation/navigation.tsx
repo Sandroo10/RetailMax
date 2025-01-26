@@ -32,6 +32,7 @@ import {
   } from "../../components/ui/dropdown-menu"
 import { changeLanguage } from 'i18next';
 import { ModeToggle } from '../../components/Mode-Toggle/mode-toggle';
+import { useSignOut } from '../../components/Query/signOut';
   
 
 const Navigation = () => {
@@ -40,6 +41,9 @@ const Navigation = () => {
     const { isCartOpen } = useContext(CartContext);
     const [isSignInSheetOpen, setSignInSheetOpen] = useState(false);
     const [isMobileNavOpen, setMobileNavOpen] = useState(false);
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+    const { mutate: signOut } = useSignOut();
 
     const openSignInSheet = () => setSignInSheetOpen(true);
     const closeSignInSheet = () => setSignInSheetOpen(false);
@@ -47,9 +51,8 @@ const Navigation = () => {
     const closeMobileNav = () => setMobileNavOpen(false);
 
     const handleSignOut = () => {
-        console.log("Sign out logic");
+        signOut(); 
     };
-    
 
     return (
         <div className="h-[95px] w-full flex justify-between mb-6 bg-[rgb(72,166,167)] dark:bg-orange-700">
@@ -58,16 +61,18 @@ const Navigation = () => {
             </Link>
 
             <div className="hidden sm:flex w-1/2 h-full items-center justify-end space-x-2.5 mr-5">
-                <Link to="/profile">
-                    <button className="px-4 py-2 flex items-center gap-2 cursor-pointer text-black rounded hover:bg-gray-500">
-                        <img
-                            src={profilePicture || DefaultProfile}
-                            alt="Profile Icon"
-                            className="w-6 h-6 rounded-full"
-                        />
-                        {t('navigation.profile')}
-                    </button>
-                </Link>
+            {currentUser && (
+        <Link to="/profile">
+            <button className="px-4 py-2 flex items-center gap-2 cursor-pointer text-black rounded hover:bg-gray-500">
+                <img
+                    src={profilePicture || DefaultProfile}
+                    alt="Profile Icon"
+                    className="w-6 h-6 rounded-full"
+                />
+                {t('navigation.profile')}
+            </button>
+        </Link>
+    )}
                 <DropdownMenu>
             <DropdownMenuTrigger className="hover:bg-gray-500 focus:outline-none px-3 py-2 rounded-md ">
               <svg
@@ -118,32 +123,53 @@ const Navigation = () => {
                       {t('navigation.shop')}
                     </button>
                 </Link>
-                <Dialog>
-                    <DialogTrigger>
-                        <button
-                            className="px-4 py-2 flex items-center gap-2 cursor-pointer text-black rounded hover:bg-gray-500"
-                        >
-                            <img
-                                src={LightIcon}
-                                alt="Person Icon"
-                                className="w-4 h-4 dark:hidden"
-                            />
-                            <img
-                                src={DarkIcon}
-                                alt="Person Icon"
-                                className="w-4 h-4 hidden dark:block"
-                            />
-                            {currentUser ? t('navigation.signOut') : t('navigation.signIn')}
-                        </button>
-                    </DialogTrigger>
-                    <DialogContent>
-                        <DialogHeader>
-                            <DialogDescription>
-                                <SignInForm />
-                            </DialogDescription>
-                        </DialogHeader>
-                    </DialogContent>
-                </Dialog>
+                <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+    {!currentUser ? (
+        <DialogTrigger>
+            <button
+                className="px-4 py-2 flex items-center gap-2 cursor-pointer text-black rounded hover:bg-gray-500"
+                onClick={() => setIsDialogOpen(true)} // Open dialog on button click
+            >
+                <img
+                    src={LightIcon}
+                    alt="Person Icon"
+                    className="w-4 h-4 dark:hidden"
+                />
+                <img
+                    src={DarkIcon}
+                    alt="Person Icon"
+                    className="w-4 h-4 hidden dark:block"
+                />
+                {t('navigation.signIn')}
+            </button>
+        </DialogTrigger>
+    ) : (
+        <button
+            className="px-4 py-2 flex items-center gap-2 cursor-pointer text-black rounded hover:bg-gray-500"
+            onClick={handleSignOut}
+        >
+            <img
+                src={LightIcon}
+                alt="Person Icon"
+                className="w-4 h-4 dark:hidden"
+            />
+            <img
+                src={DarkIcon}
+                alt="Person Icon"
+                className="w-4 h-4 hidden dark:block"
+            />
+            {t('navigation.signOut')}
+        </button>
+    )}
+    <DialogContent>
+        <DialogHeader>
+            <DialogDescription>
+                <SignInForm onSuccess={() => setIsDialogOpen(false)} />
+            </DialogDescription>
+        </DialogHeader>
+    </DialogContent>
+</Dialog>
+
                 <Cart />
             
                 {isCartOpen && <CartDropdown />}
@@ -180,12 +206,11 @@ const Navigation = () => {
                                 </button>
                             </Link>
                             <button
-    className="px-4 py-2 w-full text-left text-black rounded"
-    onClick={currentUser ? handleSignOut : openSignInSheet}
->
-{currentUser ? t('navigation.signOut') : t('navigation.signIn')}
-</button>
-
+                                className="px-4 py-2 w-full text-left text-black rounded"
+                                onClick={currentUser ? handleSignOut : openSignInSheet}
+                            >
+                                {currentUser ? t('navigation.signOut') : t('navigation.signIn')}
+                            </button>
                             <Link to="/checkout" onClick={closeMobileNav}>
                                 <button className="px-4 py-2 w-full text-left text-black rounded">
                                  {t('navigaiton.checkout')}
@@ -203,7 +228,7 @@ const Navigation = () => {
                             <SheetTitle>{t('navigation.signIn')}</SheetTitle>
                         </SheetHeader>
                         <div className="mt-4">
-                            <SignInForm />
+                            <SignInForm onSuccess={() => setSignInSheetOpen(false)} />
                         </div>
                     </SheetContent>
                 </Sheet>

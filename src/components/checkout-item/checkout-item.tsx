@@ -14,7 +14,7 @@ const CheckoutItem = ({ item }: CheckoutItemProps) => {
     const addItemHandler = () => addItemToCart(item);
     const removeItemHandler = () => removeItemFromCart(item);
 
-    const { id, imageUrl, name, price, quantity } = item;
+    const { id, image_url, name, price, quantity } = item;
 
     return (
         <div
@@ -23,7 +23,7 @@ const CheckoutItem = ({ item }: CheckoutItemProps) => {
         >
             {/* Image */}
             <div className="w-full sm:w-[23%] mb-4 sm:mb-0">
-                <img src={imageUrl} alt={name} className="w-full h-full object-cover" />
+                <img src={image_url} alt={name} className="w-full h-full object-cover" />
             </div>
 
             <div className='sm:flex sm:flex-row sm:w-full sm:justify-between'>

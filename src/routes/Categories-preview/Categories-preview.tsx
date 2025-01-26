@@ -1,31 +1,23 @@
-import { useContext } from 'react';
 import CategoryPreview from '../../components/category-preview/category-preview';
-import { CategoriesContext } from '../../contexts/Categories.context';
 
-interface Category {
-    id: string;
-    name: string;
-    imageUrl: string;
-    price: number;
-    quantity: number; // Add this property
-}
-
-interface CategoriesContextType {
-    categories: Record<string, Category[]>; // A dictionary where keys are category titles, and values are arrays of products
-}
+const categoryList = ['electronics', 'clothing', 'toys', 'beauty products', 'gym equipment'];
 
 export const CategoriesPreview = () => {
-    const { categories } = useContext(CategoriesContext) as CategoriesContextType;
+    // Predefine empty products for each category
+    const categories = categoryList.reduce((acc, category) => {
+        acc[category] = []; // Empty array, ready to populate with products if needed
+        return acc;
+    }, {} as Record<string, { id: number; name: string; image_url: string; price: number; quantity: number }[]>);
 
     return (
         <div className="justify-between w-full px-4">
-            {Object.keys(categories).map((title) => {
-                const products = categories[title]; // Access products by category title
+            {categoryList.map((title) => {
+                const products = categories[title]; // Always an empty array for now
                 return (
                     <CategoryPreview
                         key={title}
                         title={title}
-                        product={products} // Update prop name to match expected usage in `CategoryPreview`
+                        product={products}
                     />
                 );
             })}
