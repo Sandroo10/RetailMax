@@ -9,7 +9,6 @@ const categoryList = [
 ];
 
 export const CategoriesPreview = () => {
-  // Predefine empty products for each category
   const categories = categoryList.reduce(
     (acc, category) => {
       acc[category] = []; // Empty array, ready to populate with products if needed

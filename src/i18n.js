@@ -33,6 +33,17 @@ i18n.use(initReactI18next).init({
           cvvRequired: "CVV is required",
           cvvPattern: "CVV must be 3 or 4 digits",
         },
+        categories: {
+          clothing: "Clothing",
+          electronics: "Electronics",
+          gymEquipment: "Gym Equipment",
+          toys: "Toys",
+          beautyProducts: "Beauty Products",
+        },
+        directory: {
+          welcomeMessage:
+            "Welcome to our store! Discover a wide range of products, from clothing and electronics to beauty essentials and toys. Enjoy your shopping journey!",
+        },
       },
     },
     ka: {
@@ -65,13 +76,24 @@ i18n.use(initReactI18next).init({
           cvvRequired: "CVV აუცილებელია",
           cvvPattern: "CVV უნდა იყოს 3 ან 4 ციფრი",
         },
+        categories: {
+          clothing: "ტანსაცმელი",
+          electronics: "ელექტრონიკა",
+          gymEquipment: "სპორტული აღჭურვილობა",
+          toys: "სათამაშოები",
+          beautyProducts: "სილამაზის პროდუქტები",
+        },
+        directory: {
+          welcomeMessage:
+            "კეთილი იყოს თქვენი მობრძანება ჩვენს მაღაზიაში! აღმოაჩინეთ პროდუქტების ფართო არჩევანი ტანსაცმელიდან და ელექტრონიკიდან სილამაზის ნივთებამდე და სათამაშოებამდე. ისიამოვნეთ საყიდლებით!",
+        },
       },
     },
   },
-  lng: "en", 
+  lng: "en",
   fallbackLng: "en",
   interpolation: {
-    escapeValue: false, 
+    escapeValue: false,
   },
 });
 

@@ -34,13 +34,13 @@ const CategoryPreview = ({ title }: CategoryPreviewProps) => {
   return (
     <div className="flex flex-col mb-8 w-full">
       <h2 className="text-2xl mb-6">
-        <Link to={title} className="cursor-pointer hover:underline">
+        <Link to={title} className="cursor-pointer hover:underline dark:text-white">
           {title.toUpperCase()}
         </Link>
       </h2>
       <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8 w-full max-w-screen-xl mx-auto">
         {filteredProducts
-          ?.slice(0, 4) // Only show the first 4 products
+          ?.slice(0, 4)
           .map((product) => <ProductCard product={product} key={product.id} />)}
       </div>
     </div>

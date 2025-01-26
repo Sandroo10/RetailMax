@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { CartContext } from "../../contexts/Cart.context";
 import CheckoutItem from "../../components/checkout-item/checkout-item";
 import { useTranslation } from "react-i18next";
+import Button from "../../components/Button.component/Button";
 
 interface PaymentDetails {
   name: string;
@@ -159,12 +160,12 @@ const CheckoutPage = () => {
               )}
             </div>
           </div>
-          <button
+          <Button
             type="submit"
-            className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600"
+            className="w-full bg-blue-500 dark:bg-orange-700 text-white py-2 rounded-md hover:bg-blue-600"
           >
             {t("checkout.payNow")}
-          </button>
+          </Button>
         </form>
       )}
     </div>

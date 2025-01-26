@@ -127,7 +127,7 @@ const Navigation = () => {
             <DialogTrigger>
               <button
                 className="px-4 py-2 flex items-center gap-2 cursor-pointer text-black rounded hover:bg-gray-500"
-                onClick={() => setIsDialogOpen(true)} 
+                onClick={() => setIsDialogOpen(true)}
               >
                 <img
                   src={LightIcon}
@@ -184,50 +184,50 @@ const Navigation = () => {
                 className="w-9 h-9 rounded-full"
               />
             </Link>
-            <button className="p-2 bg-[rgb(41,115,178)] text-white rounded">
+            <button className="p-2 bg-[rgb(41,115,178)] dark:bg-black text-white rounded">
               ☰
             </button>
           </SheetTrigger>
-          <SheetContent className="w-full h-full fixed top-0 left-0 bg-white z-50">
+          <SheetContent className="w-full h-full fixed top-0 left-0 bg-white dark:bg-black z-50">
             <SheetHeader>
               <SheetTitle>{t("navigation.navigation")}</SheetTitle>
             </SheetHeader>
             <div className="flex flex-col space-y-4 mt-4">
               <Link to="/" onClick={closeMobileNav}>
-                <button className="px-4 py-2 w-full text-left text-black rounded">
+                <button className="px-4 py-2 w-full text-left text-black dark:text-white rounded">
                   {t("navigation.home")}
                 </button>
               </Link>
               <Link to="/shop" onClick={closeMobileNav}>
-                <button className="px-4 py-2 w-full text-left text-black rounded">
+                <button className="px-4 py-2 w-full text-left text-black dark:text-white rounded">
                   {t("navigation.shop")}
                 </button>
               </Link>
               <button
-                className="px-4 py-2 w-full text-left text-black rounded"
+                className="px-4 py-2 w-full text-left text-black dark:text-white rounded"
                 onClick={currentUser ? handleSignOut : openSignInSheet}
               >
                 {currentUser ? t("navigation.signOut") : t("navigation.signIn")}
               </button>
               <Link to="/checkout" onClick={closeMobileNav}>
-                <button className="px-4 py-2 w-full text-left text-black rounded">
+                <button className="px-4 py-2 w-full text-left text-black dark:text-white rounded">
                   {t("navigation.checkout")}
                 </button>
               </Link>
               <div className="flex justify-around mt-4">
-      <button
-        onClick={() => changeLanguage("en")}
-        className="px-4 py-2 bg-[rgb(41,115,178)] text-white rounded-md hover:bg-[rgb(60,140,200)]"
-      >
-        English
-      </button>
-      <button
-        onClick={() => changeLanguage("ka")}
-        className="px-4 py-2 bg-[rgb(41,115,178)] text-white rounded-md hover:bg-[rgb(60,140,200)]"
-      >
-        ქართული
-      </button>
-    </div>
+                <button
+                  onClick={() => changeLanguage("en")}
+                  className="px-4 py-2 bg-[rgb(41,115,178)] dark:bg-white dark:text-black text-white rounded-md hover:bg-[rgb(60,140,200)]"
+                >
+                  English
+                </button>
+                <button
+                  onClick={() => changeLanguage("ka")}
+                  className="px-4 py-2 bg-[rgb(41,115,178)] dark:bg-white dark:text-black text-white rounded-md hover:bg-[rgb(60,140,200)]"
+                >
+                  ქართული
+                </button>
+              </div>
             </div>
           </SheetContent>
         </Sheet>
@@ -246,7 +246,7 @@ const Navigation = () => {
         </Sheet>
       )}
       <ModeToggle
-        className="fixed bottom-4 right-8 bg-[rgb(41,115,178)] text-white p-3 rounded-full shadow-lg hover:bg-[rgb(60,140,200)] transition-transform z-50"
+        className="fixed bottom-4 right-8 bg-[rgb(41,115,178)] dark:bg-gray-700 text-white p-3 rounded-full shadow-lg hover:bg-[rgb(60,140,200)] transition-transform z-50"
         style={{ transform: "translate(0, 0)" }}
       />
     </div>

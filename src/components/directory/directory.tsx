@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import DirectoryItem from "../directory-item/directory";
 import Beauty from "../../assets/beauty.jpeg";
 import Clothing from "../../assets/clothing.jpeg";
@@ -9,37 +10,39 @@ import Electronics from "../../assets/electronics.jpeg";
 const categories = [
   {
     id: 1,
-    title: "clothing",
+    titleKey: "categories.clothing",
     imageUrl: Clothing,
     route: "shop/clothing",
   },
   {
     id: 2,
-    title: "electronics",
+    titleKey: "categories.electronics",
     imageUrl: Electronics,
     route: "shop/electronics",
   },
   {
     id: 3,
-    title: "gym equipment",
+    titleKey: "categories.gymEquipment",
     imageUrl: Gym,
     route: "shop/gym-equipment",
   },
   {
     id: 4,
-    title: "toys",
+    titleKey: "categories.toys",
     imageUrl: Toys,
     route: "shop/toys",
   },
   {
     id: 5,
-    title: "beauty products",
+    titleKey: "categories.beautyProducts",
     imageUrl: Beauty,
     route: "shop/beauty-products",
   },
 ];
 
 const Directory = () => {
+  const { t } = useTranslation();
+
   return (
     <div className="px-4">
       <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -51,13 +54,16 @@ const Directory = () => {
                 className="h-[240px] flex items-center justify-center relative hidden sm:block lg:col-span-1"
               >
                 <p className="text-center font-light text-[16px]">
-                  Welcome to our store! Discover a wide range of products, from
-                  clothing and electronics to beauty essentials and toys. Enjoy
-                  your shopping journey!
+                  {t("directory.welcomeMessage")}
                 </p>
               </div>
             )}
-            <DirectoryItem category={category} />
+            <DirectoryItem
+              category={{
+                ...category,
+                title: t(category.titleKey),
+              }}
+            />
           </React.Fragment>
         ))}
 
@@ -66,9 +72,7 @@ const Directory = () => {
           className="h-[240px] flex items-center justify-center relative block sm:hidden"
         >
           <p className="text-center font-light text-[16px]">
-            Welcome to our store! Discover a wide range of products, from
-            clothing and electronics to beauty essentials and toys. Enjoy your
-            shopping journey!
+            {t("directory.welcomeMessage")}
           </p>
         </div>
       </div>

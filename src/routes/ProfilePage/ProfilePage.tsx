@@ -17,7 +17,6 @@ const ProfilePage = () => {
   );
   const [loading, setLoading] = useState(false);
 
-  // Handle saving to Supabase
   const handleSaveChanges = async () => {
     if (!currentUser) {
       console.error("No user is logged in.");
@@ -27,10 +26,10 @@ const ProfilePage = () => {
     setLoading(true);
     try {
       const payload = {
-        id: currentUser.uid, // Assuming uid is the user's unique ID in Supabase
+        id: currentUser.uid, 
         username: newUsername,
         avatar_url:
-          newProfilePicture !== DefaultProfile ? newProfilePicture : null, // Save only if it's not default
+          newProfilePicture !== DefaultProfile ? newProfilePicture : null, 
       };
 
       const updatedProfile = await fillProfileInfo(payload);
@@ -48,7 +47,6 @@ const ProfilePage = () => {
     }
   };
 
-  // Handle profile picture selection
   const handleProfilePictureChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
@@ -65,7 +63,7 @@ const ProfilePage = () => {
   };
 
   return (
-    <div className="max-w-lg mx-auto my-10 p-6 bg-white shadow rounded">
+    <div className="max-w-lg mx-auto my-10 p-6 bg-white dark:bg-black shadow rounded">
       <h2 className="text-xl font-bold mb-4">Your Profile</h2>
       <div className="flex flex-col items-center mb-6">
         <img
@@ -101,7 +99,7 @@ const ProfilePage = () => {
       </div>
       <button
         onClick={handleSaveChanges}
-        className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-500"
+        className="px-4 py-2 bg-blue-600 dark:bg-orange-700 text-white rounded hover:bg-blue-500"
         disabled={loading}
       >
         {loading ? "Saving..." : "Save Changes"}
