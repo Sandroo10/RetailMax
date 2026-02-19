@@ -24,7 +24,9 @@ export const promoTile = cva(
   "relative overflow-hidden rounded-2xl border border-main/40 bg-gradient-to-br from-surface via-background to-surface px-5 py-6",
 );
 
-export const promoBody = cva("flex min-h-[17rem] flex-col justify-center gap-2");
+export const promoBody = cva(
+  "flex min-h-[17rem] flex-col justify-center gap-2",
+);
 
 export const promoEyebrow = cva(
   "text-xs font-semibold uppercase tracking-[0.2em] text-main",
