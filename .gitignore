@@ -12,7 +12,7 @@ dist
 dist-ssr
 *.local
 .env
-
+cleaned_supabase_backup.sql
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
