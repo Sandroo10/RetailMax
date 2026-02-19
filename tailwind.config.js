@@ -12,6 +12,10 @@ export default {
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        main: "hsl(var(--main))",
+        "main-foreground": "hsl(var(--main-foreground))",
+        surface: "hsl(var(--surface))",
+        "surface-foreground": "hsl(var(--surface-foreground))",
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
@@ -50,6 +54,10 @@ export default {
           4: "hsl(var(--chart-4))",
           5: "hsl(var(--chart-5))",
         },
+      },
+      fontFamily: {
+        heading: ['"Space Grotesk"', '"Trebuchet MS"', "sans-serif"],
+        body: ['"Source Sans Pro"', '"Verdana"', "sans-serif"],
       },
       keyframes: {
         "accordion-down": {

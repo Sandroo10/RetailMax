@@ -1,66 +1,38 @@
-import { Routes, Route } from "react-router-dom";
+import { lazy, Suspense, type ReactNode } from "react";
+import { Route, Routes } from "react-router-dom";
+import LoadingFallback from "@/components/ui/loading-fallback/LoadingFallback";
+import { useAuthSession } from "@/hooks/useAuthSession";
+import AppLayout from "@/layouts/AppLayout";
 
-import Home from "./routes/home/home";
-import Authentication from "./routes/authentication/authentication";
-import Shop from "./routes/Shop/Shop";
-import CheckoutPage from "./routes/checkout/checkout";
-import ProfilePage from "./routes/ProfilePage/ProfilePage";
-import Layout from "./routes/Layout/Layout";
-import { ThemeProvider } from "./components/Theme-Provider/theme-provider";
-import { useEffect } from "react";
-import { supabase } from "./supabase/supabase";
-import { useAuthContext } from "./contexts/hooks/useAuthContext";
-import ProductDetail from "./routes/ProductDetail/ProductDetail";
+const HomePage = lazy(() => import("@/pages/HomePage"));
+const ShopPage = lazy(() => import("@/pages/ShopPage"));
+const ShopCategoryPage = lazy(() => import("@/pages/ShopCategoryPage"));
+const ProductPage = lazy(() => import("@/pages/ProductPage"));
+const CheckoutPage = lazy(() => import("@/pages/CheckoutPage"));
+const ProfilePage = lazy(() => import("@/pages/ProfilePage"));
+const AuthPage = lazy(() => import("@/pages/AuthPage"));
+const NotFoundPage = lazy(() => import("@/pages/NotFoundPage"));
+
+const withSuspense = (element: ReactNode) => (
+  <Suspense fallback={<LoadingFallback />}>{element}</Suspense>
+);
 
 const App = () => {
-  const { handleSetUser } = useAuthContext();
-
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      console.log("Session: ", session);
-      if (session) {
-        handleSetUser({
-          uid: session.user.id,
-          email: session.user.email,
-          token: session.access_token,
-        });
-      } else {
-        handleSetUser(null);
-      }
-    });
-
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      console.log("Session on auth state change:", session);
-      if (session) {
-        handleSetUser({
-          uid: session.user.id,
-          email: session.user.email,
-          token: session.access_token,
-        });
-      } else {
-        handleSetUser(null);
-      }
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
+  useAuthSession();
 
   return (
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="shop/*" element={<Shop />} />
-          <Route path="checkout" element={<CheckoutPage />} />
-          <Route path="profile" element={<ProfilePage />} />
-          <Route path="/product/:id" element={<ProductDetail />} />
-        </Route>
-
-        <Route path="auth" element={<Authentication />} />
-      </Routes>
-    </ThemeProvider>
+    <Routes>
+      <Route element={<AppLayout />} path="/">
+        <Route element={withSuspense(<HomePage />)} index />
+        <Route element={withSuspense(<ShopPage />)} path="shop" />
+        <Route element={withSuspense(<ShopCategoryPage />)} path="shop/:category" />
+        <Route element={withSuspense(<ProductPage />)} path="product/:id" />
+        <Route element={withSuspense(<CheckoutPage />)} path="checkout" />
+        <Route element={withSuspense(<ProfilePage />)} path="profile" />
+        <Route element={withSuspense(<AuthPage />)} path="auth" />
+        <Route element={withSuspense(<NotFoundPage />)} path="*" />
+      </Route>
+    </Routes>
   );
 };
 

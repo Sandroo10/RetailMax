@@ -1,6 +1,11 @@
-// CartContext.tsx
-import { createContext, useState, useEffect, ReactNode } from "react";
-import { CartItem, CartContextType } from "./types";
+import {
+  createContext,
+  useCallback,
+  useMemo,
+  useState,
+  type ReactNode,
+} from "react";
+import { type CartItem, type CartContextType } from "./types";
 
 const addCartItem = (
   cartItems: CartItem[],
@@ -9,6 +14,7 @@ const addCartItem = (
   const existingCartItem = cartItems.find(
     (item) => item.id === productToAdd.id,
   );
+
   if (existingCartItem) {
     return cartItems.map((item) =>
       item.id === productToAdd.id
@@ -16,6 +22,7 @@ const addCartItem = (
         : item,
     );
   }
+
   return [...cartItems, { ...productToAdd, quantity: 1 }];
 };
 
@@ -27,7 +34,7 @@ const removeCartItem = (
     (item) => item.id === productToRemove.id,
   );
 
-  if (existingCartItem && existingCartItem.quantity === 1) {
+  if (existingCartItem?.quantity === 1) {
     return cartItems.filter((item) => item.id !== productToRemove.id);
   }
 
@@ -43,16 +50,14 @@ const clearCartItems = (
   itemToClear: CartItem,
 ): CartItem[] => cartItems.filter((item) => item.id !== itemToClear.id);
 
-// Function to clear the entire cart
-
 export const CartContext = createContext<CartContextType>({
   isCartOpen: false,
-  setIsCartOpen: () => {},
+  setIsCartOpen: () => undefined,
   cartItems: [],
-  addItemToCart: () => {},
-  removeItemFromCart: () => {},
-  clearItemsFromCart: () => {},
-  emptyCart: () => {}, // Added emptyCart function
+  addItemToCart: () => undefined,
+  removeItemFromCart: () => undefined,
+  clearItemsFromCart: () => undefined,
+  emptyCart: () => undefined,
   totalQuantity: 0,
   totalValue: 0,
 });
@@ -64,52 +69,60 @@ interface CartProviderProps {
 export const CartProvider = ({ children }: CartProviderProps) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const [totalQuantity, setTotalQuantity] = useState(0);
-  const [totalValue, setTotalValue] = useState(0);
 
-  const emptyCart = () => {
-    setCartItems([]); // Clear the entire cart
-  };
+  const emptyCart = useCallback(() => {
+    setCartItems([]);
+  }, []);
 
-  const addItemToCart = (productToAdd: CartItem) => {
-    setCartItems(addCartItem(cartItems, productToAdd));
-  };
+  const addItemToCart = useCallback((productToAdd: CartItem) => {
+    setCartItems((prevItems) => addCartItem(prevItems, productToAdd));
+  }, []);
 
-  const removeItemFromCart = (productToRemove: CartItem) => {
-    setCartItems(removeCartItem(cartItems, productToRemove));
-  };
+  const removeItemFromCart = useCallback((productToRemove: CartItem) => {
+    setCartItems((prevItems) => removeCartItem(prevItems, productToRemove));
+  }, []);
 
-  const clearItemsFromCart = (itemToClear: CartItem) => {
-    setCartItems(clearCartItems(cartItems, itemToClear));
-  };
+  const clearItemsFromCart = useCallback((itemToClear: CartItem) => {
+    setCartItems((prevItems) => clearCartItems(prevItems, itemToClear));
+  }, []);
 
-  useEffect(() => {
-    const newTotalQuantity = cartItems.reduce(
+  const totals = useMemo(() => {
+    const totalQuantity = cartItems.reduce(
       (total, cartItem) => total + cartItem.quantity,
       0,
     );
-    setTotalQuantity(newTotalQuantity);
-  }, [cartItems]);
 
-  useEffect(() => {
-    const newTotalValue = cartItems.reduce(
+    const totalValue = cartItems.reduce(
       (total, cartItem) => total + cartItem.price * cartItem.quantity,
       0,
     );
-    setTotalValue(newTotalValue);
+
+    return { totalQuantity, totalValue };
   }, [cartItems]);
 
-  const value: CartContextType = {
-    isCartOpen,
-    setIsCartOpen,
-    addItemToCart,
-    cartItems,
-    removeItemFromCart,
-    totalQuantity,
-    clearItemsFromCart,
-    totalValue,
-    emptyCart, // Provide emptyCartHandler here
-  };
+  const value = useMemo<CartContextType>(
+    () => ({
+      isCartOpen,
+      setIsCartOpen,
+      cartItems,
+      addItemToCart,
+      removeItemFromCart,
+      clearItemsFromCart,
+      emptyCart,
+      totalQuantity: totals.totalQuantity,
+      totalValue: totals.totalValue,
+    }),
+    [
+      isCartOpen,
+      cartItems,
+      addItemToCart,
+      removeItemFromCart,
+      clearItemsFromCart,
+      emptyCart,
+      totals.totalQuantity,
+      totals.totalValue,
+    ],
+  );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 };

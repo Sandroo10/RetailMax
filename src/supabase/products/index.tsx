@@ -1,8 +1,7 @@
 import { supabase } from "../supabase";
 
 export const getProductList = async () => {
-  const { data, error } = await supabase.from("product").select("*"); // Replace "*" with specific columns if needed
-  console.log(data);
+  const { data, error } = await supabase.from("product").select("*");
   if (error) {
     console.error("Error fetching products list:", error.message);
     throw new Error(error.message); // Handle or propagate the error
@@ -38,7 +37,7 @@ export const getSingleProduct = async (id: string) => {
   const { data, error } = await supabase
     .from("product")
     .select("*") // Specify the fields to retrieve
-    .eq("id", Number(id)) // Match the `id` column
+    .eq("id", Number(id))
     .single(); // Expect a single record
 
   if (error) {

@@ -1,5 +1,3 @@
-import { createContext } from "react";
-
 export interface CartItem {
   id: number;
   name: string;
@@ -23,20 +21,10 @@ export interface CartContextType {
   totalValue: number;
 }
 
-export interface Product {
-  id: number;
-  name: string;
-  image_url: string;
-  price: number;
-  quantity: number;
+export interface AuthUser {
+  uid: string;
+  email?: string;
+  displayName?: string;
+  photoURL?: string;
+  token: string;
 }
-export interface CategoriesContextType {
-  categories: Record<string, Product[]>;
-}
-export interface CartItem extends Product {
-  quantity: number;
-}
-
-export const CategoriesContext = createContext<CategoriesContextType>({
-  categories: {},
-});

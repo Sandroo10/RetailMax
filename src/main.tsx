@@ -1,12 +1,13 @@
 import React from "react";
-import App from "./App";
-import "./index.css";
 import { BrowserRouter } from "react-router-dom";
-import { UserProvider } from "./contexts/User.Context";
-import { CartProvider } from "./contexts/Cart.context";
 import { createRoot } from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import "./i18n";
+import App from "@/App";
+import { CartProvider } from "@/contexts/Cart.context";
+import { UserProvider } from "@/contexts/User.Context";
+import { ThemeProvider } from "@/components/ui/theme-provider";
+import "@/index.css";
+import "@/i18n";
 
 const queryClient = new QueryClient();
 
@@ -16,7 +17,9 @@ createRoot(document.getElementById("root")!).render(
       <BrowserRouter>
         <UserProvider>
           <CartProvider>
-            <App />
+            <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+              <App />
+            </ThemeProvider>
           </CartProvider>
         </UserProvider>
       </BrowserRouter>
