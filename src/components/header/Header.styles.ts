@@ -37,6 +37,8 @@ export const iconButton = cva(
   "inline-flex h-10 min-w-10 items-center justify-center rounded-full border border-border bg-background px-3 text-sm font-semibold text-foreground transition hover:border-main hover:text-main",
 );
 
+export const cartButton = cva(`${iconButton()} relative`);
+
 export const cartBadge = cva(
   "absolute -right-1 -top-1 rounded-full bg-main px-1.5 text-xs font-bold text-main-foreground",
 );

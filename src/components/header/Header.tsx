@@ -20,6 +20,7 @@ import {
   actionGroup,
   brandImage,
   brandLink,
+  cartButton,
   cartBadge,
   container,
   iconButton,
@@ -118,7 +119,7 @@ const Header = () => {
 
           <button
             aria-label={t("header.toggleCartAria")}
-            className={iconButton()}
+            className={cartButton()}
             onClick={toggleCart}
             type="button"
           >

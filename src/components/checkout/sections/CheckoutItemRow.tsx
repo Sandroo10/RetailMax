@@ -56,7 +56,7 @@ const CheckoutItemRow = ({ item }: CheckoutItemRowProps) => {
             onClick={() => clearItemsFromCart(item)}
             type="button"
           >
-            �
+            X
           </button>
         </div>
         <span className={price()}>
