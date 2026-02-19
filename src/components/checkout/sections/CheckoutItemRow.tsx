@@ -54,10 +54,12 @@ const CheckoutItemRow = ({ item }: CheckoutItemRowProps) => {
             onClick={() => clearItemsFromCart(item)}
             type="button"
           >
-            ×
+            ï¿½
           </button>
         </div>
-        <span className={price()}>${(item.price * item.quantity).toFixed(2)}</span>
+        <span className={price()}>
+          ${(item.price * item.quantity).toFixed(2)}
+        </span>
       </div>
     </article>
   );

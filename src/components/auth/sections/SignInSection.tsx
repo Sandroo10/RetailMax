@@ -47,7 +47,9 @@ const SignInSection = () => {
           Email
         </label>
         <input className={input()} id="signin-email" {...register("email")} />
-        {errors.email ? <p className={errorText()}>{errors.email.message}</p> : null}
+        {errors.email ? (
+          <p className={errorText()}>{errors.email.message}</p>
+        ) : null}
       </div>
 
       <div className={fieldGroup()}>

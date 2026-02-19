@@ -1,7 +1,4 @@
-import {
-  socialFacebookImage,
-  socialInstagramImage,
-} from "@/assets";
+import { socialFacebookImage, socialInstagramImage } from "@/assets";
 import {
   container,
   shell,
@@ -28,7 +25,11 @@ const Footer = () => {
             rel="noopener noreferrer"
             target="_blank"
           >
-            <img alt="Facebook" className={socialIcon()} src={socialFacebookImage} />
+            <img
+              alt="Facebook"
+              className={socialIcon()}
+              src={socialFacebookImage}
+            />
           </a>
           <a
             aria-label="Visit RetailMax on Instagram"
@@ -37,7 +38,11 @@ const Footer = () => {
             rel="noopener noreferrer"
             target="_blank"
           >
-            <img alt="Instagram" className={socialIcon()} src={socialInstagramImage} />
+            <img
+              alt="Instagram"
+              className={socialIcon()}
+              src={socialInstagramImage}
+            />
           </a>
         </div>
       </div>

@@ -72,23 +72,39 @@ const CheckoutDetail = () => {
             <label className={label()} htmlFor="checkout-name">
               Name
             </label>
-            <input className={input()} id="checkout-name" {...register("name")} />
-            {errors.name ? <p className={errorText()}>{errors.name.message}</p> : null}
+            <input
+              className={input()}
+              id="checkout-name"
+              {...register("name")}
+            />
+            {errors.name ? (
+              <p className={errorText()}>{errors.name.message}</p>
+            ) : null}
           </div>
 
           <div className={fieldGroup()}>
             <label className={label()} htmlFor="checkout-address">
               Address
             </label>
-            <input className={input()} id="checkout-address" {...register("address")} />
-            {errors.address ? <p className={errorText()}>{errors.address.message}</p> : null}
+            <input
+              className={input()}
+              id="checkout-address"
+              {...register("address")}
+            />
+            {errors.address ? (
+              <p className={errorText()}>{errors.address.message}</p>
+            ) : null}
           </div>
 
           <div className={fieldGroup()}>
             <label className={label()} htmlFor="checkout-card-number">
               Card number
             </label>
-            <input className={input()} id="checkout-card-number" {...register("cardNumber")} />
+            <input
+              className={input()}
+              id="checkout-card-number"
+              {...register("cardNumber")}
+            />
             {errors.cardNumber ? (
               <p className={errorText()}>{errors.cardNumber.message}</p>
             ) : null}
@@ -99,7 +115,12 @@ const CheckoutDetail = () => {
               <label className={label()} htmlFor="checkout-expiry-date">
                 Expiry date
               </label>
-              <input className={input()} id="checkout-expiry-date" placeholder="MM/YY" {...register("expiryDate")} />
+              <input
+                className={input()}
+                id="checkout-expiry-date"
+                placeholder="MM/YY"
+                {...register("expiryDate")}
+              />
               {errors.expiryDate ? (
                 <p className={errorText()}>{errors.expiryDate.message}</p>
               ) : null}
@@ -109,12 +130,22 @@ const CheckoutDetail = () => {
               <label className={label()} htmlFor="checkout-cvv">
                 CVV
               </label>
-              <input className={input()} id="checkout-cvv" {...register("cvv")} />
-              {errors.cvv ? <p className={errorText()}>{errors.cvv.message}</p> : null}
+              <input
+                className={input()}
+                id="checkout-cvv"
+                {...register("cvv")}
+              />
+              {errors.cvv ? (
+                <p className={errorText()}>{errors.cvv.message}</p>
+              ) : null}
             </div>
           </div>
 
-          <button aria-label="Submit payment" className={submitButton()} type="submit">
+          <button
+            aria-label="Submit payment"
+            className={submitButton()}
+            type="submit"
+          >
             {isSubmitting ? "Processing..." : "Pay now"}
           </button>
         </form>

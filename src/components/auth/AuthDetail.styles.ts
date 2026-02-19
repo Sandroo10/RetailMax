@@ -1,6 +1,8 @@
 import { cva } from "class-variance-authority";
 
-export const container = cva("mx-auto w-full max-w-xl rounded-2xl border border-border bg-surface p-4");
+export const container = cva(
+  "mx-auto w-full max-w-xl rounded-2xl border border-border bg-surface p-4",
+);
 
 export const tabs = cva("mb-4 grid grid-cols-2 gap-2");
 

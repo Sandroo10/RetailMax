@@ -25,7 +25,10 @@ const App = () => {
       <Route element={<AppLayout />} path="/">
         <Route element={withSuspense(<HomePage />)} index />
         <Route element={withSuspense(<ShopPage />)} path="shop" />
-        <Route element={withSuspense(<ShopCategoryPage />)} path="shop/:category" />
+        <Route
+          element={withSuspense(<ShopCategoryPage />)}
+          path="shop/:category"
+        />
         <Route element={withSuspense(<ProductPage />)} path="product/:id" />
         <Route element={withSuspense(<CheckoutPage />)} path="checkout" />
         <Route element={withSuspense(<ProfilePage />)} path="profile" />

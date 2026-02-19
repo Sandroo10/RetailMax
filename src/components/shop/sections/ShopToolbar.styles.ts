@@ -14,6 +14,8 @@ export const input = cva(
 
 export const priceGroup = cva("flex items-center gap-3");
 
-export const priceLabel = cva("whitespace-nowrap text-sm font-semibold text-main");
+export const priceLabel = cva(
+  "whitespace-nowrap text-sm font-semibold text-main",
+);
 
 export const sliderWrap = cva("w-full min-w-[14rem]");

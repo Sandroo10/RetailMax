@@ -79,11 +79,23 @@ const Header = () => {
 
         <div className={actionGroup()}>
           {currentUser ? (
-            <Link aria-label="Go to profile" className={iconButton()} to="/profile">
-              <img alt="Profile" className="h-6 w-6 rounded-full object-cover" src={profileImage} />
+            <Link
+              aria-label="Go to profile"
+              className={iconButton()}
+              to="/profile"
+            >
+              <img
+                alt="Profile"
+                className="h-6 w-6 rounded-full object-cover"
+                src={profileImage}
+              />
             </Link>
           ) : (
-            <Link aria-label="Open auth page" className={iconButton()} to="/auth">
+            <Link
+              aria-label="Open auth page"
+              className={iconButton()}
+              to="/auth"
+            >
               Sign In
             </Link>
           )}
@@ -114,7 +126,11 @@ const Header = () => {
           <div className={mobileMenu()}>
             <Sheet onOpenChange={setIsMobileOpen} open={isMobileOpen}>
               <SheetTrigger asChild>
-                <button aria-label="Open navigation" className={iconButton()} type="button">
+                <button
+                  aria-label="Open navigation"
+                  className={iconButton()}
+                  type="button"
+                >
                   <Menu className="h-4 w-4" />
                 </button>
               </SheetTrigger>
@@ -133,7 +149,11 @@ const Header = () => {
                       {item.label}
                     </Link>
                   ))}
-                  <Link className={mobileLink()} onClick={closeOverlays} to="/profile">
+                  <Link
+                    className={mobileLink()}
+                    onClick={closeOverlays}
+                    to="/profile"
+                  >
                     Profile
                   </Link>
                 </div>

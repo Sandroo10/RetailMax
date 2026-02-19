@@ -39,9 +39,21 @@ const HomeHero = () => {
         </div>
 
         <div className={collage()}>
-          <img alt="Retail showcase 1" className={collageImage()} src={heroCarouselOneImage} />
-          <img alt="Retail showcase 2" className={collageImage()} src={heroCarouselTwoImage} />
-          <img alt="Retail showcase 3" className={collageImage()} src={heroCarouselThreeImage} />
+          <img
+            alt="Retail showcase 1"
+            className={collageImage()}
+            src={heroCarouselOneImage}
+          />
+          <img
+            alt="Retail showcase 2"
+            className={collageImage()}
+            src={heroCarouselTwoImage}
+          />
+          <img
+            alt="Retail showcase 3"
+            className={collageImage()}
+            src={heroCarouselThreeImage}
+          />
         </div>
       </div>
     </div>

@@ -50,7 +50,11 @@ const SignUpSection = () => {
         <label className={label()} htmlFor="signup-username">
           Username
         </label>
-        <input className={input()} id="signup-username" {...register("username")} />
+        <input
+          className={input()}
+          id="signup-username"
+          {...register("username")}
+        />
         {errors.username ? (
           <p className={errorText()}>{errors.username.message}</p>
         ) : null}
@@ -61,7 +65,9 @@ const SignUpSection = () => {
           Email
         </label>
         <input className={input()} id="signup-email" {...register("email")} />
-        {errors.email ? <p className={errorText()}>{errors.email.message}</p> : null}
+        {errors.email ? (
+          <p className={errorText()}>{errors.email.message}</p>
+        ) : null}
       </div>
 
       <div className={fieldGroup()}>
@@ -81,7 +87,11 @@ const SignUpSection = () => {
 
       {error ? <p className={errorText()}>{error.message}</p> : null}
 
-      <button aria-label="Create account" className={submitButton()} type="submit">
+      <button
+        aria-label="Create account"
+        className={submitButton()}
+        type="submit"
+      >
         {isPending ? "Creating account..." : "Create account"}
       </button>
     </form>

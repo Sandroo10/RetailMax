@@ -27,8 +27,13 @@ const profileSchema = z.object({
 type ProfileValues = z.infer<typeof profileSchema>;
 
 const ProfileDetail = () => {
-  const { currentUser, profilePicture, setProfilePicture, setUsername, username } =
-    useUserContext();
+  const {
+    currentUser,
+    profilePicture,
+    setProfilePicture,
+    setUsername,
+    username,
+  } = useUserContext();
   const [saveMessage, setSaveMessage] = useState("");
 
   const {
@@ -85,7 +90,11 @@ const ProfileDetail = () => {
           <label className={label()} htmlFor="profile-username">
             Username
           </label>
-          <input className={input()} id="profile-username" {...register("username")} />
+          <input
+            className={input()}
+            id="profile-username"
+            {...register("username")}
+          />
           {errors.username ? (
             <p className={errorText()}>{errors.username.message}</p>
           ) : null}
@@ -95,7 +104,11 @@ const ProfileDetail = () => {
           <label className={label()} htmlFor="profile-avatar-url">
             Avatar URL
           </label>
-          <input className={input()} id="profile-avatar-url" {...register("avatarUrl")} />
+          <input
+            className={input()}
+            id="profile-avatar-url"
+            {...register("avatarUrl")}
+          />
           {errors.avatarUrl ? (
             <p className={errorText()}>{errors.avatarUrl.message}</p>
           ) : null}

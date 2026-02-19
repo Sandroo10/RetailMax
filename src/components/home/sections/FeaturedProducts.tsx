@@ -1,12 +1,7 @@
 import { categorySlugFromDbValue } from "@/data/categories";
 import { useProductList } from "@/hooks/useProducts";
 import ProductCard from "@/components/shop/ProductCard";
-import {
-  grid,
-  heading,
-  state,
-  wrapper,
-} from "./FeaturedProducts.styles";
+import { grid, heading, state, wrapper } from "./FeaturedProducts.styles";
 
 const FeaturedProducts = () => {
   const { data: products = [], isLoading, isError } = useProductList();

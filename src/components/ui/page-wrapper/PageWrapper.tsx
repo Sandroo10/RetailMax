@@ -1,9 +1,5 @@
 import type { ReactNode } from "react";
-import {
-  container,
-  contentSection,
-  heroSection,
-} from "./PageWrapper.styles";
+import { container, contentSection, heroSection } from "./PageWrapper.styles";
 
 interface PageWrapperProps {
   hero: ReactNode;

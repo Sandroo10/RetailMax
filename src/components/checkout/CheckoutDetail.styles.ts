@@ -2,15 +2,21 @@ import { cva } from "class-variance-authority";
 
 export const container = cva("grid gap-6 lg:grid-cols-[1.2fr_1fr]");
 
-export const cartSection = cva("space-y-4 rounded-2xl border border-border bg-surface p-4");
+export const cartSection = cva(
+  "space-y-4 rounded-2xl border border-border bg-surface p-4",
+);
 
 export const sectionTitle = cva("text-lg font-bold text-foreground");
 
-export const emptyState = cva("rounded-xl bg-background p-5 text-sm text-muted-foreground");
+export const emptyState = cva(
+  "rounded-xl bg-background p-5 text-sm text-muted-foreground",
+);
 
 export const total = cva("text-right text-lg font-bold text-main");
 
-export const formSection = cva("rounded-2xl border border-border bg-surface p-4");
+export const formSection = cva(
+  "rounded-2xl border border-border bg-surface p-4",
+);
 
 export const form = cva("grid gap-3");
 

@@ -1,5 +1,11 @@
 import { categoryBySlug } from "@/data/categories";
-import { container, content, backdrop, subtitle, title } from "./ShopHero.styles";
+import {
+  container,
+  content,
+  backdrop,
+  subtitle,
+  title,
+} from "./ShopHero.styles";
 
 interface ShopHeroProps {
   categorySlug?: string;

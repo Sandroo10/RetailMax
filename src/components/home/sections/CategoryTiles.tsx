@@ -19,7 +19,11 @@ const CategoryTiles = () => {
           <div className={body()}>
             <h3 className={title()}>{category.label}</h3>
             <p className={copy()}>{category.shortDescription}</p>
-            <Link aria-label={`Open ${category.label}`} className={action()} to={`/shop/${category.slug}`}>
+            <Link
+              aria-label={`Open ${category.label}`}
+              className={action()}
+              to={`/shop/${category.slug}`}
+            >
               View category
             </Link>
           </div>

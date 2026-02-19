@@ -1,12 +1,18 @@
 import { cva } from "class-variance-authority";
 
-export const card = cva("mx-auto max-w-xl rounded-2xl border border-border bg-surface p-4");
+export const card = cva(
+  "mx-auto max-w-xl rounded-2xl border border-border bg-surface p-4",
+);
 
-export const empty = cva("rounded-xl border border-border bg-surface p-5 text-sm");
+export const empty = cva(
+  "rounded-xl border border-border bg-surface p-5 text-sm",
+);
 
 export const avatarWrap = cva("mb-4 flex items-center gap-3");
 
-export const avatar = cva("h-16 w-16 rounded-full border border-border object-cover");
+export const avatar = cva(
+  "h-16 w-16 rounded-full border border-border object-cover",
+);
 
 export const form = cva("grid gap-3");
 

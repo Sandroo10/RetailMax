@@ -8,7 +8,9 @@ export const wrapper = cva(
   "grid gap-6 rounded-3xl border border-border bg-background p-4 sm:p-6 lg:grid-cols-2",
 );
 
-export const imageWrap = cva("overflow-hidden rounded-2xl border border-border bg-surface");
+export const imageWrap = cva(
+  "overflow-hidden rounded-2xl border border-border bg-surface",
+);
 
 export const image = cva("h-full w-full object-cover");
 

@@ -22,7 +22,11 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
   return (
     <article className={card()}>
-      <Link aria-label={`Open ${product.name} details`} className={imageWrap()} to={`/product/${product.id}`}>
+      <Link
+        aria-label={`Open ${product.name} details`}
+        className={imageWrap()}
+        to={`/product/${product.id}`}
+      >
         <img alt={product.name} className={image()} src={product.image_url} />
       </Link>
 

@@ -43,7 +43,12 @@ const CartDropdown = ({ onNavigate }: CartDropdownProps) => {
 
       <div className={actions()}>
         <span className={total()}>Total: ${totalValue.toFixed(2)}</span>
-        <Link aria-label="Go to checkout" className={checkoutButton()} onClick={onNavigate} to="/checkout">
+        <Link
+          aria-label="Go to checkout"
+          className={checkoutButton()}
+          onClick={onNavigate}
+          to="/checkout"
+        >
           Checkout
         </Link>
       </div>

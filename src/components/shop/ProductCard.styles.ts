@@ -4,7 +4,9 @@ export const card = cva(
   "group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-background shadow-sm transition hover:-translate-y-0.5 hover:border-main/40",
 );
 
-export const imageWrap = cva("relative aspect-[4/3] w-full overflow-hidden bg-surface");
+export const imageWrap = cva(
+  "relative aspect-[4/3] w-full overflow-hidden bg-surface",
+);
 
 export const image = cva(
   "h-full w-full object-cover transition duration-300 group-hover:scale-105",
