@@ -8,6 +8,6 @@ export const storyCard = cva(
   "overflow-hidden rounded-2xl border border-border bg-surface",
 );
 
-export const storyImage = cva("h-44 w-full object-cover");
+export const storyImage = cva("h-80 w-full object-cover");
 
 export const storyCopy = cva("p-4 text-sm text-muted-foreground");

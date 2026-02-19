@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import {
   heroCarouselOneImage,
   heroCarouselThreeImage,
@@ -18,39 +19,38 @@ import {
 } from "./HomeHero.styles";
 
 const HomeHero = () => {
+  const { t } = useTranslation();
+
   return (
     <div className={container()}>
       <div className={overlay()} />
       <div className={content()}>
         <div>
-          <h1 className={title()}>Retail essentials with cleaner workflows.</h1>
-          <p className={description()}>
-            RetailMax combines curated inventory, fast account flows, and secure
-            checkout in one place.
-          </p>
+          <h1 className={title()}>{t("home.heroTitle")}</h1>
+          <p className={description()}>{t("home.heroSubtitle")}</p>
           <div className={ctaRow()}>
             <Link className={primaryAction()} to="/shop">
-              Start Shopping
+              {t("home.startShopping")}
             </Link>
             <Link className={secondaryAction()} to="/auth">
-              Create Account
+              {t("home.createAccount")}
             </Link>
           </div>
         </div>
 
         <div className={collage()}>
           <img
-            alt="Retail showcase 1"
+            alt={t("home.showcase1Alt")}
             className={collageImage()}
             src={heroCarouselOneImage}
           />
           <img
-            alt="Retail showcase 2"
+            alt={t("home.showcase2Alt")}
             className={collageImage()}
             src={heroCarouselTwoImage}
           />
           <img
-            alt="Retail showcase 3"
+            alt={t("home.showcase3Alt")}
             className={collageImage()}
             src={heroCarouselThreeImage}
           />

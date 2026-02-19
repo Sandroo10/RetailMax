@@ -1,5 +1,6 @@
 import { Menu, ShoppingBag } from "lucide-react";
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { useCartContext } from "@/hooks/useCartContext";
 import { useUserContext } from "@/hooks/useUserContext";
@@ -13,12 +14,12 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import CartDropdown from "./CartDropdown";
+import LanguageToggle from "./LanguageToggle";
 import ThemeToggle from "./ThemeToggle";
 import {
   actionGroup,
   brandImage,
   brandLink,
-  brandText,
   cartBadge,
   container,
   iconButton,
@@ -31,12 +32,13 @@ import {
 } from "./Header.styles";
 
 const navItems = [
-  { path: "/", label: "Home" },
-  { path: "/shop", label: "Shop" },
-  { path: "/checkout", label: "Checkout" },
+  { path: "/", key: "navigation.home" },
+  { path: "/shop", key: "navigation.shop" },
+  { path: "/checkout", key: "navigation.checkout" },
 ];
 
 const Header = () => {
+  const { t } = useTranslation();
   const location = useLocation();
   const { currentUser, profilePicture } = useUserContext();
   const { isCartOpen, setIsCartOpen, totalQuantity } = useCartContext();
@@ -60,9 +62,12 @@ const Header = () => {
   return (
     <header className={shell()}>
       <div className={container()}>
-        <Link aria-label="RetailMax Home" className={brandLink()} to="/">
-          <img alt="RetailMax logo" className={brandImage()} src={siteLogo} />
-          <span className={brandText()}>RetailMax</span>
+        <Link aria-label={t("header.brandAria")} className={brandLink()} to="/">
+          <img
+            alt={t("header.brandLogoAlt")}
+            className={brandImage()}
+            src={siteLogo}
+          />
         </Link>
 
         <nav className={nav()}>
@@ -72,7 +77,7 @@ const Header = () => {
               key={item.path}
               to={item.path}
             >
-              {item.label}
+              {t(item.key)}
             </NavLink>
           ))}
         </nav>
@@ -80,39 +85,39 @@ const Header = () => {
         <div className={actionGroup()}>
           {currentUser ? (
             <Link
-              aria-label="Go to profile"
+              aria-label={t("header.goToProfileAria")}
               className={iconButton()}
               to="/profile"
             >
               <img
-                alt="Profile"
+                alt={t("header.profileImageAlt")}
                 className="h-6 w-6 rounded-full object-cover"
                 src={profileImage}
               />
             </Link>
           ) : (
             <Link
-              aria-label="Open auth page"
+              aria-label={t("header.openAuthAria")}
               className={iconButton()}
               to="/auth"
             >
-              Sign In
+              {t("navigation.signIn")}
             </Link>
           )}
 
           {currentUser && (
             <button
-              aria-label="Sign out"
+              aria-label={t("header.signOutAria")}
               className={iconButton()}
               onClick={() => signOut()}
               type="button"
             >
-              Sign Out
+              {t("navigation.signOut")}
             </button>
           )}
 
           <button
-            aria-label="Toggle cart"
+            aria-label={t("header.toggleCartAria")}
             className={iconButton()}
             onClick={toggleCart}
             type="button"
@@ -121,13 +126,14 @@ const Header = () => {
             <span className={cartBadge()}>{totalQuantity}</span>
           </button>
 
+          <LanguageToggle />
           <ThemeToggle />
 
           <div className={mobileMenu()}>
             <Sheet onOpenChange={setIsMobileOpen} open={isMobileOpen}>
               <SheetTrigger asChild>
                 <button
-                  aria-label="Open navigation"
+                  aria-label={t("header.openNavigationAria")}
                   className={iconButton()}
                   type="button"
                 >
@@ -136,7 +142,7 @@ const Header = () => {
               </SheetTrigger>
               <SheetContent side="right">
                 <SheetHeader>
-                  <SheetTitle>Menu</SheetTitle>
+                  <SheetTitle>{t("header.menu")}</SheetTitle>
                 </SheetHeader>
                 <div className={mobilePanel()}>
                   {navItems.map((item) => (
@@ -146,7 +152,7 @@ const Header = () => {
                       onClick={closeOverlays}
                       to={item.path}
                     >
-                      {item.label}
+                      {t(item.key)}
                     </Link>
                   ))}
                   <Link
@@ -154,7 +160,7 @@ const Header = () => {
                     onClick={closeOverlays}
                     to="/profile"
                   >
-                    Profile
+                    {t("navigation.profile")}
                   </Link>
                 </div>
               </SheetContent>

@@ -1,6 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useTranslation } from "react-i18next";
 import { useRegisterMutation } from "@/hooks/useAuthMutations";
 import {
   errorText,
@@ -12,16 +13,19 @@ import {
   submitButton,
 } from "./AuthForm.styles";
 
-const signUpSchema = z.object({
-  username: z.string().min(1, "Username is required"),
-  email: z.string().email("Enter a valid email"),
-  password: z.string().min(8, "Password must be at least 8 characters"),
-});
+const createSignUpSchema = (t: (key: string) => string) =>
+  z.object({
+    username: z.string().min(1, t("auth.usernameRequired")),
+    email: z.string().email(t("auth.emailInvalid")),
+    password: z.string().min(8, t("auth.passwordMin")),
+  });
 
-type SignUpValues = z.infer<typeof signUpSchema>;
+type SignUpValues = z.infer<ReturnType<typeof createSignUpSchema>>;
 
 const SignUpSection = () => {
+  const { t } = useTranslation();
   const { mutate: registerUser, isPending, error } = useRegisterMutation();
+  const signUpSchema = createSignUpSchema(t);
 
   const {
     handleSubmit,
@@ -43,12 +47,12 @@ const SignUpSection = () => {
   return (
     <form className={form()} onSubmit={handleSubmit(onSubmit)}>
       <p className={helperText()}>
-        Create your account to save your profile details.
+        {t("auth.signUpHelper")}
       </p>
 
       <div className={fieldGroup()}>
         <label className={label()} htmlFor="signup-username">
-          Username
+          {t("auth.username")}
         </label>
         <input
           className={input()}
@@ -62,7 +66,7 @@ const SignUpSection = () => {
 
       <div className={fieldGroup()}>
         <label className={label()} htmlFor="signup-email">
-          Email
+          {t("auth.email")}
         </label>
         <input className={input()} id="signup-email" {...register("email")} />
         {errors.email ? (
@@ -72,7 +76,7 @@ const SignUpSection = () => {
 
       <div className={fieldGroup()}>
         <label className={label()} htmlFor="signup-password">
-          Password
+          {t("auth.password")}
         </label>
         <input
           className={input()}
@@ -88,11 +92,11 @@ const SignUpSection = () => {
       {error ? <p className={errorText()}>{error.message}</p> : null}
 
       <button
-        aria-label="Create account"
+        aria-label={t("auth.createAccountAria")}
         className={submitButton()}
         type="submit"
       >
-        {isPending ? "Creating account..." : "Create account"}
+        {isPending ? t("auth.creatingAccount") : t("auth.createAccount")}
       </button>
     </form>
   );

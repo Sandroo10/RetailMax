@@ -14,7 +14,7 @@ export const brandImage = cva("h-10 w-auto rounded-md");
 
 export const brandText = cva("font-heading text-lg font-bold text-main");
 
-export const nav = cva("hidden items-center gap-1 md:flex");
+export const nav = cva("hidden items-center gap-1 md:ml-32 md:flex");
 
 export const navLink = cva(
   "rounded-md px-3 py-2 text-sm font-semibold text-foreground transition hover:bg-surface hover:text-main",

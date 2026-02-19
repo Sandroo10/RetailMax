@@ -1,12 +1,13 @@
+import { useTranslation } from "react-i18next";
 import { container, subtitle, title } from "./ProductHero.styles";
 
 const ProductHero = () => {
+  const { t } = useTranslation();
+
   return (
     <div className={container()}>
-      <h1 className={title()}>Product Details</h1>
-      <p className={subtitle()}>
-        Review item specs and add products directly to your cart.
-      </p>
+      <h1 className={title()}>{t("product.heroTitle")}</h1>
+      <p className={subtitle()}>{t("product.heroSubtitle")}</p>
     </div>
   );
 };

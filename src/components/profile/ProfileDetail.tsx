@@ -2,6 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useTranslation } from "react-i18next";
 import { defaultProfileImage } from "@/assets";
 import { useUserContext } from "@/hooks/useUserContext";
 import { fillProfileInfo } from "@/supabase/account";
@@ -19,14 +20,16 @@ import {
   successText,
 } from "./ProfileDetail.styles";
 
-const profileSchema = z.object({
-  username: z.string().min(1, "Username is required"),
-  avatarUrl: z.union([z.string().url("Enter a valid URL"), z.literal("")]),
-});
+const createProfileSchema = (t: (key: string) => string) =>
+  z.object({
+    username: z.string().min(1, t("profile.usernameRequired")),
+    avatarUrl: z.union([z.string().url(t("profile.avatarUrlInvalid")), z.literal("")]),
+  });
 
-type ProfileValues = z.infer<typeof profileSchema>;
+type ProfileValues = z.infer<ReturnType<typeof createProfileSchema>>;
 
 const ProfileDetail = () => {
+  const { t } = useTranslation();
   const {
     currentUser,
     profilePicture,
@@ -35,6 +38,7 @@ const ProfileDetail = () => {
     username,
   } = useUserContext();
   const [saveMessage, setSaveMessage] = useState("");
+  const profileSchema = createProfileSchema(t);
 
   const {
     handleSubmit,
@@ -58,7 +62,7 @@ const ProfileDetail = () => {
   }, [username, profilePicture, reset]);
 
   if (!currentUser) {
-    return <p className={empty()}>Sign in to edit your profile.</p>;
+    return <p className={empty()}>{t("profile.signInToEdit")}</p>;
   }
 
   const onSubmit = async (values: ProfileValues) => {
@@ -68,9 +72,9 @@ const ProfileDetail = () => {
       avatar_url: values.avatarUrl || null,
     });
 
-    setUsername(updated.username || "Anonymous");
+    setUsername(updated.username || t("profile.anonymous"));
     setProfilePicture(updated.avatar_url || defaultProfileImage);
-    setSaveMessage("Profile updated.");
+    setSaveMessage(t("profile.updated"));
   };
 
   const preview = watch("avatarUrl") || defaultProfileImage;
@@ -78,9 +82,9 @@ const ProfileDetail = () => {
   return (
     <section className={card()}>
       <div className={avatarWrap()}>
-        <img alt="Current profile" className={avatar()} src={preview} />
+        <img alt={t("profile.currentProfileAlt")} className={avatar()} src={preview} />
         <div>
-          <p className="text-sm font-semibold">{username || "Anonymous"}</p>
+          <p className="text-sm font-semibold">{username || t("profile.anonymous")}</p>
           <p className="text-xs text-muted-foreground">{currentUser.email}</p>
         </div>
       </div>
@@ -88,7 +92,7 @@ const ProfileDetail = () => {
       <form className={form()} onSubmit={handleSubmit(onSubmit)}>
         <div className={fieldGroup()}>
           <label className={label()} htmlFor="profile-username">
-            Username
+            {t("profile.username")}
           </label>
           <input
             className={input()}
@@ -102,7 +106,7 @@ const ProfileDetail = () => {
 
         <div className={fieldGroup()}>
           <label className={label()} htmlFor="profile-avatar-url">
-            Avatar URL
+            {t("profile.avatarUrl")}
           </label>
           <input
             className={input()}
@@ -116,8 +120,12 @@ const ProfileDetail = () => {
 
         {saveMessage ? <p className={successText()}>{saveMessage}</p> : null}
 
-        <button aria-label="Save profile" className={button()} type="submit">
-          {isSubmitting ? "Saving..." : "Save changes"}
+        <button
+          aria-label={t("profile.saveProfileAria")}
+          className={button()}
+          type="submit"
+        >
+          {isSubmitting ? t("profile.saving") : t("profile.saveChanges")}
         </button>
       </form>
     </section>

@@ -1,6 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useCartContext } from "@/hooks/useCartContext";
 import CheckoutItemRow from "./sections/CheckoutItemRow";
@@ -19,19 +20,26 @@ import {
   total,
 } from "./CheckoutDetail.styles";
 
-const checkoutSchema = z.object({
-  name: z.string().min(1, "Name is required"),
-  address: z.string().min(1, "Address is required"),
-  cardNumber: z.string().regex(/^\d{16}$/, "Card number must be 16 digits"),
-  expiryDate: z.string().regex(/^(0[1-9]|1[0-2])\/\d{2}$/, "Use MM/YY"),
-  cvv: z.string().regex(/^\d{3,4}$/, "CVV must be 3 or 4 digits"),
-});
+const createCheckoutSchema = (t: (key: string) => string) =>
+  z.object({
+    name: z.string().min(1, t("checkout.nameRequired")),
+    address: z.string().min(1, t("checkout.addressRequired")),
+    cardNumber: z
+      .string()
+      .regex(/^\d{16}$/, t("checkout.cardNumberPattern")),
+    expiryDate: z
+      .string()
+      .regex(/^(0[1-9]|1[0-2])\/\d{2}$/, t("checkout.expiryDatePattern")),
+    cvv: z.string().regex(/^\d{3,4}$/, t("checkout.cvvPattern")),
+  });
 
-type CheckoutFormValues = z.infer<typeof checkoutSchema>;
+type CheckoutFormValues = z.infer<ReturnType<typeof createCheckoutSchema>>;
 
 const CheckoutDetail = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { cartItems, emptyCart, totalValue } = useCartContext();
+  const checkoutSchema = createCheckoutSchema(t);
 
   const {
     handleSubmit,
@@ -56,21 +64,23 @@ const CheckoutDetail = () => {
   return (
     <div className={container()}>
       <section className={cartSection()}>
-        <h2 className={sectionTitle()}>Your cart</h2>
+        <h2 className={sectionTitle()}>{t("checkout.yourCart")}</h2>
         {cartItems.length === 0 ? (
-          <p className={emptyState()}>Cart is empty.</p>
+          <p className={emptyState()}>{t("checkout.cartEmpty")}</p>
         ) : (
           cartItems.map((item) => <CheckoutItemRow item={item} key={item.id} />)
         )}
-        <p className={total()}>Total: ${totalValue.toFixed(2)}</p>
+        <p className={total()}>
+          {t("checkout.total", { total: totalValue.toFixed(2) })}
+        </p>
       </section>
 
       <section className={formSection()}>
-        <h2 className={sectionTitle()}>Payment details</h2>
+        <h2 className={sectionTitle()}>{t("checkout.paymentDetails")}</h2>
         <form className={form()} onSubmit={handleSubmit(onSubmit)}>
           <div className={fieldGroup()}>
             <label className={label()} htmlFor="checkout-name">
-              Name
+              {t("checkout.name")}
             </label>
             <input
               className={input()}
@@ -84,7 +94,7 @@ const CheckoutDetail = () => {
 
           <div className={fieldGroup()}>
             <label className={label()} htmlFor="checkout-address">
-              Address
+              {t("checkout.address")}
             </label>
             <input
               className={input()}
@@ -98,7 +108,7 @@ const CheckoutDetail = () => {
 
           <div className={fieldGroup()}>
             <label className={label()} htmlFor="checkout-card-number">
-              Card number
+              {t("checkout.cardNumber")}
             </label>
             <input
               className={input()}
@@ -113,12 +123,12 @@ const CheckoutDetail = () => {
           <div className="grid gap-3 sm:grid-cols-2">
             <div className={fieldGroup()}>
               <label className={label()} htmlFor="checkout-expiry-date">
-                Expiry date
+                {t("checkout.expiryDate")}
               </label>
               <input
                 className={input()}
                 id="checkout-expiry-date"
-                placeholder="MM/YY"
+                placeholder={t("checkout.expiryDatePlaceholder")}
                 {...register("expiryDate")}
               />
               {errors.expiryDate ? (
@@ -128,7 +138,7 @@ const CheckoutDetail = () => {
 
             <div className={fieldGroup()}>
               <label className={label()} htmlFor="checkout-cvv">
-                CVV
+                {t("checkout.cvv")}
               </label>
               <input
                 className={input()}
@@ -142,11 +152,11 @@ const CheckoutDetail = () => {
           </div>
 
           <button
-            aria-label="Submit payment"
+            aria-label={t("checkout.submitPaymentAria")}
             className={submitButton()}
             type="submit"
           >
-            {isSubmitting ? "Processing..." : "Pay now"}
+            {isSubmitting ? t("checkout.processing") : t("checkout.payNow")}
           </button>
         </form>
       </section>

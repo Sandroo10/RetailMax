@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { categoryDefinitions } from "@/data/categories";
 import { container, link } from "./CategoryLinks.styles";
 
@@ -7,10 +8,12 @@ interface CategoryLinksProps {
 }
 
 const CategoryLinks = ({ categorySlug }: CategoryLinksProps) => {
+  const { t } = useTranslation();
+
   return (
-    <nav aria-label="Product categories" className={container()}>
+    <nav aria-label={t("shop.categoryNavAria")} className={container()}>
       <NavLink className={link({ active: !categorySlug })} to="/shop">
-        All
+        {t("shop.allCategories")}
       </NavLink>
       {categoryDefinitions.map((category) => (
         <NavLink
@@ -18,7 +21,7 @@ const CategoryLinks = ({ categorySlug }: CategoryLinksProps) => {
           key={category.slug}
           to={`/shop/${category.slug}`}
         >
-          {category.label}
+          {t(category.labelKey)}
         </NavLink>
       ))}
     </nav>

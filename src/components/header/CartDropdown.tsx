@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useCartContext } from "@/hooks/useCartContext";
 import {
   actions,
@@ -19,13 +20,14 @@ interface CartDropdownProps {
 }
 
 const CartDropdown = ({ onNavigate }: CartDropdownProps) => {
+  const { t } = useTranslation();
   const { cartItems, totalValue } = useCartContext();
 
   return (
     <aside className={container()}>
       <div className={list()}>
         {cartItems.length === 0 ? (
-          <p className={empty()}>Your cart is empty.</p>
+          <p className={empty()}>{t("header.cartEmpty")}</p>
         ) : (
           cartItems.map((item) => (
             <article className={row()} key={item.id}>
@@ -42,14 +44,16 @@ const CartDropdown = ({ onNavigate }: CartDropdownProps) => {
       </div>
 
       <div className={actions()}>
-        <span className={total()}>Total: ${totalValue.toFixed(2)}</span>
+        <span className={total()}>
+          {t("header.cartTotal", { total: totalValue.toFixed(2) })}
+        </span>
         <Link
-          aria-label="Go to checkout"
+          aria-label={t("header.goToCheckoutAria")}
           className={checkoutButton()}
           onClick={onNavigate}
           to="/checkout"
         >
-          Checkout
+          {t("navigation.checkout")}
         </Link>
       </div>
     </aside>

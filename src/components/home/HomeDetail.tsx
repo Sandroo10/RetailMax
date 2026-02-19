@@ -3,6 +3,7 @@ import {
   galleryCashierImage,
   galleryShoppingImage,
 } from "@/assets";
+import { useTranslation } from "react-i18next";
 import CategoryTiles from "./sections/CategoryTiles";
 import FeaturedProducts from "./sections/FeaturedProducts";
 import {
@@ -13,25 +14,27 @@ import {
   storyImage,
 } from "./HomeDetail.styles";
 
-const stories = [
-  {
-    image: galleryBusinessImage,
-    alt: "Business partnership",
-    text: "Partnerships built on speed and trust help us move inventory with confidence.",
-  },
-  {
-    image: galleryShoppingImage,
-    alt: "Shopping journey",
-    text: "The catalog is structured for fast discovery across every major category.",
-  },
-  {
-    image: galleryCashierImage,
-    alt: "Checkout support",
-    text: "Checkout and profile flows are optimized for fewer clicks and fewer errors.",
-  },
-];
-
 const HomeDetail = () => {
+  const { t } = useTranslation();
+
+  const stories = [
+    {
+      image: galleryBusinessImage,
+      alt: t("home.story1Alt"),
+      text: t("home.story1Text"),
+    },
+    {
+      image: galleryShoppingImage,
+      alt: t("home.story2Alt"),
+      text: t("home.story2Text"),
+    },
+    {
+      image: galleryCashierImage,
+      alt: t("home.story3Alt"),
+      text: t("home.story3Text"),
+    },
+  ];
+
   return (
     <div className={container()}>
       <CategoryTiles />

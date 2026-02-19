@@ -1,4 +1,5 @@
 import { categoryBySlug } from "@/data/categories";
+import { useTranslation } from "react-i18next";
 import {
   container,
   content,
@@ -12,19 +13,21 @@ interface ShopHeroProps {
 }
 
 const ShopHero = ({ categorySlug }: ShopHeroProps) => {
+  const { t } = useTranslation();
   const category = categorySlug ? categoryBySlug[categorySlug] : undefined;
+  const categoryLabel = category ? t(category.labelKey) : "";
 
   return (
     <div className={container()}>
       <div className={backdrop()} />
       <div className={content()}>
         <h1 className={title()}>
-          {category ? category.label : "Shop Products"}
+          {category ? categoryLabel : t("shop.heroTitle")}
         </h1>
         <p className={subtitle()}>
           {category
-            ? `Explore in-stock ${category.label.toLowerCase()} with search, price filters, and quick add-to-cart actions.`
-            : "Browse all categories, compare prices, and build your cart quickly."}
+            ? t("shop.heroSubtitleCategory", { category: categoryLabel })
+            : t("shop.heroSubtitle")}
         </p>
       </div>
     </div>

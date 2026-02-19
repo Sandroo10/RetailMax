@@ -6,6 +6,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { useTranslation } from "react-i18next";
 import type { Product } from "@/supabase/products";
 import ProductCard from "@/components/shop/ProductCard";
 import { empty, grid, loading, pagination } from "./ProductGrid.styles";
@@ -27,16 +28,18 @@ const ProductGrid = ({
   currentPage,
   onPageChange,
 }: ProductGridProps) => {
+  const { t } = useTranslation();
+
   if (isLoading) {
-    return <p className={loading()}>Loading products...</p>;
+    return <p className={loading()}>{t("shop.loadingProducts")}</p>;
   }
 
   if (isError) {
-    return <p className={empty()}>Could not load products.</p>;
+    return <p className={empty()}>{t("shop.errorProducts")}</p>;
   }
 
   if (products.length === 0) {
-    return <p className={empty()}>No products match this filter.</p>;
+    return <p className={empty()}>{t("shop.emptyProducts")}</p>;
   }
 
   const totalPages = Math.max(1, Math.ceil(products.length / PAGE_SIZE));

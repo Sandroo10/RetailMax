@@ -1,6 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useTranslation } from "react-i18next";
 import { useSignInMutation } from "@/hooks/useAuthMutations";
 import {
   errorText,
@@ -12,15 +13,18 @@ import {
   submitButton,
 } from "./AuthForm.styles";
 
-const signInSchema = z.object({
-  email: z.string().email("Enter a valid email"),
-  password: z.string().min(8, "Password must be at least 8 characters"),
-});
+const createSignInSchema = (t: (key: string) => string) =>
+  z.object({
+    email: z.string().email(t("auth.emailInvalid")),
+    password: z.string().min(8, t("auth.passwordMin")),
+  });
 
-type SignInValues = z.infer<typeof signInSchema>;
+type SignInValues = z.infer<ReturnType<typeof createSignInSchema>>;
 
 const SignInSection = () => {
+  const { t } = useTranslation();
   const { mutate: signIn, isPending, error } = useSignInMutation();
+  const signInSchema = createSignInSchema(t);
 
   const {
     handleSubmit,
@@ -40,11 +44,11 @@ const SignInSection = () => {
 
   return (
     <form className={form()} onSubmit={handleSubmit(onSubmit)}>
-      <p className={helperText()}>Use your account credentials to continue.</p>
+      <p className={helperText()}>{t("auth.signInHelper")}</p>
 
       <div className={fieldGroup()}>
         <label className={label()} htmlFor="signin-email">
-          Email
+          {t("auth.email")}
         </label>
         <input className={input()} id="signin-email" {...register("email")} />
         {errors.email ? (
@@ -54,7 +58,7 @@ const SignInSection = () => {
 
       <div className={fieldGroup()}>
         <label className={label()} htmlFor="signin-password">
-          Password
+          {t("auth.password")}
         </label>
         <input
           className={input()}
@@ -69,8 +73,12 @@ const SignInSection = () => {
 
       {error ? <p className={errorText()}>{error.message}</p> : null}
 
-      <button aria-label="Sign in" className={submitButton()} type="submit">
-        {isPending ? "Signing in..." : "Sign in"}
+      <button
+        aria-label={t("auth.signInSubmitAria")}
+        className={submitButton()}
+        type="submit"
+      >
+        {isPending ? t("auth.signingIn") : t("auth.signInTab")}
       </button>
     </form>
   );

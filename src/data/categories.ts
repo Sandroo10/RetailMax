@@ -7,48 +7,48 @@ import {
 } from "@/assets";
 
 export interface CategoryDefinition {
-  label: string;
+  labelKey: string;
   slug: string;
   databaseValue: string;
   image: string;
-  shortDescription: string;
+  shortDescriptionKey: string;
 }
 
 export const categoryDefinitions: CategoryDefinition[] = [
   {
-    label: "Electronics",
+    labelKey: "categories.electronics",
     slug: "electronics",
     databaseValue: "electronics",
     image: categoryElectronicsImage,
-    shortDescription: "Devices and accessories for home and office.",
+    shortDescriptionKey: "categoriesDescriptions.electronics",
   },
   {
-    label: "Clothing",
+    labelKey: "categories.clothing",
     slug: "clothing",
     databaseValue: "clothing",
     image: categoryClothingImage,
-    shortDescription: "Everyday essentials and seasonal collections.",
+    shortDescriptionKey: "categoriesDescriptions.clothing",
   },
   {
-    label: "Gym Equipment",
+    labelKey: "categories.gymEquipment",
     slug: "gym-equipment",
     databaseValue: "gym equipment",
     image: categoryGymImage,
-    shortDescription: "Strength, cardio, and recovery tools.",
+    shortDescriptionKey: "categoriesDescriptions.gymEquipment",
   },
   {
-    label: "Toys",
+    labelKey: "categories.toys",
     slug: "toys",
     databaseValue: "toys",
     image: categoryToysImage,
-    shortDescription: "Playful picks for all ages.",
+    shortDescriptionKey: "categoriesDescriptions.toys",
   },
   {
-    label: "Beauty Products",
+    labelKey: "categories.beautyProducts",
     slug: "beauty-products",
     databaseValue: "beauty products",
     image: categoryBeautyImage,
-    shortDescription: "Skincare, wellness, and beauty staples.",
+    shortDescriptionKey: "categoriesDescriptions.beautyProducts",
   },
 ];
 

@@ -1,4 +1,5 @@
 import type { CartItem } from "@/contexts/types";
+import { useTranslation } from "react-i18next";
 import { useCartContext } from "@/hooks/useCartContext";
 import {
   content,
@@ -17,6 +18,7 @@ interface CheckoutItemRowProps {
 }
 
 const CheckoutItemRow = ({ item }: CheckoutItemRowProps) => {
+  const { t } = useTranslation();
   const { addItemToCart, clearItemsFromCart, removeItemFromCart } =
     useCartContext();
 
@@ -32,7 +34,7 @@ const CheckoutItemRow = ({ item }: CheckoutItemRowProps) => {
       <div className="flex items-center gap-4">
         <div className={controls()}>
           <button
-            aria-label={`Decrease quantity for ${item.name}`}
+            aria-label={t("checkout.decreaseQuantityAria", { name: item.name })}
             className={controlButton()}
             onClick={() => removeItemFromCart(item)}
             type="button"
@@ -41,7 +43,7 @@ const CheckoutItemRow = ({ item }: CheckoutItemRowProps) => {
           </button>
           <span className={quantity()}>{item.quantity}</span>
           <button
-            aria-label={`Increase quantity for ${item.name}`}
+            aria-label={t("checkout.increaseQuantityAria", { name: item.name })}
             className={controlButton()}
             onClick={() => addItemToCart(item)}
             type="button"
@@ -49,12 +51,12 @@ const CheckoutItemRow = ({ item }: CheckoutItemRowProps) => {
             +
           </button>
           <button
-            aria-label={`Remove ${item.name} from cart`}
+            aria-label={t("checkout.removeItemAria", { name: item.name })}
             className={controlButton()}
             onClick={() => clearItemsFromCart(item)}
             type="button"
           >
-            ï¿½
+            ×
           </button>
         </div>
         <span className={price()}>

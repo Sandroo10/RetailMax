@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import type { Product } from "@/supabase/products";
 import { useCartContext } from "@/hooks/useCartContext";
 import {
@@ -18,12 +19,13 @@ interface ProductCardProps {
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
+  const { t } = useTranslation();
   const { addItemToCart } = useCartContext();
 
   return (
     <article className={card()}>
       <Link
-        aria-label={`Open ${product.name} details`}
+        aria-label={t("shop.openProductDetailsAria", { name: product.name })}
         className={imageWrap()}
         to={`/product/${product.id}`}
       >
@@ -36,12 +38,12 @@ const ProductCard = ({ product }: ProductCardProps) => {
         <div className={footer()}>
           <span className={price()}>${product.price}</span>
           <button
-            aria-label={`Add ${product.name} to cart`}
+            aria-label={t("shop.addToCartAria", { name: product.name })}
             className={button()}
             onClick={() => addItemToCart({ ...product, quantity: 1 })}
             type="button"
           >
-            Add to cart
+            {t("shop.addToCart")}
           </button>
         </div>
       </div>

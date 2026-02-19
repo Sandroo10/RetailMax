@@ -1,4 +1,5 @@
 import { Slider } from "@/components/ui/slider";
+import { useTranslation } from "react-i18next";
 import {
   container,
   fieldGroup,
@@ -22,18 +23,20 @@ const ShopToolbar = ({
   maxPrice,
   onPriceChange,
 }: ShopToolbarProps) => {
+  const { t } = useTranslation();
+
   return (
     <section className={container()}>
       <div className={fieldGroup()}>
         <label className={label()} htmlFor="product-search">
-          Search
+          {t("shop.searchLabel")}
         </label>
         <input
-          aria-label="Search products"
+          aria-label={t("shop.searchInputAria")}
           className={input()}
           id="product-search"
           onChange={(event) => onSearchChange(event.target.value)}
-          placeholder="Search by product name"
+          placeholder={t("shop.searchPlaceholder")}
           type="text"
           value={searchQuery}
         />
@@ -41,7 +44,9 @@ const ShopToolbar = ({
 
       <div className={fieldGroup()}>
         <div className={priceGroup()}>
-          <span className={priceLabel()}>Max price: ${maxPrice}</span>
+          <span className={priceLabel()}>
+            {t("shop.maxPrice", { value: maxPrice })}
+          </span>
         </div>
         <div className={sliderWrap()}>
           <Slider

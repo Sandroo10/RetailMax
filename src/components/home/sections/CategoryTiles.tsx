@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { categoryDefinitions } from "@/data/categories";
 import {
   action,
@@ -11,20 +12,24 @@ import {
 } from "./CategoryTiles.styles";
 
 const CategoryTiles = () => {
+  const { t } = useTranslation();
+
   return (
-    <section aria-label="Browse categories" className={section()}>
+    <section aria-label={t("home.browseCategoriesAria")} className={section()}>
       {categoryDefinitions.map((category) => (
         <article className={tile()} key={category.slug}>
-          <img alt={category.label} className={image()} src={category.image} />
+          <img alt={t(category.labelKey)} className={image()} src={category.image} />
           <div className={body()}>
-            <h3 className={title()}>{category.label}</h3>
-            <p className={copy()}>{category.shortDescription}</p>
+            <h3 className={title()}>{t(category.labelKey)}</h3>
+            <p className={copy()}>{t(category.shortDescriptionKey)}</p>
             <Link
-              aria-label={`Open ${category.label}`}
+              aria-label={t("home.openCategoryAria", {
+                category: t(category.labelKey),
+              })}
               className={action()}
               to={`/shop/${category.slug}`}
             >
-              View category
+              {t("home.viewCategory")}
             </Link>
           </div>
         </article>
