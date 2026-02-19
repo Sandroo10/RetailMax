@@ -105,7 +105,8 @@ i18n.use(initReactI18next).init({
         },
         product: {
           heroTitle: "Product Details",
-          heroSubtitle: "Review item specs and add products directly to your cart.",
+          heroSubtitle:
+            "Review item specs and add products directly to your cart.",
           loadingDetails: "Loading product details...",
           errorDetails: "Could not load this product.",
           inStock: "In stock",
@@ -283,7 +284,8 @@ i18n.use(initReactI18next).init({
         },
         product: {
           heroTitle: "პროდუქტის დეტალები",
-          heroSubtitle: "გადახედეთ პროდუქტის ინფორმაციას და დაამატეთ იგი კალათაში.",
+          heroSubtitle:
+            "გადახედეთ პროდუქტის ინფორმაციას და დაამატეთ იგი კალათაში.",
           loadingDetails: "პროდუქტის დეტალები იტვირთება...",
           errorDetails: "პროდუქტის ჩატვირთვა ვერ მოხერხდა.",
           inStock: "მარაგშია",
@@ -339,8 +341,7 @@ i18n.use(initReactI18next).init({
         },
         profile: {
           heroTitle: "პროფილი",
-          heroSubtitle:
-            "მართეთ თქვენი გამოჩენილი სახელი და პროფილის სურათი.",
+          heroSubtitle: "მართეთ თქვენი გამოჩენილი სახელი და პროფილის სურათი.",
           signInToEdit: "პროფილის რედაქტირებისთვის გაიარეთ ავტორიზაცია.",
           anonymous: "ანონიმური",
           updated: "პროფილი განახლდა.",

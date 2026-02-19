@@ -18,7 +18,11 @@ const CategoryTiles = () => {
     <section aria-label={t("home.browseCategoriesAria")} className={section()}>
       {categoryDefinitions.map((category) => (
         <article className={tile()} key={category.slug}>
-          <img alt={t(category.labelKey)} className={image()} src={category.image} />
+          <img
+            alt={t(category.labelKey)}
+            className={image()}
+            src={category.image}
+          />
           <div className={body()}>
             <h3 className={title()}>{t(category.labelKey)}</h3>
             <p className={copy()}>{t(category.shortDescriptionKey)}</p>

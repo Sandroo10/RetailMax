@@ -26,7 +26,11 @@ const Footer = () => {
             rel="noopener noreferrer"
             target="_blank"
           >
-            <img alt={t("footer.facebook")} className={socialIcon()} src={socialFacebookImage} />
+            <img
+              alt={t("footer.facebook")}
+              className={socialIcon()}
+              src={socialFacebookImage}
+            />
           </a>
           <a
             aria-label={t("footer.instagramAria")}
@@ -35,7 +39,11 @@ const Footer = () => {
             rel="noopener noreferrer"
             target="_blank"
           >
-            <img alt={t("footer.instagram")} className={socialIcon()} src={socialInstagramImage} />
+            <img
+              alt={t("footer.instagram")}
+              className={socialIcon()}
+              src={socialInstagramImage}
+            />
           </a>
         </div>
       </div>

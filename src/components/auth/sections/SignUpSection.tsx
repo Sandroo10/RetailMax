@@ -46,9 +46,7 @@ const SignUpSection = () => {
 
   return (
     <form className={form()} onSubmit={handleSubmit(onSubmit)}>
-      <p className={helperText()}>
-        {t("auth.signUpHelper")}
-      </p>
+      <p className={helperText()}>{t("auth.signUpHelper")}</p>
 
       <div className={fieldGroup()}>
         <label className={label()} htmlFor="signup-username">

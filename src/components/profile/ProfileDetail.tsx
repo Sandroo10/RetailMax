@@ -23,7 +23,10 @@ import {
 const createProfileSchema = (t: (key: string) => string) =>
   z.object({
     username: z.string().min(1, t("profile.usernameRequired")),
-    avatarUrl: z.union([z.string().url(t("profile.avatarUrlInvalid")), z.literal("")]),
+    avatarUrl: z.union([
+      z.string().url(t("profile.avatarUrlInvalid")),
+      z.literal(""),
+    ]),
   });
 
 type ProfileValues = z.infer<ReturnType<typeof createProfileSchema>>;
@@ -82,9 +85,15 @@ const ProfileDetail = () => {
   return (
     <section className={card()}>
       <div className={avatarWrap()}>
-        <img alt={t("profile.currentProfileAlt")} className={avatar()} src={preview} />
+        <img
+          alt={t("profile.currentProfileAlt")}
+          className={avatar()}
+          src={preview}
+        />
         <div>
-          <p className="text-sm font-semibold">{username || t("profile.anonymous")}</p>
+          <p className="text-sm font-semibold">
+            {username || t("profile.anonymous")}
+          </p>
           <p className="text-xs text-muted-foreground">{currentUser.email}</p>
         </div>
       </div>

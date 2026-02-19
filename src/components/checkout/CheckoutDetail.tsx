@@ -24,9 +24,7 @@ const createCheckoutSchema = (t: (key: string) => string) =>
   z.object({
     name: z.string().min(1, t("checkout.nameRequired")),
     address: z.string().min(1, t("checkout.addressRequired")),
-    cardNumber: z
-      .string()
-      .regex(/^\d{16}$/, t("checkout.cardNumberPattern")),
+    cardNumber: z.string().regex(/^\d{16}$/, t("checkout.cardNumberPattern")),
     expiryDate: z
       .string()
       .regex(/^(0[1-9]|1[0-2])\/\d{2}$/, t("checkout.expiryDatePattern")),
