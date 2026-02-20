@@ -23,10 +23,15 @@ import {
   cartButton,
   cartBadge,
   container,
+  desktopAction,
+  desktopControl,
   iconButton,
+  mobileButton,
   mobileLink,
   mobileMenu,
   mobilePanel,
+  mobileUtilityItem,
+  mobileUtilityRow,
   nav,
   navLink,
   shell,
@@ -87,7 +92,7 @@ const Header = () => {
           {currentUser ? (
             <Link
               aria-label={t("header.goToProfileAria")}
-              className={iconButton()}
+              className={desktopAction()}
               to="/profile"
             >
               <img
@@ -99,7 +104,7 @@ const Header = () => {
           ) : (
             <Link
               aria-label={t("header.openAuthAria")}
-              className={iconButton()}
+              className={desktopAction()}
               to="/auth"
             >
               {t("navigation.signIn")}
@@ -109,7 +114,7 @@ const Header = () => {
           {currentUser && (
             <button
               aria-label={t("header.signOutAria")}
-              className={iconButton()}
+              className={desktopAction()}
               onClick={() => signOut()}
               type="button"
             >
@@ -127,8 +132,12 @@ const Header = () => {
             <span className={cartBadge()}>{totalQuantity}</span>
           </button>
 
-          <LanguageToggle />
-          <ThemeToggle />
+          <div className={desktopControl()}>
+            <LanguageToggle />
+          </div>
+          <div className={desktopControl()}>
+            <ThemeToggle />
+          </div>
 
           <div className={mobileMenu()}>
             <Sheet onOpenChange={setIsMobileOpen} open={isMobileOpen}>
@@ -156,13 +165,46 @@ const Header = () => {
                       {t(item.key)}
                     </Link>
                   ))}
-                  <Link
-                    className={mobileLink()}
-                    onClick={closeOverlays}
-                    to="/profile"
-                  >
-                    {t("navigation.profile")}
-                  </Link>
+                  {currentUser ? (
+                    <>
+                      <Link
+                        aria-label={t("header.goToProfileAria")}
+                        className={mobileLink()}
+                        onClick={closeOverlays}
+                        to="/profile"
+                      >
+                        {t("navigation.profile")}
+                      </Link>
+                      <button
+                        aria-label={t("header.signOutAria")}
+                        className={mobileButton()}
+                        onClick={() => {
+                          signOut();
+                          closeOverlays();
+                        }}
+                        type="button"
+                      >
+                        {t("navigation.signOut")}
+                      </button>
+                    </>
+                  ) : (
+                    <Link
+                      aria-label={t("header.openAuthAria")}
+                      className={mobileLink()}
+                      onClick={closeOverlays}
+                      to="/auth"
+                    >
+                      {t("navigation.signIn")}
+                    </Link>
+                  )}
+                  <div className={mobileUtilityRow()}>
+                    <div className={mobileUtilityItem()}>
+                      <LanguageToggle />
+                    </div>
+                    <div className={mobileUtilityItem()}>
+                      <ThemeToggle />
+                    </div>
+                  </div>
                 </div>
               </SheetContent>
             </Sheet>

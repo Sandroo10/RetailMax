@@ -37,6 +37,10 @@ export const iconButton = cva(
   "inline-flex h-10 min-w-10 items-center justify-center rounded-full border border-border bg-background px-3 text-sm font-semibold text-foreground transition hover:border-main hover:text-main",
 );
 
+export const desktopAction = cva(`${iconButton()} hidden md:inline-flex`);
+
+export const desktopControl = cva("hidden md:inline-flex");
+
 export const cartButton = cva(`${iconButton()} relative`);
 
 export const cartBadge = cva(
@@ -50,3 +54,11 @@ export const mobilePanel = cva("flex flex-col gap-2 p-4");
 export const mobileLink = cva(
   "rounded-md bg-surface px-3 py-2 text-sm font-semibold text-foreground",
 );
+
+export const mobileButton = cva(
+  "w-full rounded-md bg-surface px-3 py-2 text-left text-sm font-semibold text-foreground",
+);
+
+export const mobileUtilityRow = cva("mt-2 grid grid-cols-2 gap-2");
+
+export const mobileUtilityItem = cva("flex justify-start");
