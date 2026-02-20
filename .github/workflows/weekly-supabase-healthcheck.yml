@@ -1,0 +1,54 @@
+name: Weekly Supabase Healthcheck
+
+on:
+  schedule:
+    # Every Monday at 05:15 UTC
+    - cron: "15 5 * * 1"
+  workflow_dispatch:
+
+jobs:
+  healthcheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Call Supabase health endpoint
+        env:
+          HEALTHCHECK_URL: ${{ secrets.SUPABASE_HEALTHCHECK_URL }}
+          HEALTHCHECK_TOKEN: ${{ secrets.SUPABASE_HEALTHCHECK_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "${HEALTHCHECK_URL:-}" ] || [ -z "${HEALTHCHECK_TOKEN:-}" ]; then
+            echo "Missing required secrets: SUPABASE_HEALTHCHECK_URL and/or SUPABASE_HEALTHCHECK_TOKEN"
+            exit 1
+          fi
+
+          response_file="$(mktemp)"
+          http_status="$(
+            curl -sS \
+              -o "${response_file}" \
+              -w "%{http_code}" \
+              -H "Authorization: Bearer ${HEALTHCHECK_TOKEN}" \
+              -H "Content-Type: application/json" \
+              "${HEALTHCHECK_URL}"
+          )"
+
+          echo "HTTP status: ${http_status}"
+          echo "Response body:"
+          cat "${response_file}"
+
+          if [ "${http_status}" -ne 200 ]; then
+            echo "Healthcheck failed with non-200 response."
+            exit 1
+          fi
+
+          jq -e '.ok == true' "${response_file}" > /dev/null
+
+          {
+            echo "## Supabase Healthcheck"
+            echo "- Status: ok"
+            echo "- URL: ${HEALTHCHECK_URL}"
+          } >> "${GITHUB_STEP_SUMMARY}"
+
+          echo "Healthcheck OK."
