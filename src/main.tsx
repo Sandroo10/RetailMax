@@ -6,6 +6,7 @@ import App from "@/App";
 import { CartProvider } from "@/contexts/Cart.context";
 import { UserProvider } from "@/contexts/User.Context";
 import { ThemeProvider } from "@/components/ui/theme-provider";
+import { ToastProvider } from "@/components/ui/toast";
 import "@/index.css";
 import "@/i18n";
 
@@ -17,8 +18,10 @@ createRoot(document.getElementById("root")!).render(
       <BrowserRouter>
         <UserProvider>
           <CartProvider>
-            <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-              <App />
+            <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
+              <ToastProvider>
+                <App />
+              </ToastProvider>
             </ThemeProvider>
           </CartProvider>
         </UserProvider>

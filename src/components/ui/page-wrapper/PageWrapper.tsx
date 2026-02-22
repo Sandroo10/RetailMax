@@ -1,16 +1,20 @@
 import type { ReactNode } from "react";
-import { container, contentSection, heroSection } from "./PageWrapper.styles";
+import Container from "@/components/layout/Container";
 
 interface PageWrapperProps {
-  hero: ReactNode;
+  hero?: ReactNode;
   children: ReactNode;
 }
 
 const PageWrapper = ({ hero, children }: PageWrapperProps) => {
   return (
-    <main className={container()}>
-      <section className={heroSection()}>{hero}</section>
-      <section className={contentSection()}>{children}</section>
+    <main className="pb-8 pt-6 sm:pt-8">
+      {hero ? (
+        <Container as="section" className="mb-8">
+          {hero}
+        </Container>
+      ) : null}
+      <Container as="section">{children}</Container>
     </main>
   );
 };

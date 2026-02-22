@@ -11,6 +11,11 @@ const ProductPage = lazy(() => import("@/pages/ProductPage"));
 const CheckoutPage = lazy(() => import("@/pages/CheckoutPage"));
 const ProfilePage = lazy(() => import("@/pages/ProfilePage"));
 const AuthPage = lazy(() => import("@/pages/AuthPage"));
+const SupportShippingPage = lazy(() => import("@/pages/SupportShippingPage"));
+const SupportReturnsPage = lazy(() => import("@/pages/SupportReturnsPage"));
+const SupportSecurePaymentsPage = lazy(
+  () => import("@/pages/SupportSecurePaymentsPage"),
+);
 const NotFoundPage = lazy(() => import("@/pages/NotFoundPage"));
 
 const withSuspense = (element: ReactNode) => (
@@ -33,6 +38,18 @@ const App = () => {
         <Route element={withSuspense(<CheckoutPage />)} path="checkout" />
         <Route element={withSuspense(<ProfilePage />)} path="profile" />
         <Route element={withSuspense(<AuthPage />)} path="auth" />
+        <Route
+          element={withSuspense(<SupportShippingPage />)}
+          path="support/shipping"
+        />
+        <Route
+          element={withSuspense(<SupportReturnsPage />)}
+          path="support/returns"
+        />
+        <Route
+          element={withSuspense(<SupportSecurePaymentsPage />)}
+          path="support/secure-payments"
+        />
         <Route element={withSuspense(<NotFoundPage />)} path="*" />
       </Route>
     </Routes>

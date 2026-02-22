@@ -1,13 +1,12 @@
 import { Outlet } from "react-router-dom";
-import Footer from "@/components/Footer/Footer";
-import Header from "@/components/header/Header";
-import { main, shell } from "./AppLayout.styles";
+import Footer from "@/components/nav/Footer";
+import Header from "@/components/nav/Header";
 
 const AppLayout = () => {
   return (
-    <div className={shell()}>
+    <div className="min-h-screen bg-background">
       <Header />
-      <div className={main()}>
+      <div className="min-h-[calc(100vh-11rem)]">
         <Outlet />
       </div>
       <Footer />

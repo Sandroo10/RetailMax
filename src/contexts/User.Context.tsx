@@ -22,7 +22,7 @@ interface UserContextType {
 export const UserContext = createContext<UserContextType>({
   currentUser: null,
   handleSetUser: () => undefined,
-  username: "Anonymous",
+  username: "",
   setUsername: () => undefined,
   profilePicture: defaultProfileImage,
   setProfilePicture: () => undefined,
@@ -30,7 +30,7 @@ export const UserContext = createContext<UserContextType>({
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [currentUser, setCurrentUser] = useState<AuthUser | null>(null);
-  const [username, setUsername] = useState("Anonymous");
+  const [username, setUsername] = useState("");
   const [profilePicture, setProfilePicture] = useState(defaultProfileImage);
 
   const handleSetUser = useCallback((user: AuthUser | null) => {
@@ -39,7 +39,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     if (!currentUser) {
-      setUsername("Anonymous");
+      setUsername("");
       setProfilePicture(defaultProfileImage);
       return;
     }
@@ -47,7 +47,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     const fetchProfileInfo = async () => {
       try {
         const profile = await getProfileInfo(currentUser.uid);
-        setUsername(profile.username || "Anonymous");
+        setUsername(profile.username || "");
         setProfilePicture(profile.avatar_url || defaultProfileImage);
       } catch (error) {
         if (error instanceof Error) {
