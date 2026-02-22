@@ -59,7 +59,9 @@ const CheckoutDetail = () => {
   if (cartItems.length === 0) {
     return (
       <section className="rounded-lg border border-border bg-surface-1 p-8 text-center shadow-soft">
-        <p className="text-xl font-bold text-foreground">{t("checkout.cartEmptyTitle")}</p>
+        <p className="text-xl font-bold text-foreground">
+          {t("checkout.cartEmptyTitle")}
+        </p>
         <p className="mt-2 text-sm text-muted-foreground">
           {t("checkout.cartEmptyDescription")}
         </p>
@@ -74,7 +76,9 @@ const CheckoutDetail = () => {
     <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:items-start">
       <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
         <section className="rounded-lg border border-border bg-surface-1 p-5 shadow-soft">
-          <h2 className="text-lg font-bold text-foreground">{t("checkout.shippingDetailsTitle")}</h2>
+          <h2 className="text-lg font-bold text-foreground">
+            {t("checkout.shippingDetailsTitle")}
+          </h2>
           <p className="mt-1 text-sm text-muted-foreground">
             {t("checkout.shippingDetailsDescription")}
           </p>
@@ -90,7 +94,9 @@ const CheckoutDetail = () => {
                 placeholder={t("checkout.namePlaceholder")}
                 {...register("name")}
               />
-              {errors.name ? <p className="text-xs text-danger">{errors.name.message}</p> : null}
+              {errors.name ? (
+                <p className="text-xs text-danger">{errors.name.message}</p>
+              ) : null}
             </div>
 
             <div className="grid gap-1.5">
@@ -103,13 +109,17 @@ const CheckoutDetail = () => {
                 placeholder={t("checkout.addressPlaceholder")}
                 {...register("address")}
               />
-              {errors.address ? <p className="text-xs text-danger">{errors.address.message}</p> : null}
+              {errors.address ? (
+                <p className="text-xs text-danger">{errors.address.message}</p>
+              ) : null}
             </div>
           </div>
         </section>
 
         <section className="rounded-lg border border-border bg-surface-1 p-5 shadow-soft">
-          <h2 className="text-lg font-bold text-foreground">{t("checkout.paymentDetails")}</h2>
+          <h2 className="text-lg font-bold text-foreground">
+            {t("checkout.paymentDetails")}
+          </h2>
           <p className="mt-1 text-sm text-muted-foreground">
             {t("checkout.paymentDetailsDescription")}
           </p>
@@ -127,13 +137,18 @@ const CheckoutDetail = () => {
                 {...register("cardNumber")}
               />
               {errors.cardNumber ? (
-                <p className="text-xs text-danger">{errors.cardNumber.message}</p>
+                <p className="text-xs text-danger">
+                  {errors.cardNumber.message}
+                </p>
               ) : null}
             </div>
 
             <div className="grid gap-3 sm:grid-cols-2">
               <div className="grid gap-1.5">
-                <label className={fieldLabelClass} htmlFor="checkout-expiry-date">
+                <label
+                  className={fieldLabelClass}
+                  htmlFor="checkout-expiry-date"
+                >
                   {t("checkout.expiryDate")}
                 </label>
                 <Input
@@ -143,7 +158,9 @@ const CheckoutDetail = () => {
                   {...register("expiryDate")}
                 />
                 {errors.expiryDate ? (
-                  <p className="text-xs text-danger">{errors.expiryDate.message}</p>
+                  <p className="text-xs text-danger">
+                    {errors.expiryDate.message}
+                  </p>
                 ) : null}
               </div>
 
@@ -158,7 +175,9 @@ const CheckoutDetail = () => {
                   placeholder={t("checkout.cvvPlaceholder")}
                   {...register("cvv")}
                 />
-                {errors.cvv ? <p className="text-xs text-danger">{errors.cvv.message}</p> : null}
+                {errors.cvv ? (
+                  <p className="text-xs text-danger">{errors.cvv.message}</p>
+                ) : null}
               </div>
             </div>
           </div>
@@ -170,7 +189,9 @@ const CheckoutDetail = () => {
 
       <aside className="space-y-4 lg:sticky lg:top-24">
         <section className="rounded-lg border border-border bg-surface-1 p-5 shadow-soft">
-          <h2 className="text-lg font-bold text-foreground">{t("checkout.orderSummary")}</h2>
+          <h2 className="text-lg font-bold text-foreground">
+            {t("checkout.orderSummary")}
+          </h2>
           <div className="mt-4 space-y-3">
             {cartItems.map((item) => (
               <CheckoutItemRow item={item} key={item.id} />
@@ -180,11 +201,15 @@ const CheckoutDetail = () => {
           <div className="mt-4 space-y-2 border-t border-border pt-4 text-sm">
             <div className="flex items-center justify-between text-muted-foreground">
               <span>{t("checkout.subtotal")}</span>
-              <span className="font-semibold text-foreground">${totalValue.toFixed(2)}</span>
+              <span className="font-semibold text-foreground">
+                ${totalValue.toFixed(2)}
+              </span>
             </div>
             <div className="flex items-center justify-between text-muted-foreground">
               <span>{t("checkout.shipping")}</span>
-              <span className="font-semibold text-foreground">{t("checkout.free")}</span>
+              <span className="font-semibold text-foreground">
+                {t("checkout.free")}
+              </span>
             </div>
             <div className="flex items-center justify-between border-t border-border pt-2 text-base font-bold text-foreground">
               <span>{t("checkout.totalLabel")}</span>

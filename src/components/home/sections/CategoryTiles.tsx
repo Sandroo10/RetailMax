@@ -48,7 +48,11 @@ const CategoryTiles = () => {
     () =>
       isMobile
         ? ({ align: "start", loop: true } as const)
-        : ({ align: "start", containScroll: "trimSnaps", loop: false } as const),
+        : ({
+            align: "start",
+            containScroll: "trimSnaps",
+            loop: false,
+          } as const),
     [isMobile],
   );
 
@@ -98,7 +102,9 @@ const CategoryTiles = () => {
                   </div>
 
                   <div className="absolute inset-x-0 bottom-0 space-y-1.5 p-4">
-                    <h3 className="text-lg font-bold text-white">{t(category.labelKey)}</h3>
+                    <h3 className="text-lg font-bold text-white">
+                      {t(category.labelKey)}
+                    </h3>
                     <p className="line-clamp-1 text-sm text-white/80">
                       {t(category.shortDescriptionKey)}
                     </p>

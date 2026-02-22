@@ -9,7 +9,9 @@ const ProductHero = () => {
   const { id } = useParams<{ id: string }>();
   const { data: product } = useSingleProduct(id);
   const language = i18n.resolvedLanguage ?? i18n.language;
-  const localizedName = product ? getLocalizedProductName(product, language) : "";
+  const localizedName = product
+    ? getLocalizedProductName(product, language)
+    : "";
 
   return (
     <section className="rounded-lg border border-border bg-surface-1 p-5 shadow-soft sm:p-6">

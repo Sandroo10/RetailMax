@@ -69,7 +69,9 @@ const HomeHero = () => {
                   <div className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-brand/15 text-brand">
                     <Icon className="h-4 w-4" />
                   </div>
-                  <span className="text-xs font-semibold text-foreground">{item.title}</span>
+                  <span className="text-xs font-semibold text-foreground">
+                    {item.title}
+                  </span>
                 </div>
               );
             })}

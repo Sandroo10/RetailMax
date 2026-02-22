@@ -68,20 +68,22 @@ const ProductGrid = ({
                 />
               </PaginationItem>
 
-              {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (
-                <PaginationItem key={page}>
-                  <PaginationLink
-                    href="#"
-                    isActive={page === safePage}
-                    onClick={(event) => {
-                      event.preventDefault();
-                      onPageChange(page);
-                    }}
-                  >
-                    {page}
-                  </PaginationLink>
-                </PaginationItem>
-              ))}
+              {Array.from({ length: totalPages }, (_, index) => index + 1).map(
+                (page) => (
+                  <PaginationItem key={page}>
+                    <PaginationLink
+                      href="#"
+                      isActive={page === safePage}
+                      onClick={(event) => {
+                        event.preventDefault();
+                        onPageChange(page);
+                      }}
+                    >
+                      {page}
+                    </PaginationLink>
+                  </PaginationItem>
+                ),
+              )}
 
               <PaginationItem>
                 <PaginationNext

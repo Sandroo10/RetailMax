@@ -44,9 +44,15 @@ const SupportArticlePage = ({ topic }: SupportArticlePageProps) => {
         </p>
 
         <ul className="mt-5 grid gap-2 rounded-md border border-border bg-surface-2 p-4 text-sm text-foreground sm:text-base">
-          <li className="list-disc pl-2 marker:text-brand">{t(`${base}.highlight1`)}</li>
-          <li className="list-disc pl-2 marker:text-brand">{t(`${base}.highlight2`)}</li>
-          <li className="list-disc pl-2 marker:text-brand">{t(`${base}.highlight3`)}</li>
+          <li className="list-disc pl-2 marker:text-brand">
+            {t(`${base}.highlight1`)}
+          </li>
+          <li className="list-disc pl-2 marker:text-brand">
+            {t(`${base}.highlight2`)}
+          </li>
+          <li className="list-disc pl-2 marker:text-brand">
+            {t(`${base}.highlight3`)}
+          </li>
         </ul>
 
         <div className="mt-6 flex flex-wrap gap-3">

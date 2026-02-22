@@ -35,7 +35,8 @@ export const getLocalizedProductDescription = (
 ) => {
   if (isGeorgianLanguage(language)) {
     return (
-      normalizeText(product.description_ge) || normalizeText(product.description)
+      normalizeText(product.description_ge) ||
+      normalizeText(product.description)
     );
   }
 

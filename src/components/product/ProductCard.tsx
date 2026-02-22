@@ -36,9 +36,15 @@ const ProductCardComponent = ({
   const { pushToast } = useToast();
   const language = i18n.resolvedLanguage ?? i18n.language;
   const localizedName = getLocalizedProductName(product, language);
-  const localizedDescription = getLocalizedProductDescription(product, language);
+  const localizedDescription = getLocalizedProductDescription(
+    product,
+    language,
+  );
 
-  const rating = useMemo(() => Number((3.8 + (product.id % 11) * 0.11).toFixed(1)), [product.id]);
+  const rating = useMemo(
+    () => Number((3.8 + (product.id % 11) * 0.11).toFixed(1)),
+    [product.id],
+  );
   const reviewCount = useMemo(() => 12 + product.id * 7, [product.id]);
 
   const badge = useMemo(() => {
@@ -100,7 +106,9 @@ const ProductCardComponent = ({
 
       <div className="flex flex-1 flex-col gap-3 p-4">
         <div className="min-h-[5.25rem]">
-          <h3 className="line-clamp-1 text-base font-bold text-foreground">{localizedName}</h3>
+          <h3 className="line-clamp-1 text-base font-bold text-foreground">
+            {localizedName}
+          </h3>
           <p className="mt-1 line-clamp-2 min-h-[2.75rem] text-sm text-muted-foreground">
             {localizedDescription}
           </p>
@@ -112,11 +120,15 @@ const ProductCardComponent = ({
             <span className="font-semibold text-foreground">{rating}</span>
             <span>{t("shop.reviewCount", { count: reviewCount })}</span>
           </div>
-          <span>{product.in_stock ? t("product.inStock") : t("shop.unavailable")}</span>
+          <span>
+            {product.in_stock ? t("product.inStock") : t("shop.unavailable")}
+          </span>
         </div>
 
         <div className="mt-auto space-y-3">
-          <p className="text-xl font-bold text-foreground">{formatPrice(product.price)}</p>
+          <p className="text-xl font-bold text-foreground">
+            {formatPrice(product.price)}
+          </p>
           <Button
             aria-label={t("shop.addToCartAria", { name: localizedName })}
             className="w-full"

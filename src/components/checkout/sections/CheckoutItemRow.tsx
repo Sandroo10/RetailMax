@@ -13,7 +13,8 @@ interface CheckoutItemRowProps {
 
 const CheckoutItemRow = ({ item }: CheckoutItemRowProps) => {
   const { i18n, t } = useTranslation();
-  const { addItemToCart, clearItemsFromCart, removeItemFromCart } = useCartContext();
+  const { addItemToCart, clearItemsFromCart, removeItemFromCart } =
+    useCartContext();
   const language = i18n.resolvedLanguage ?? i18n.language;
   const localizedName = getLocalizedProductName(item, language);
   const localizedDescription = getLocalizedProductDescription(item, language);
@@ -28,23 +29,33 @@ const CheckoutItemRow = ({ item }: CheckoutItemRowProps) => {
       />
 
       <div className="min-w-0">
-        <p className="truncate text-sm font-semibold text-foreground">{localizedName}</p>
-        <p className="line-clamp-2 text-xs text-muted-foreground">{localizedDescription}</p>
+        <p className="truncate text-sm font-semibold text-foreground">
+          {localizedName}
+        </p>
+        <p className="line-clamp-2 text-xs text-muted-foreground">
+          {localizedDescription}
+        </p>
       </div>
 
       <div className="flex items-center gap-2">
         <div className="inline-flex items-center rounded-pill border border-border bg-surface-2 p-1">
           <button
-            aria-label={t("checkout.decreaseQuantityAria", { name: localizedName })}
+            aria-label={t("checkout.decreaseQuantityAria", {
+              name: localizedName,
+            })}
             className="inline-flex h-7 w-7 items-center justify-center rounded-full text-muted-foreground transition hover:text-foreground"
             onClick={() => removeItemFromCart(item)}
             type="button"
           >
             <Minus className="h-3.5 w-3.5" />
           </button>
-          <span className="w-6 text-center text-sm font-semibold text-foreground">{item.quantity}</span>
+          <span className="w-6 text-center text-sm font-semibold text-foreground">
+            {item.quantity}
+          </span>
           <button
-            aria-label={t("checkout.increaseQuantityAria", { name: localizedName })}
+            aria-label={t("checkout.increaseQuantityAria", {
+              name: localizedName,
+            })}
             className="inline-flex h-7 w-7 items-center justify-center rounded-full text-muted-foreground transition hover:text-foreground"
             onClick={() => addItemToCart(item)}
             type="button"

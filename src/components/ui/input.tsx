@@ -71,7 +71,9 @@ const InputField = ({
       >
         {icon ? <span className="text-muted-foreground">{icon}</span> : null}
         <input
-          aria-describedby={[helperId, errorId].filter(Boolean).join(" ") || undefined}
+          aria-describedby={
+            [helperId, errorId].filter(Boolean).join(" ") || undefined
+          }
           aria-invalid={Boolean(errorText)}
           aria-label={ariaLabel}
           autoComplete={autoComplete}

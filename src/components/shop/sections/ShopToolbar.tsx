@@ -67,7 +67,9 @@ const ShopToolbar = ({
           >
             {t("shop.maxPriceLabel")}
           </label>
-          <span className="text-sm font-semibold text-foreground">${maxPrice}</span>
+          <span className="text-sm font-semibold text-foreground">
+            ${maxPrice}
+          </span>
         </div>
         <Slider
           id={`${idPrefix}-max-price-slider`}
@@ -94,7 +96,9 @@ const ShopToolbar = ({
           aria-label={t("shop.sortBy")}
           className="h-11 rounded-md border border-border bg-surface-1 px-3 text-sm font-medium text-foreground shadow-soft transition duration-180 focus-visible:border-brand/70 focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:ring-offset-0"
           id={`${idPrefix}-sort-products`}
-          onChange={(event) => onSortChange(event.target.value as typeof sortBy)}
+          onChange={(event) =>
+            onSortChange(event.target.value as typeof sortBy)
+          }
           value={sortBy}
         >
           <option value="featured">{t("shop.sortFeatured")}</option>
@@ -115,7 +119,9 @@ const ShopToolbar = ({
   return (
     <section className="space-y-3 rounded-lg border border-border bg-surface-1 p-4 shadow-soft sm:p-5">
       <div className="flex items-center justify-between md:hidden">
-        <p className="text-sm font-semibold text-foreground">{t("shop.filters")}</p>
+        <p className="text-sm font-semibold text-foreground">
+          {t("shop.filters")}
+        </p>
         <Drawer onOpenChange={setIsFiltersOpen} open={isFiltersOpen}>
           <DrawerTrigger asChild>
             <Button size="sm" variant="secondary">
@@ -127,7 +133,9 @@ const ShopToolbar = ({
             <DrawerHeader>
               <DrawerTitle>{t("shop.filters")}</DrawerTitle>
             </DrawerHeader>
-            <div className="mt-2 grid gap-4">{renderFilterControls("mobile")}</div>
+            <div className="mt-2 grid gap-4">
+              {renderFilterControls("mobile")}
+            </div>
             <Button
               className="mt-4"
               onClick={() => setIsFiltersOpen(false)}

@@ -10,7 +10,10 @@ const CategoryLinks = ({ categorySlug }: CategoryLinksProps) => {
   const { t } = useTranslation();
 
   return (
-    <nav aria-label={t("shop.categoryNavAria")} className="flex flex-wrap items-center gap-2">
+    <nav
+      aria-label={t("shop.categoryNavAria")}
+      className="flex flex-wrap items-center gap-2"
+    >
       <NavLink
         className={
           !categorySlug

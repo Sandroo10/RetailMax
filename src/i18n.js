@@ -312,7 +312,8 @@ i18n.use(initReactI18next).init({
           currentProfileAlt: "Current profile",
           username: "Username",
           usernamePlaceholder: "Your display name",
-          usernameHelper: "This name appears in your account and checkout history.",
+          usernameHelper:
+            "This name appears in your account and checkout history.",
           avatarUrl: "Avatar URL",
           avatarUrlPlaceholder: "https://example.com/avatar.jpg",
           avatarUrlHelper: "Paste a public image URL for avatar preview.",
@@ -334,8 +335,10 @@ i18n.use(initReactI18next).init({
             overviewTitle: "Shipping policy overview",
             overviewBody:
               "We process most orders quickly and provide clear shipment updates from dispatch to delivery.",
-            highlight1: "Standard delivery usually arrives within 3-5 business days.",
-            highlight2: "Tracking details are shared as soon as your order ships.",
+            highlight1:
+              "Standard delivery usually arrives within 3-5 business days.",
+            highlight2:
+              "Tracking details are shared as soon as your order ships.",
             highlight3:
               "Shipping costs are shown at checkout before payment is confirmed.",
           },
@@ -346,7 +349,8 @@ i18n.use(initReactI18next).init({
             overviewTitle: "Returns policy overview",
             overviewBody:
               "If something does not meet your expectations, we provide a clear and customer-friendly return process.",
-            highlight1: "Most products can be returned within 14 days of delivery.",
+            highlight1:
+              "Most products can be returned within 14 days of delivery.",
             highlight2:
               "Items should be unused and in original condition for full refund eligibility.",
             highlight3:
@@ -595,11 +599,13 @@ i18n.use(initReactI18next).init({
           tabDescription: "აღწერა",
           tabSpecs: "მახასიათებლები",
           tabShippingReturns: "მიწოდება და დაბრუნება",
-          spec1: "პროდუქტი სიაში მოხვედრამდე გადის პრემიუმ ხარისხის შემოწმებას.",
+          spec1:
+            "პროდუქტი სიაში მოხვედრამდე გადის პრემიუმ ხარისხის შემოწმებას.",
           spec2: "SKU მითითება: {{sku}}.",
           spec3: "კატეგორია: {{category}}.",
           shipping1: "სტანდარტული მიწოდება 3-5 სამუშაო დღეში.",
-          shipping2: "გამოუყენებელი პროდუქტის უფასო დაბრუნება 14 დღის განმავლობაში.",
+          shipping2:
+            "გამოუყენებელი პროდუქტის უფასო დაბრუნება 14 დღის განმავლობაში.",
           shipping3: "შეკვეთასთან დაკავშირებულ საკითხებზე პასუხი 24 საათში.",
           inStock: "მარაგშია",
           outOfStock: "მარაგი ამოწურულია",
@@ -718,7 +724,8 @@ i18n.use(initReactI18next).init({
             overviewTitle: "მიწოდების პოლიტიკა",
             overviewBody:
               "შეკვეთების უმეტესობა სწრაფად მუშავდება და მიწოდების ყველა ეტაპზე განახლებას იღებთ.",
-            highlight1: "სტანდარტული მიწოდება ჩვეულებრივ 3-5 სამუშაო დღეში სრულდება.",
+            highlight1:
+              "სტანდარტული მიწოდება ჩვეულებრივ 3-5 სამუშაო დღეში სრულდება.",
             highlight2:
               "როგორც კი შეკვეთა გაიგზავნება, თვალთვალის დეტალები ავტომატურად გაზიარდება.",
             highlight3:

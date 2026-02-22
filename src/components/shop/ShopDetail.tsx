@@ -28,7 +28,8 @@ const sortProducts = (products: Product[], sortBy: SortValue) => {
 
   if (sortBy === "newest") {
     return [...products].sort(
-      (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+      (a, b) =>
+        new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
     );
   }
 
@@ -60,7 +61,10 @@ const ShopDetail = ({ categorySlug }: ShopDetailProps) => {
         ? product.category.toLowerCase() === category.databaseValue
         : true;
 
-      const localizedName = getLocalizedProductName(product, language).toLowerCase();
+      const localizedName = getLocalizedProductName(
+        product,
+        language,
+      ).toLowerCase();
       const localizedDescription = getLocalizedProductDescription(
         product,
         language,

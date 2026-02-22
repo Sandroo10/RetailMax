@@ -107,7 +107,11 @@ body {
       hsl(var(--brand) / 0.1),
       transparent 35%
     ),
-    radial-gradient(circle at 100% 0%, hsl(var(--brand) / 0.06), transparent 28%);
+    radial-gradient(
+      circle at 100% 0%,
+      hsl(var(--brand) / 0.06),
+      transparent 28%
+    );
   color: hsl(var(--foreground));
 }
 

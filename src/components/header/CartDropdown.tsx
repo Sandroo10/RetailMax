@@ -21,7 +21,9 @@ const CartDropdown = ({ onNavigate }: CartDropdownProps) => {
           <ShoppingBag className="h-4 w-4" />
         </div>
         <div>
-          <p className="text-sm font-semibold text-foreground">{t("header.cartTitle")}</p>
+          <p className="text-sm font-semibold text-foreground">
+            {t("header.cartTitle")}
+          </p>
           <p className="text-xs text-muted-foreground">
             {t("header.cartItemsCount", { count: cartItems.length })}
           </p>
@@ -49,9 +51,14 @@ const CartDropdown = ({ onNavigate }: CartDropdownProps) => {
                   src={item.image_url}
                 />
                 <div className="min-w-0">
-                  <p className="truncate text-sm font-semibold text-foreground">{localizedName}</p>
+                  <p className="truncate text-sm font-semibold text-foreground">
+                    {localizedName}
+                  </p>
                   <p className="text-xs text-muted-foreground">
-                    {t("header.cartLine", { quantity: item.quantity, price: item.price })}
+                    {t("header.cartLine", {
+                      quantity: item.quantity,
+                      price: item.price,
+                    })}
                   </p>
                 </div>
                 <p className="text-sm font-semibold text-foreground">
@@ -71,7 +78,12 @@ const CartDropdown = ({ onNavigate }: CartDropdownProps) => {
           </span>
         </div>
 
-        <Button asChild className="w-full" onClick={onNavigate} variant="primary">
+        <Button
+          asChild
+          className="w-full"
+          onClick={onNavigate}
+          variant="primary"
+        >
           <Link aria-label={t("header.goToCheckoutAria")} to="/checkout">
             {t("navigation.checkout")}
           </Link>

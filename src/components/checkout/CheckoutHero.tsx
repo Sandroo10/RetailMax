@@ -41,7 +41,9 @@ const CheckoutHero = () => {
             <span
               className={[
                 "inline-flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold",
-                index < 2 ? "bg-brand text-primary-foreground" : "bg-surface-3 text-muted-foreground",
+                index < 2
+                  ? "bg-brand text-primary-foreground"
+                  : "bg-surface-3 text-muted-foreground",
               ].join(" ")}
             >
               {index + 1}

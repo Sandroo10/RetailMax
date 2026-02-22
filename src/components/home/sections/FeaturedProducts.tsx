@@ -79,7 +79,11 @@ const FeaturedProducts = () => {
     () =>
       isMobile
         ? ({ align: "start", loop: true } as const)
-        : ({ align: "start", containScroll: "trimSnaps", loop: false } as const),
+        : ({
+            align: "start",
+            containScroll: "trimSnaps",
+            loop: false,
+          } as const),
     [isMobile],
   );
 
@@ -97,9 +101,13 @@ const FeaturedProducts = () => {
         value={filter}
       >
         <TabsList>
-          <TabsTrigger value="trending">{t("home.featuredTrending")}</TabsTrigger>
+          <TabsTrigger value="trending">
+            {t("home.featuredTrending")}
+          </TabsTrigger>
           <TabsTrigger value="new">{t("home.featuredNew")}</TabsTrigger>
-          <TabsTrigger value="bestValue">{t("home.featuredBestValue")}</TabsTrigger>
+          <TabsTrigger value="bestValue">
+            {t("home.featuredBestValue")}
+          </TabsTrigger>
         </TabsList>
       </Tabs>
 
@@ -147,10 +155,7 @@ const FeaturedProducts = () => {
                 className="basis-full pl-3 md:basis-1/2 md:pl-4 lg:basis-1/4"
                 key={product.id}
               >
-                <ProductCard
-                  priorityImage={index === 0}
-                  product={product}
-                />
+                <ProductCard priorityImage={index === 0} product={product} />
               </CarouselItem>
             ))}
           </CarouselContent>

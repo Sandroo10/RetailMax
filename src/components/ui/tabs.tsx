@@ -52,7 +52,11 @@ const TabsList = ({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div className={cn(tabsListVariants(), className)} role="tablist" {...props} />
+  <div
+    className={cn(tabsListVariants(), className)}
+    role="tablist"
+    {...props}
+  />
 );
 
 const tabsTriggerVariants = cva(
@@ -111,7 +115,10 @@ const TabsContent = ({ className, value, ...props }: TabsContentProps) => {
 
   return (
     <div
-      className={cn("rounded-lg border border-border bg-surface-1 p-5", className)}
+      className={cn(
+        "rounded-lg border border-border bg-surface-1 p-5",
+        className,
+      )}
       role="tabpanel"
       {...props}
     />

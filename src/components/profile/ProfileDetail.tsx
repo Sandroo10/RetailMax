@@ -64,7 +64,9 @@ const ProfileDetail = () => {
   if (!currentUser) {
     return (
       <section className="rounded-lg border border-border bg-surface-1 p-8 text-center shadow-soft">
-        <p className="text-base font-semibold text-foreground">{t("profile.signInToEdit")}</p>
+        <p className="text-base font-semibold text-foreground">
+          {t("profile.signInToEdit")}
+        </p>
         <Button asChild className="mt-4" variant="primary">
           <Link to="/auth">{t("navigation.signIn")}</Link>
         </Button>
@@ -97,7 +99,10 @@ const ProfileDetail = () => {
         <p className="mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
           {t("profile.accountTitle")}
         </p>
-        <nav className="grid gap-2" aria-label={t("profile.accountSectionsAria")}>
+        <nav
+          className="grid gap-2"
+          aria-label={t("profile.accountSectionsAria")}
+        >
           {sidebarItems.map((item, index) => (
             <button
               className={[
@@ -130,17 +135,26 @@ const ProfileDetail = () => {
               )}
             </div>
             <div>
-              <p className="text-base font-bold text-foreground">{username || t("profile.anonymous")}</p>
-              <p className="text-sm text-muted-foreground">{currentUser.email}</p>
+              <p className="text-base font-bold text-foreground">
+                {username || t("profile.anonymous")}
+              </p>
+              <p className="text-sm text-muted-foreground">
+                {currentUser.email}
+              </p>
             </div>
           </div>
 
-          <p className="text-xs text-muted-foreground">{t("profile.visibleAcross")}</p>
+          <p className="text-xs text-muted-foreground">
+            {t("profile.visibleAcross")}
+          </p>
         </div>
 
         <form className="grid gap-4" onSubmit={handleSubmit(onSubmit)}>
           <div className="grid gap-1.5">
-            <label className="text-sm font-semibold text-foreground" htmlFor="profile-username">
+            <label
+              className="text-sm font-semibold text-foreground"
+              htmlFor="profile-username"
+            >
               {t("profile.username")}
             </label>
             <Input
@@ -158,7 +172,10 @@ const ProfileDetail = () => {
           </div>
 
           <div className="grid gap-1.5">
-            <label className="text-sm font-semibold text-foreground" htmlFor="profile-avatar-url">
+            <label
+              className="text-sm font-semibold text-foreground"
+              htmlFor="profile-avatar-url"
+            >
               {t("profile.avatarUrl")}
             </label>
             <Input
@@ -167,7 +184,9 @@ const ProfileDetail = () => {
               placeholder={t("profile.avatarUrlPlaceholder")}
               {...register("avatarUrl")}
             />
-            <p className="text-xs text-muted-foreground">{t("profile.avatarUrlHelper")}</p>
+            <p className="text-xs text-muted-foreground">
+              {t("profile.avatarUrlHelper")}
+            </p>
             {errors.avatarUrl ? (
               <p className="text-xs text-danger">{errors.avatarUrl.message}</p>
             ) : null}

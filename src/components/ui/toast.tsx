@@ -37,7 +37,10 @@ export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
   const [messages, setMessages] = React.useState<ToastMessage[]>([]);
 
   const pushToast = React.useCallback((toast: Omit<ToastMessage, "id">) => {
-    setMessages((current) => [...current, { ...toast, id: Date.now() + Math.random() }]);
+    setMessages((current) => [
+      ...current,
+      { ...toast, id: Date.now() + Math.random() },
+    ]);
   }, []);
 
   const dismissToast = React.useCallback((id: number) => {
@@ -74,9 +77,13 @@ export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
                   {variantIcons[message.variant]}
                 </div>
                 <div className="space-y-0.5">
-                  <p className="text-sm font-semibold text-foreground">{message.title}</p>
+                  <p className="text-sm font-semibold text-foreground">
+                    {message.title}
+                  </p>
                   {message.description ? (
-                    <p className="text-xs leading-5 text-muted-foreground">{message.description}</p>
+                    <p className="text-xs leading-5 text-muted-foreground">
+                      {message.description}
+                    </p>
                   ) : null}
                 </div>
               </div>

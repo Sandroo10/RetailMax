@@ -85,7 +85,10 @@ const SheetFooter = ({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div className={cn("mt-auto flex flex-col-reverse gap-2", className)} {...props} />
+  <div
+    className={cn("mt-auto flex flex-col-reverse gap-2", className)}
+    {...props}
+  />
 );
 SheetFooter.displayName = "SheetFooter";
 

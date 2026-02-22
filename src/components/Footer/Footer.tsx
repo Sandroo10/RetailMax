@@ -36,7 +36,12 @@ const Footer = () => {
                 placeholder={t("footer.newsletterPlaceholder")}
                 type="email"
               />
-              <Button aria-label={t("footer.newsletterSubmitAria")} size="icon" type="submit" variant="primary">
+              <Button
+                aria-label={t("footer.newsletterSubmitAria")}
+                size="icon"
+                type="submit"
+                variant="primary"
+              >
                 <Send className="h-4 w-4" />
               </Button>
             </div>
@@ -49,7 +54,10 @@ const Footer = () => {
           </p>
           <ul className="space-y-2 text-sm text-muted-foreground">
             <li>
-              <Link className="transition hover:text-brand" to="/shop/electronics">
+              <Link
+                className="transition hover:text-brand"
+                to="/shop/electronics"
+              >
                 {t("categories.electronics")}
               </Link>
             </li>
@@ -59,12 +67,18 @@ const Footer = () => {
               </Link>
             </li>
             <li>
-              <Link className="transition hover:text-brand" to="/shop/gym-equipment">
+              <Link
+                className="transition hover:text-brand"
+                to="/shop/gym-equipment"
+              >
                 {t("categories.gymEquipment")}
               </Link>
             </li>
             <li>
-              <Link className="transition hover:text-brand" to="/shop/beauty-products">
+              <Link
+                className="transition hover:text-brand"
+                to="/shop/beauty-products"
+              >
                 {t("categories.beautyProducts")}
               </Link>
             </li>
@@ -105,12 +119,18 @@ const Footer = () => {
           </p>
           <ul className="space-y-2 text-sm text-muted-foreground">
             <li>
-              <Link className="transition hover:text-brand" to="/support/shipping">
+              <Link
+                className="transition hover:text-brand"
+                to="/support/shipping"
+              >
                 {t("footer.supportShipping")}
               </Link>
             </li>
             <li>
-              <Link className="transition hover:text-brand" to="/support/returns">
+              <Link
+                className="transition hover:text-brand"
+                to="/support/returns"
+              >
                 {t("footer.supportReturns")}
               </Link>
             </li>
@@ -148,7 +168,7 @@ const Footer = () => {
       </Container>
 
       <Container className="border-t border-border py-3 text-center text-xs text-muted-foreground">
-         {new Date().getFullYear()} RetailMax. {t("footer.copyright")}
+        {new Date().getFullYear()} RetailMax. {t("footer.copyright")}
       </Container>
     </footer>
   );

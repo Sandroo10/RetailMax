@@ -58,7 +58,9 @@ const HomeDetail = () => {
 
               <div className="absolute inset-x-0 bottom-0 space-y-1 p-4">
                 <h3 className="text-lg font-bold text-white">{card.title}</h3>
-                <p className="text-sm leading-6 text-white/85">{card.description}</p>
+                <p className="text-sm leading-6 text-white/85">
+                  {card.description}
+                </p>
               </div>
             </article>
           ))}
