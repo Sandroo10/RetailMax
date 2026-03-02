@@ -1,9 +1,9 @@
-name: Weekly Supabase Healthcheck
+name: Supabase Healthcheck
 
 on:
   schedule:
-    # Every Monday at 05:15 UTC
-    - cron: "15 5 * * 1"
+    # Every 3 days at 05:15 UTC
+    - cron: "15 5 */3 * *"
   workflow_dispatch:
 
 jobs:
@@ -19,36 +19,94 @@ jobs:
         run: |
           set -euo pipefail
 
-          if [ -z "${HEALTHCHECK_URL:-}" ] || [ -z "${HEALTHCHECK_TOKEN:-}" ]; then
-            echo "Missing required secrets: SUPABASE_HEALTHCHECK_URL and/or SUPABASE_HEALTHCHECK_TOKEN"
+          fail() {
+            local reason="$1"
+            echo "Healthcheck failed: ${reason}"
+            {
+              echo "## Supabase Healthcheck"
+              echo "- Status: failed"
+              echo "- Reason: ${reason}"
+              echo "- URL: ${HEALTHCHECK_URL:-unset}"
+              if [ -n "${http_status:-}" ]; then
+                echo "- HTTP status: ${http_status}"
+              fi
+              if [ -n "${curl_exit_code:-}" ]; then
+                echo "- Curl exit code: ${curl_exit_code}"
+              fi
+              if [ -n "${curl_error_file:-}" ] && [ -s "${curl_error_file}" ]; then
+                echo "- Curl error output:"
+                echo '```text'
+                cat "${curl_error_file}"
+                echo '```'
+              fi
+              if [ -n "${jq_error_file:-}" ] && [ -s "${jq_error_file}" ]; then
+                echo "- JSON validation output:"
+                echo '```text'
+                cat "${jq_error_file}"
+                echo '```'
+              fi
+              if [ -n "${response_file:-}" ] && [ -f "${response_file}" ]; then
+                echo "- Response body:"
+                echo '```json'
+                cat "${response_file}"
+                echo '```'
+              fi
+            } >> "${GITHUB_STEP_SUMMARY}"
             exit 1
+          }
+
+          cleanup() {
+            if [ -n "${response_file:-}" ] && [ -f "${response_file}" ]; then
+              rm -f "${response_file}"
+            fi
+            if [ -n "${curl_error_file:-}" ] && [ -f "${curl_error_file}" ]; then
+              rm -f "${curl_error_file}"
+            fi
+            if [ -n "${jq_error_file:-}" ] && [ -f "${jq_error_file}" ]; then
+              rm -f "${jq_error_file}"
+            fi
+          }
+          trap cleanup EXIT
+
+          if [ -z "${HEALTHCHECK_URL:-}" ] || [ -z "${HEALTHCHECK_TOKEN:-}" ]; then
+            fail "Missing required secrets: SUPABASE_HEALTHCHECK_URL and/or SUPABASE_HEALTHCHECK_TOKEN"
           fi
 
           response_file="$(mktemp)"
+          curl_error_file="$(mktemp)"
+          jq_error_file="$(mktemp)"
+          curl_exit_code=0
           http_status="$(
             curl -sS \
               -o "${response_file}" \
               -w "%{http_code}" \
               -H "Authorization: Bearer ${HEALTHCHECK_TOKEN}" \
               -H "Content-Type: application/json" \
-              "${HEALTHCHECK_URL}"
-          )"
+              "${HEALTHCHECK_URL}" \
+              2>"${curl_error_file}"
+          )" || curl_exit_code=$?
+
+          if [ "${curl_exit_code}" -ne 0 ]; then
+            fail "HTTP request failed"
+          fi
 
           echo "HTTP status: ${http_status}"
           echo "Response body:"
           cat "${response_file}"
 
-          if [ "${http_status}" -ne 200 ]; then
-            echo "Healthcheck failed with non-200 response."
-            exit 1
+          if [ "${http_status}" != "200" ]; then
+            fail "Non-200 response"
           fi
 
-          jq -e '.ok == true' "${response_file}" > /dev/null
+          if ! jq -e '.ok == true' "${response_file}" > /dev/null 2>"${jq_error_file}"; then
+            fail "Response JSON does not contain ok=true"
+          fi
 
           {
             echo "## Supabase Healthcheck"
             echo "- Status: ok"
             echo "- URL: ${HEALTHCHECK_URL}"
+            echo "- HTTP status: ${http_status}"
           } >> "${GITHUB_STEP_SUMMARY}"
 
           echo "Healthcheck OK."
