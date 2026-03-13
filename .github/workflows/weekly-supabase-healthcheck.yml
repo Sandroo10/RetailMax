@@ -2,8 +2,8 @@ name: Supabase Healthcheck
 
 on:
   schedule:
-    # Every 3 days at 05:15 UTC
-    - cron: "15 5 */3 * *"
+    # Daily at 05:15 UTC
+    - cron: "15 5 * * *"
   workflow_dispatch:
 
 jobs:
@@ -12,10 +12,12 @@ jobs:
     timeout-minutes: 5
 
     steps:
-      - name: Call Supabase health endpoint
+      - name: Call Supabase RPC healthcheck
         env:
-          HEALTHCHECK_URL: ${{ secrets.SUPABASE_HEALTHCHECK_URL }}
-          HEALTHCHECK_TOKEN: ${{ secrets.SUPABASE_HEALTHCHECK_TOKEN }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          HEALTHCHECK_RPC: healthcheck_ping
         run: |
           set -euo pipefail
 
@@ -26,7 +28,7 @@ jobs:
               echo "## Supabase Healthcheck"
               echo "- Status: failed"
               echo "- Reason: ${reason}"
-              echo "- URL: ${HEALTHCHECK_URL:-unset}"
+              echo "- Endpoint: ${healthcheck_url:-unset}"
               if [ -n "${http_status:-}" ]; then
                 echo "- HTTP status: ${http_status}"
               fi
@@ -68,21 +70,30 @@ jobs:
           }
           trap cleanup EXIT
 
-          if [ -z "${HEALTHCHECK_URL:-}" ] || [ -z "${HEALTHCHECK_TOKEN:-}" ]; then
-            fail "Missing required secrets: SUPABASE_HEALTHCHECK_URL and/or SUPABASE_HEALTHCHECK_TOKEN"
+          supabase_api_key="${SUPABASE_SERVICE_ROLE_KEY:-${SUPABASE_ANON_KEY:-}}"
+
+          if [ -z "${SUPABASE_URL:-}" ] || [ -z "${supabase_api_key:-}" ]; then
+            fail "Missing required secrets: SUPABASE_URL and either SUPABASE_ANON_KEY or SUPABASE_SERVICE_ROLE_KEY"
           fi
 
+          healthcheck_url="${SUPABASE_URL%/}/rest/v1/rpc/${HEALTHCHECK_RPC}"
           response_file="$(mktemp)"
           curl_error_file="$(mktemp)"
           jq_error_file="$(mktemp)"
           curl_exit_code=0
           http_status="$(
             curl -sS \
+              --max-time 20 \
+              --retry 2 \
+              --retry-delay 5 \
               -o "${response_file}" \
               -w "%{http_code}" \
-              -H "Authorization: Bearer ${HEALTHCHECK_TOKEN}" \
+              -X POST \
+              -H "apikey: ${supabase_api_key}" \
+              -H "Authorization: Bearer ${supabase_api_key}" \
               -H "Content-Type: application/json" \
-              "${HEALTHCHECK_URL}" \
+              -d '{}' \
+              "${healthcheck_url}" \
               2>"${curl_error_file}"
           )" || curl_exit_code=$?
 
@@ -94,18 +105,36 @@ jobs:
           echo "Response body:"
           cat "${response_file}"
 
-          if [ "${http_status}" != "200" ]; then
-            fail "Non-200 response"
-          fi
+          case "${http_status}" in
+            200|201|204)
+              ;;
+            401|403)
+              fail "Unauthorized response from Supabase REST API"
+              ;;
+            402)
+              fail "Supabase returned a plan or quota restriction"
+              ;;
+            404)
+              fail "RPC endpoint not found; confirm healthcheck_ping exists and is exposed"
+              ;;
+            540)
+              fail "Supabase project is paused"
+              ;;
+            *)
+              fail "Unexpected non-2xx response"
+              ;;
+          esac
 
-          if ! jq -e '.ok == true' "${response_file}" > /dev/null 2>"${jq_error_file}"; then
-            fail "Response JSON does not contain ok=true"
+          if [ -s "${response_file}" ]; then
+            if ! jq -e . "${response_file}" > /dev/null 2>"${jq_error_file}"; then
+              fail "Response body is not valid JSON"
+            fi
           fi
 
           {
             echo "## Supabase Healthcheck"
             echo "- Status: ok"
-            echo "- URL: ${HEALTHCHECK_URL}"
+            echo "- Endpoint: ${healthcheck_url}"
             echo "- HTTP status: ${http_status}"
           } >> "${GITHUB_STEP_SUMMARY}"
 
