@@ -1,12 +1,4 @@
-import {
-  CheckCircle2,
-  LogOut,
-  Menu,
-  ShieldCheck,
-  ShoppingBag,
-  Truck,
-  UserCircle2,
-} from "lucide-react";
+import { LogOut, Menu, ShoppingBag, UserCircle2 } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, NavLink } from "react-router-dom";
@@ -54,24 +46,27 @@ const Header = () => {
     setIsMobileOpen(false);
     setIsCartOpen(false);
   };
+  const announcementItems = [
+    t("home.announcementShipping"),
+    t("home.announcementReturns"),
+    t("home.announcementSecure"),
+    t("home.announcementNew"),
+  ];
 
   return (
     <header className="sticky top-0 z-50 border-b border-border/80 bg-background/92 shadow-[0_10px_30px_hsl(var(--text-1)/0.05)] backdrop-blur-xl">
-      <div className="hidden border-b border-border/70 bg-surface-1/70 py-2 sm:block">
-        <Container className="flex items-center justify-center gap-5 text-[11px] font-bold uppercase tracking-[0.16em] text-muted-foreground">
-          <span className="inline-flex items-center gap-1.5">
-            <Truck className="h-3.5 w-3.5 text-brand" />
-            {t("home.trustFastCheckout")}
-          </span>
-          <span className="inline-flex items-center gap-1.5">
-            <ShieldCheck className="h-3.5 w-3.5 text-brand" />
-            {t("home.trustSecurePayments")}
-          </span>
-          <span className="inline-flex items-center gap-1.5">
-            <CheckCircle2 className="h-3.5 w-3.5 text-brand" />
-            {t("home.trustCuratedPicks")}
-          </span>
-        </Container>
+      <div className="hidden overflow-hidden border-b border-border/70 bg-text-1 py-2 text-surface-1 sm:block">
+        <div className="announcement-track flex w-max gap-10 whitespace-nowrap pl-10 text-[11px] font-bold uppercase tracking-[0.16em]">
+          {[...announcementItems, ...announcementItems].map((item, index) => (
+            <span
+              className="inline-flex items-center gap-2 text-surface-1/82"
+              key={`${item}-${index}`}
+            >
+              <span className="h-1.5 w-1.5 rounded-full bg-brand" />
+              {item}
+            </span>
+          ))}
+        </div>
       </div>
       <Container className="flex h-16 items-center justify-between gap-3 sm:h-[4.5rem]">
         <Link

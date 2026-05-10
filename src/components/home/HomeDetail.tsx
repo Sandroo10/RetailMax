@@ -6,7 +6,9 @@ import {
 import { useTranslation } from "react-i18next";
 import SectionHeader from "@/components/layout/SectionHeader";
 import CategoryTiles from "./sections/CategoryTiles";
+import CustomerProof from "./sections/CustomerProof";
 import FeaturedProducts from "./sections/FeaturedProducts";
+import PromoStory from "./sections/PromoStory";
 
 const HomeDetail = () => {
   const { t } = useTranslation();
@@ -32,6 +34,7 @@ const HomeDetail = () => {
     <div className="space-y-14">
       <CategoryTiles />
       <FeaturedProducts />
+      <PromoStory />
 
       <section className="hidden space-y-5 md:block">
         <SectionHeader
@@ -66,6 +69,8 @@ const HomeDetail = () => {
           ))}
         </div>
       </section>
+
+      <CustomerProof />
     </div>
   );
 };

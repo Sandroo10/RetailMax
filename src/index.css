@@ -219,4 +219,18 @@ a {
       ),
       linear-gradient(180deg, hsl(var(--brand) / 0.08), transparent);
   }
+
+  .announcement-track {
+    animation: announcement-marquee 30s linear infinite;
+  }
+}
+
+@keyframes announcement-marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
 }
