@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { CreditCard, LockKeyhole, ShieldCheck, Truck } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { z } from "zod";
@@ -73,15 +74,22 @@ const CheckoutDetail = () => {
   }
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:items-start">
+    <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
       <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
-        <section className="rounded-lg border border-border bg-surface-1 p-5 shadow-soft">
-          <h2 className="text-lg font-bold text-foreground">
-            {t("checkout.shippingDetailsTitle")}
-          </h2>
-          <p className="mt-1 text-sm text-muted-foreground">
-            {t("checkout.shippingDetailsDescription")}
-          </p>
+        <section className="rounded-lg border border-border/80 bg-surface-1 p-5 shadow-soft">
+          <div className="flex items-start gap-3">
+            <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-brand/15 text-brand">
+              <Truck className="h-5 w-5" />
+            </div>
+            <div>
+              <h2 className="text-lg font-bold text-foreground">
+                {t("checkout.shippingDetailsTitle")}
+              </h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                {t("checkout.shippingDetailsDescription")}
+              </p>
+            </div>
+          </div>
 
           <div className="mt-4 grid gap-3">
             <div className="grid gap-1.5">
@@ -116,13 +124,20 @@ const CheckoutDetail = () => {
           </div>
         </section>
 
-        <section className="rounded-lg border border-border bg-surface-1 p-5 shadow-soft">
-          <h2 className="text-lg font-bold text-foreground">
-            {t("checkout.paymentDetails")}
-          </h2>
-          <p className="mt-1 text-sm text-muted-foreground">
-            {t("checkout.paymentDetailsDescription")}
-          </p>
+        <section className="rounded-lg border border-border/80 bg-surface-1 p-5 shadow-soft">
+          <div className="flex items-start gap-3">
+            <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-brand/15 text-brand">
+              <CreditCard className="h-5 w-5" />
+            </div>
+            <div>
+              <h2 className="text-lg font-bold text-foreground">
+                {t("checkout.paymentDetails")}
+              </h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                {t("checkout.paymentDetailsDescription")}
+              </p>
+            </div>
+          </div>
 
           <div className="mt-4 grid gap-3">
             <div className="grid gap-1.5">
@@ -187,11 +202,21 @@ const CheckoutDetail = () => {
         </button>
       </form>
 
-      <aside className="space-y-4 lg:sticky lg:top-24">
-        <section className="rounded-lg border border-border bg-surface-1 p-5 shadow-soft">
-          <h2 className="text-lg font-bold text-foreground">
-            {t("checkout.orderSummary")}
-          </h2>
+      <aside className="space-y-4 lg:sticky lg:top-28">
+        <section className="rounded-lg border border-border/80 bg-surface-1 p-5 shadow-soft">
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <h2 className="text-lg font-bold text-foreground">
+                {t("checkout.orderSummary")}
+              </h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                {t("checkout.paymentDetailsDescription")}
+              </p>
+            </div>
+            <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-success/15 text-success">
+              <ShieldCheck className="h-5 w-5" />
+            </div>
+          </div>
           <div className="mt-4 space-y-3">
             {cartItems.map((item) => (
               <CheckoutItemRow item={item} key={item.id} />
@@ -214,6 +239,13 @@ const CheckoutDetail = () => {
             <div className="flex items-center justify-between border-t border-border pt-2 text-base font-bold text-foreground">
               <span>{t("checkout.totalLabel")}</span>
               <span>${totalValue.toFixed(2)}</span>
+            </div>
+          </div>
+
+          <div className="mt-4 rounded-lg border border-border/80 bg-surface-2 p-3 text-xs font-semibold text-muted-foreground">
+            <div className="flex items-center gap-2">
+              <LockKeyhole className="h-4 w-4 text-brand" />
+              <span>{t("home.trustSecurePayments")}</span>
             </div>
           </div>
 

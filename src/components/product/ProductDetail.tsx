@@ -1,5 +1,14 @@
 import { useMemo, useState } from "react";
-import { ArrowLeft, Minus, Plus, Share2, Star } from "lucide-react";
+import {
+  ArrowLeft,
+  Minus,
+  Plus,
+  RotateCcw,
+  Share2,
+  ShieldCheck,
+  Star,
+  Truck,
+} from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useCartContext } from "@/hooks/useCartContext";
@@ -125,12 +134,12 @@ const ProductDetail = () => {
 
   return (
     <div className="space-y-6">
-      <section className="grid gap-5 rounded-lg border border-border bg-surface-1 p-5 shadow-soft lg:grid-cols-[1.08fr_1fr] lg:gap-7 lg:p-6">
+      <section className="grid gap-5 rounded-lg border border-border/80 bg-surface-1 p-4 shadow-soft sm:p-5 lg:grid-cols-[1.08fr_1fr] lg:gap-7 lg:p-6">
         <div className="space-y-3">
-          <div className="overflow-hidden rounded-lg border border-border bg-surface-2">
+          <div className="product-media-bg overflow-hidden rounded-lg border border-border/80 p-3 shadow-soft">
             <img
               alt={localizedName}
-              className="aspect-square h-full w-full object-cover"
+              className="aspect-square h-full w-full rounded-md object-cover"
               decoding="async"
               src={product.image_url}
             />
@@ -139,7 +148,7 @@ const ProductDetail = () => {
           <div className="flex gap-2">
             <button
               aria-label={t("product.selectedImageAria")}
-              className="h-16 w-16 overflow-hidden rounded-md border border-brand bg-surface-2"
+              className="h-16 w-16 overflow-hidden rounded-md border-2 border-brand bg-surface-2 p-1 shadow-soft"
               type="button"
             >
               <img
@@ -151,7 +160,7 @@ const ProductDetail = () => {
           </div>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-5">
           <div className="flex flex-wrap items-center gap-2">
             <Badge variant={stockVariant}>
               {product.in_stock
@@ -164,7 +173,7 @@ const ProductDetail = () => {
           </div>
 
           <div className="space-y-2">
-            <h2 className="text-2xl font-bold text-foreground sm:text-3xl">
+            <h2 className="text-2xl font-bold leading-tight text-foreground sm:text-4xl">
               {localizedName}
             </h2>
             <div className="flex items-center gap-2 text-sm">
@@ -178,13 +187,34 @@ const ProductDetail = () => {
             </div>
           </div>
 
-          <p className="text-3xl font-bold text-foreground">
+          <p className="text-4xl font-extrabold tracking-tight text-foreground">
             {formatPrice(product.price)}
           </p>
 
           <p className="text-sm leading-7 text-muted-foreground">
             {localizedDescription}
           </p>
+
+          <div className="grid gap-2 sm:grid-cols-3">
+            <div className="rounded-lg border border-border/80 bg-surface-2 p-3">
+              <Truck className="mb-2 h-4 w-4 text-brand" />
+              <p className="text-xs font-bold text-foreground">
+                {t("home.trustFastCheckout")}
+              </p>
+            </div>
+            <div className="rounded-lg border border-border/80 bg-surface-2 p-3">
+              <ShieldCheck className="mb-2 h-4 w-4 text-brand" />
+              <p className="text-xs font-bold text-foreground">
+                {t("home.trustSecurePayments")}
+              </p>
+            </div>
+            <div className="rounded-lg border border-border/80 bg-surface-2 p-3">
+              <RotateCcw className="mb-2 h-4 w-4 text-brand" />
+              <p className="text-xs font-bold text-foreground">
+                {t("footer.supportReturns")}
+              </p>
+            </div>
+          </div>
 
           <div className="flex items-center gap-2">
             <p className="text-sm font-semibold text-foreground">
@@ -217,7 +247,7 @@ const ProductDetail = () => {
             </div>
           </div>
 
-          <div className="grid gap-2 sm:grid-cols-[1fr_auto_auto]">
+          <div className="grid gap-2 rounded-lg border border-border/80 bg-surface-1/95 p-2 shadow-soft sm:grid-cols-[1fr_auto_auto]">
             <Button
               aria-label={t("shop.addToCartAria", { name: localizedName })}
               className="w-full"
@@ -245,7 +275,7 @@ const ProductDetail = () => {
             </Button>
           </div>
 
-          <dl className="grid gap-2 rounded-md border border-border bg-surface-2 p-3 text-sm">
+          <dl className="grid gap-2 rounded-lg border border-border/80 bg-surface-2 p-4 text-sm">
             <div className="flex items-center justify-between gap-4">
               <dt className="text-muted-foreground">{t("product.category")}</dt>
               <dd className="font-semibold text-foreground">{categoryLabel}</dd>

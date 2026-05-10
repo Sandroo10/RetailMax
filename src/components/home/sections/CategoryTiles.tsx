@@ -83,7 +83,7 @@ const CategoryTiles = () => {
               className="basis-full pl-3 md:basis-1/2 md:pl-4 lg:basis-1/3"
               key={category.slug}
             >
-              <article className="group hover-lift relative h-full overflow-hidden rounded-lg border border-border bg-surface-1 shadow-soft">
+              <article className="group hover-lift relative h-full overflow-hidden rounded-lg border border-border/80 bg-surface-1 shadow-soft">
                 <Link
                   aria-label={t("home.openCategoryAria", {
                     category: t(category.labelKey),
@@ -98,17 +98,17 @@ const CategoryTiles = () => {
                       loading="lazy"
                       src={category.image}
                     />
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/88 via-black/30 to-transparent" />
                   </div>
 
-                  <div className="absolute inset-x-0 bottom-0 space-y-1.5 p-4">
+                  <div className="absolute inset-x-0 bottom-0 space-y-2 p-5">
                     <h3 className="text-lg font-bold text-white">
                       {t(category.labelKey)}
                     </h3>
                     <p className="line-clamp-1 text-sm text-white/80">
                       {t(category.shortDescriptionKey)}
                     </p>
-                    <div className="inline-flex items-center gap-1 text-sm font-semibold text-brand-2">
+                    <div className="inline-flex items-center gap-1 rounded-pill bg-white/14 px-3 py-1 text-sm font-semibold text-white backdrop-blur">
                       {t("home.explore")}
                       <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
                     </div>

@@ -1,4 +1,12 @@
-import { LogOut, Menu, ShoppingBag, UserCircle2 } from "lucide-react";
+import {
+  CheckCircle2,
+  LogOut,
+  Menu,
+  ShieldCheck,
+  ShoppingBag,
+  Truck,
+  UserCircle2,
+} from "lucide-react";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, NavLink } from "react-router-dom";
@@ -48,8 +56,24 @@ const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/80 bg-background/88 backdrop-blur-xl">
-      <Container className="flex h-20 items-center justify-between gap-3">
+    <header className="sticky top-0 z-50 border-b border-border/80 bg-background/92 shadow-[0_10px_30px_hsl(var(--text-1)/0.05)] backdrop-blur-xl">
+      <div className="hidden border-b border-border/70 bg-surface-1/70 py-2 sm:block">
+        <Container className="flex items-center justify-center gap-5 text-[11px] font-bold uppercase tracking-[0.16em] text-muted-foreground">
+          <span className="inline-flex items-center gap-1.5">
+            <Truck className="h-3.5 w-3.5 text-brand" />
+            {t("home.trustFastCheckout")}
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <ShieldCheck className="h-3.5 w-3.5 text-brand" />
+            {t("home.trustSecurePayments")}
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <CheckCircle2 className="h-3.5 w-3.5 text-brand" />
+            {t("home.trustCuratedPicks")}
+          </span>
+        </Container>
+      </div>
+      <Container className="flex h-16 items-center justify-between gap-3 sm:h-[4.5rem]">
         <Link
           aria-label={t("header.brandAria")}
           className="inline-flex items-center gap-2.5"
@@ -57,12 +81,12 @@ const Header = () => {
         >
           <img
             alt={t("header.brandLogoAlt")}
-            className="h-10 w-fit rounded-md object-cover"
+            className="h-10 w-fit rounded-lg object-cover shadow-soft"
             src={siteLogo}
           />
         </Link>
 
-        <nav className="hidden items-center gap-1 rounded-pill border border-border bg-surface-1 p-1 shadow-soft lg:flex">
+        <nav className="hidden items-center gap-1 rounded-pill border border-border/80 bg-surface-1/95 p-1 shadow-soft lg:flex">
           {navItems.map((item) => (
             <NavLink
               className={({ isActive }) =>
@@ -70,7 +94,7 @@ const Header = () => {
                   "rounded-pill px-4 py-2 text-sm font-semibold transition duration-180",
                   isActive
                     ? "bg-brand text-primary-foreground shadow-soft"
-                    : "text-muted-foreground hover:bg-surface-2 hover:text-foreground",
+                    : "text-muted-foreground hover:bg-surface-2 hover:text-foreground hover:shadow-soft",
                 ].join(" ")
               }
               end={item.path === "/"}
@@ -93,7 +117,7 @@ const Header = () => {
             <DrawerTrigger asChild>
               <button
                 aria-label={t("header.toggleCartAria")}
-                className="relative inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface-1 text-foreground shadow-soft transition duration-180 hover:border-brand/50"
+                className="relative inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface-1 text-foreground shadow-soft transition duration-180 hover:-translate-y-0.5 hover:border-brand/50 hover:shadow-lift"
                 type="button"
               >
                 <ShoppingBag className="h-4 w-4" />
@@ -116,7 +140,7 @@ const Header = () => {
                 <DropdownMenuTrigger asChild>
                   <button
                     aria-label={t("header.goToProfileAria")}
-                    className="inline-flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-border bg-surface-1 shadow-soft transition duration-180 hover:border-brand/50"
+                    className="inline-flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-border bg-surface-1 shadow-soft transition duration-180 hover:-translate-y-0.5 hover:border-brand/50 hover:shadow-lift"
                     type="button"
                   >
                     <img
@@ -142,7 +166,7 @@ const Header = () => {
             ) : (
               <Link
                 aria-label={t("header.openAuthAria")}
-                className="inline-flex h-10 items-center justify-center rounded-pill border border-border bg-surface-1 px-4 text-sm font-semibold text-foreground shadow-soft transition duration-180 hover:border-brand/50"
+                className="inline-flex h-10 items-center justify-center rounded-pill border border-border bg-surface-1 px-4 text-sm font-semibold text-foreground shadow-soft transition duration-180 hover:-translate-y-0.5 hover:border-brand/50 hover:shadow-lift"
                 to="/auth"
               >
                 {t("navigation.signIn")}
@@ -155,7 +179,7 @@ const Header = () => {
               <DrawerTrigger asChild>
                 <button
                   aria-label={t("header.openNavigationAria")}
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface-1 text-foreground shadow-soft transition duration-180 hover:border-brand/50"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface-1 text-foreground shadow-soft transition duration-180 hover:-translate-y-0.5 hover:border-brand/50 hover:shadow-lift"
                   type="button"
                 >
                   <Menu className="h-4 w-4" />

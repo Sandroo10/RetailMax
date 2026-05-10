@@ -20,10 +20,10 @@ const CheckoutItemRow = ({ item }: CheckoutItemRowProps) => {
   const localizedDescription = getLocalizedProductDescription(item, language);
 
   return (
-    <article className="grid items-center gap-3 rounded-md border border-border bg-surface-1 p-3 sm:grid-cols-[76px_1fr_auto]">
+    <article className="grid items-center gap-3 rounded-lg border border-border/80 bg-surface-1 p-3 shadow-soft sm:grid-cols-[76px_1fr_auto]">
       <img
         alt={localizedName}
-        className="h-[72px] w-[72px] rounded-md object-cover"
+        className="h-[72px] w-[72px] rounded-md object-cover shadow-soft"
         loading="lazy"
         src={item.image_url}
       />
@@ -38,7 +38,7 @@ const CheckoutItemRow = ({ item }: CheckoutItemRowProps) => {
       </div>
 
       <div className="flex items-center gap-2">
-        <div className="inline-flex items-center rounded-pill border border-border bg-surface-2 p-1">
+        <div className="inline-flex items-center rounded-pill border border-border/80 bg-surface-2 p-1">
           <button
             aria-label={t("checkout.decreaseQuantityAria", {
               name: localizedName,

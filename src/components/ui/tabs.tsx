@@ -45,7 +45,7 @@ const Tabs = ({
 };
 
 const tabsListVariants = cva(
-  "inline-flex w-full max-w-fit items-center gap-1 rounded-pill border border-border bg-surface-2 p-1",
+  "inline-flex w-full max-w-fit items-center gap-1 rounded-pill border border-border/80 bg-surface-2 p-1 shadow-soft",
 );
 
 const TabsList = ({
@@ -116,7 +116,7 @@ const TabsContent = ({ className, value, ...props }: TabsContentProps) => {
   return (
     <div
       className={cn(
-        "rounded-lg border border-border bg-surface-1 p-5",
+        "rounded-lg border border-border/80 bg-surface-1 p-5 shadow-soft",
         className,
       )}
       role="tabpanel"

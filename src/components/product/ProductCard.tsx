@@ -1,5 +1,5 @@
 import { memo, useMemo } from "react";
-import { Eye, ShoppingBag, Star } from "lucide-react";
+import { Eye, ShoppingBag, Star, Truck } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import type { Product } from "@/supabase/products";
@@ -73,20 +73,20 @@ const ProductCardComponent = ({
   };
 
   return (
-    <article className="group hover-lift flex h-full flex-col overflow-hidden rounded-lg border border-border bg-surface-1 shadow-soft">
-      <div className="relative isolate overflow-hidden bg-surface-2">
+    <article className="group hover-lift flex h-full flex-col overflow-hidden rounded-lg border border-border/80 bg-surface-1 shadow-soft">
+      <div className="product-media-bg relative isolate overflow-hidden p-3">
         <Badge className="absolute left-3 top-3 z-10" variant={badge.variant}>
           {badge.label}
         </Badge>
 
         <Link
           aria-label={t("shop.openProductDetailsAria", { name: localizedName })}
-          className="block aspect-[4/3] w-full"
+          className="block aspect-[4/3] w-full overflow-hidden rounded-md bg-surface-1"
           to={`/product/${product.id}`}
         >
           <img
             alt={localizedName}
-            className="h-full w-full object-cover transition duration-200 ease-out group-hover:scale-[1.04]"
+            className="h-full w-full object-cover transition duration-300 ease-out group-hover:scale-[1.055]"
             decoding="async"
             loading={priorityImage ? "eager" : "lazy"}
             src={product.image_url}
@@ -95,7 +95,7 @@ const ProductCardComponent = ({
 
         {showQuickAction ? (
           <Link
-            className="absolute bottom-3 right-3 inline-flex items-center gap-1.5 rounded-pill border border-border bg-surface-1/95 px-3 py-1.5 text-xs font-semibold text-foreground opacity-0 shadow-soft backdrop-blur transition duration-180 group-hover:opacity-100"
+            className="absolute bottom-5 right-5 inline-flex translate-y-2 items-center gap-1.5 rounded-pill border border-border bg-surface-1/95 px-3 py-1.5 text-xs font-semibold text-foreground opacity-0 shadow-soft backdrop-blur transition duration-180 group-hover:translate-y-0 group-hover:opacity-100"
             to={`/product/${product.id}`}
           >
             <Eye className="h-3.5 w-3.5" />
@@ -104,7 +104,7 @@ const ProductCardComponent = ({
         ) : null}
       </div>
 
-      <div className="flex flex-1 flex-col gap-3 p-4">
+      <div className="flex flex-1 flex-col gap-3 p-4 pt-3">
         <div className="min-h-[5.25rem]">
           <h3 className="line-clamp-1 text-base font-bold text-foreground">
             {localizedName}
@@ -114,21 +114,27 @@ const ProductCardComponent = ({
           </p>
         </div>
 
-        <div className="flex min-h-5 items-center justify-between text-xs text-muted-foreground">
+        <div className="flex min-h-5 items-center justify-between gap-2 text-xs text-muted-foreground">
           <div className="flex items-center gap-1 tabular-nums">
             <Star className="h-3.5 w-3.5 fill-brand text-brand" />
             <span className="font-semibold text-foreground">{rating}</span>
             <span>{t("shop.reviewCount", { count: reviewCount })}</span>
           </div>
-          <span>
+          <span className="rounded-pill bg-surface-2 px-2 py-0.5 font-semibold">
             {product.in_stock ? t("product.inStock") : t("shop.unavailable")}
           </span>
         </div>
 
         <div className="mt-auto space-y-3">
-          <p className="text-xl font-bold text-foreground">
-            {formatPrice(product.price)}
-          </p>
+          <div className="flex items-end justify-between gap-2">
+            <p className="text-[1.35rem] font-extrabold leading-none text-foreground">
+              {formatPrice(product.price)}
+            </p>
+            <span className="inline-flex items-center gap-1 text-xs font-semibold text-muted-foreground">
+              <Truck className="h-3.5 w-3.5 text-brand" />
+              {t("checkout.free")}
+            </span>
+          </div>
           <Button
             aria-label={t("shop.addToCartAria", { name: localizedName })}
             className="w-full"

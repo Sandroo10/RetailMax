@@ -27,10 +27,10 @@ const ProductGrid = ({
 
   if (isLoading) {
     return (
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {Array.from({ length: 8 }).map((_, index) => (
           <div
-            className="rounded-lg border border-border bg-surface-1 p-3"
+            className="rounded-lg border border-border/80 bg-surface-1 p-3 shadow-soft"
             key={index}
           >
             <Skeleton className="aspect-[4/3] w-full rounded-md" />
@@ -48,7 +48,7 @@ const ProductGrid = ({
 
   if (isError) {
     return (
-      <div className="rounded-lg border border-danger/40 bg-danger/10 p-6 text-sm text-danger">
+      <div className="rounded-lg border border-danger/40 bg-danger/10 p-6 text-sm font-semibold text-danger shadow-soft">
         {t("shop.errorProducts")}
       </div>
     );
@@ -56,8 +56,8 @@ const ProductGrid = ({
 
   if (!products.length) {
     return (
-      <div className="rounded-lg border border-border bg-surface-1 p-8 text-center shadow-soft">
-        <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full border border-border bg-surface-2">
+      <div className="rounded-lg border border-border/80 bg-surface-1 p-8 text-center shadow-soft">
+        <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full border border-border bg-surface-2 shadow-soft">
           <SearchX className="h-5 w-5 text-muted-foreground" />
         </div>
         <p className="text-base font-semibold text-foreground">
@@ -81,7 +81,7 @@ const ProductGrid = ({
   }
 
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {products.map((product, index) => (
         <ProductCard
           key={product.id}

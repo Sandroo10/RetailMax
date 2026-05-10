@@ -45,7 +45,7 @@ const ShopToolbar = ({
         >
           {t("shop.searchLabel")}
         </label>
-        <div className="flex h-11 items-center gap-2 rounded-md border border-border bg-surface-1 px-3 shadow-soft transition duration-180 focus-within:border-brand/70 focus-within:ring-2 focus-within:ring-brand/40">
+        <div className="flex h-12 items-center gap-2 rounded-lg border border-border bg-surface-1 px-4 shadow-soft transition duration-180 focus-within:border-brand/70 focus-within:ring-2 focus-within:ring-brand/40">
           <Search className="h-4 w-4 text-muted-foreground" />
           <input
             aria-label={t("shop.searchInputAria")}
@@ -94,7 +94,7 @@ const ShopToolbar = ({
         </label>
         <select
           aria-label={t("shop.sortBy")}
-          className="h-11 rounded-md border border-border bg-surface-1 px-3 text-sm font-medium text-foreground shadow-soft transition duration-180 focus-visible:border-brand/70 focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:ring-offset-0"
+          className="h-12 rounded-lg border border-border bg-surface-1 px-4 text-sm font-medium text-foreground shadow-soft transition duration-180 focus-visible:border-brand/70 focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:ring-offset-0"
           id={`${idPrefix}-sort-products`}
           onChange={(event) =>
             onSortChange(event.target.value as typeof sortBy)
@@ -117,7 +117,7 @@ const ShopToolbar = ({
   );
 
   return (
-    <section className="space-y-3 rounded-lg border border-border bg-surface-1 p-4 shadow-soft sm:p-5">
+    <section className="space-y-3 rounded-lg border border-border/80 bg-surface-1/95 p-4 shadow-soft backdrop-blur sm:p-5">
       <div className="flex items-center justify-between md:hidden">
         <p className="text-sm font-semibold text-foreground">
           {t("shop.filters")}

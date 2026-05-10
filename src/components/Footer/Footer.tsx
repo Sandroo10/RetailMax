@@ -9,7 +9,7 @@ const Footer = () => {
   const { t } = useTranslation();
 
   return (
-    <footer className="mt-16 border-t border-border bg-surface-1">
+    <footer className="mt-16 border-t border-border/80 bg-surface-1">
       <Container className="grid gap-8 py-12 md:grid-cols-[1.3fr_1fr_1fr_1fr]">
         <div className="space-y-4">
           <div>
@@ -20,7 +20,7 @@ const Footer = () => {
           </div>
 
           <form
-            className="max-w-sm space-y-2"
+            className="max-w-sm space-y-3 rounded-lg border border-border/80 bg-surface-2 p-4 shadow-soft"
             onSubmit={(event) => event.preventDefault()}
           >
             <label

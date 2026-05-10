@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ShoppingBag } from "lucide-react";
+import { Minus, Plus, ShoppingBag, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useCartContext } from "@/hooks/useCartContext";
 import { getLocalizedProductName } from "@/lib/product-localization";
@@ -11,7 +11,13 @@ interface CartDropdownProps {
 
 const CartDropdown = ({ onNavigate }: CartDropdownProps) => {
   const { i18n, t } = useTranslation();
-  const { cartItems, totalValue } = useCartContext();
+  const {
+    addItemToCart,
+    cartItems,
+    clearItemsFromCart,
+    removeItemFromCart,
+    totalValue,
+  } = useCartContext();
   const language = i18n.resolvedLanguage ?? i18n.language;
 
   return (
@@ -41,7 +47,7 @@ const CartDropdown = ({ onNavigate }: CartDropdownProps) => {
 
             return (
               <article
-                className="grid grid-cols-[56px_1fr_auto] items-center gap-2 rounded-md border border-border bg-surface-2 p-2"
+                className="grid grid-cols-[56px_1fr] gap-2 rounded-lg border border-border/80 bg-surface-2 p-2 shadow-soft"
                 key={item.id}
               >
                 <img
@@ -60,10 +66,47 @@ const CartDropdown = ({ onNavigate }: CartDropdownProps) => {
                       price: item.price,
                     })}
                   </p>
+                  <p className="mt-1 text-sm font-bold text-foreground">
+                    ${(item.quantity * item.price).toFixed(2)}
+                  </p>
+                  <div className="mt-2 flex items-center justify-between gap-2">
+                    <div className="inline-flex items-center rounded-pill border border-border/80 bg-surface-1 p-0.5">
+                      <button
+                        aria-label={t("checkout.decreaseQuantityAria", {
+                          name: localizedName,
+                        })}
+                        className="inline-flex h-6 w-6 items-center justify-center rounded-full text-muted-foreground transition hover:text-foreground"
+                        onClick={() => removeItemFromCart(item)}
+                        type="button"
+                      >
+                        <Minus className="h-3 w-3" />
+                      </button>
+                      <span className="w-6 text-center text-xs font-bold text-foreground">
+                        {item.quantity}
+                      </span>
+                      <button
+                        aria-label={t("checkout.increaseQuantityAria", {
+                          name: localizedName,
+                        })}
+                        className="inline-flex h-6 w-6 items-center justify-center rounded-full text-muted-foreground transition hover:text-foreground"
+                        onClick={() => addItemToCart(item)}
+                        type="button"
+                      >
+                        <Plus className="h-3 w-3" />
+                      </button>
+                    </div>
+                    <button
+                      aria-label={t("checkout.removeItemAria", {
+                        name: localizedName,
+                      })}
+                      className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-border bg-surface-1 text-muted-foreground transition hover:border-danger/60 hover:text-danger"
+                      onClick={() => clearItemsFromCart(item)}
+                      type="button"
+                    >
+                      <X className="h-3 w-3" />
+                    </button>
+                  </div>
                 </div>
-                <p className="text-sm font-semibold text-foreground">
-                  ${(item.quantity * item.price).toFixed(2)}
-                </p>
               </article>
             );
           })
@@ -87,6 +130,14 @@ const CartDropdown = ({ onNavigate }: CartDropdownProps) => {
           <Link aria-label={t("header.goToCheckoutAria")} to="/checkout">
             {t("navigation.checkout")}
           </Link>
+        </Button>
+        <Button
+          asChild
+          className="w-full"
+          onClick={onNavigate}
+          variant="secondary"
+        >
+          <Link to="/shop">{t("product.continueShopping")}</Link>
         </Button>
       </div>
     </aside>

@@ -62,8 +62,8 @@ export default {
         ring: "hsl(var(--ring))",
       },
       boxShadow: {
-        soft: "0 1px 2px hsl(var(--text-1) / 0.05), 0 8px 24px hsl(var(--text-1) / 0.04)",
-        lift: "0 2px 8px hsl(var(--text-1) / 0.07), 0 18px 34px hsl(var(--text-1) / 0.09)",
+        soft: "0 1px 2px hsl(var(--text-1) / 0.04), 0 12px 32px hsl(var(--text-1) / 0.055)",
+        lift: "0 3px 10px hsl(var(--text-1) / 0.08), 0 24px 48px hsl(var(--text-1) / 0.12)",
         glow: "0 0 0 4px hsl(var(--brand) / 0.16)",
       },
       transitionDuration: {

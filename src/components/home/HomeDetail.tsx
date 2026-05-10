@@ -29,7 +29,7 @@ const HomeDetail = () => {
   ];
 
   return (
-    <div className="space-y-12">
+    <div className="space-y-14">
       <CategoryTiles />
       <FeaturedProducts />
 
@@ -42,7 +42,7 @@ const HomeDetail = () => {
         <div className="grid gap-4 md:grid-cols-3">
           {valueCards.map((card) => (
             <article
-              className="group hover-lift relative overflow-hidden rounded-lg border border-border bg-surface-1 shadow-soft"
+              className="group hover-lift relative overflow-hidden rounded-lg border border-border/80 bg-surface-1 shadow-soft"
               key={card.title}
             >
               <div className="relative aspect-[16/11] overflow-hidden bg-surface-2">
@@ -56,7 +56,7 @@ const HomeDetail = () => {
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent" />
               </div>
 
-              <div className="absolute inset-x-0 bottom-0 space-y-1 p-4">
+              <div className="absolute inset-x-0 bottom-0 space-y-1.5 p-5">
                 <h3 className="text-lg font-bold text-white">{card.title}</h3>
                 <p className="text-sm leading-6 text-white/85">
                   {card.description}

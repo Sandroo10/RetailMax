@@ -6,7 +6,7 @@ const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
     return (
       <input
         className={cn(
-          "flex h-11 w-full rounded-md border border-input bg-surface-1 px-3 text-sm text-foreground placeholder:text-muted-foreground shadow-soft transition duration-180 ease-out focus-visible:border-brand/70 focus-visible:ring-2 focus-visible:ring-ring/60 disabled:cursor-not-allowed disabled:opacity-60",
+          "flex h-12 w-full rounded-lg border border-input bg-surface-1 px-4 text-sm text-foreground placeholder:text-muted-foreground shadow-soft transition duration-180 ease-out focus-visible:border-brand/70 focus-visible:ring-2 focus-visible:ring-ring/60 disabled:cursor-not-allowed disabled:opacity-60",
           className,
         )}
         ref={ref}
@@ -64,7 +64,7 @@ const InputField = ({
 
       <div
         className={cn(
-          "flex h-11 items-center gap-2 rounded-md border border-input bg-surface-1 px-3 shadow-soft transition duration-180 ease-out focus-within:border-brand/70 focus-within:ring-2 focus-within:ring-ring/60",
+          "flex h-12 items-center gap-2 rounded-lg border border-input bg-surface-1 px-4 shadow-soft transition duration-180 ease-out focus-within:border-brand/70 focus-within:ring-2 focus-within:ring-ring/60",
           errorText ? "border-danger focus-within:border-danger" : "",
           disabled ? "opacity-60" : "",
         )}
